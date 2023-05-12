@@ -1,7 +1,7 @@
-export default function RoomMarketplace() {
+import RoomMarketPlace from '@/components/Marketplace/RoomMarketPlace'
+
+export default function market() {
     return (
-        <>
-            <h1>Studio</h1>
-        </>
+        <RoomMarketPlace />
     )
 }

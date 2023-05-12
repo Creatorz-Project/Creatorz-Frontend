@@ -1,7 +1,7 @@
-export default function TokenMarketplace() {
+import TokenMarketPlace from '@/components/Marketplace/TokenMarketPlace'
+
+export default function market(){
     return (
-        <>
-            <h1>Studio</h1>
-        </>
+        <TokenMarketPlace />
     )
 }
