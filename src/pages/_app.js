@@ -8,11 +8,6 @@ import {
 import { chain, configureChains, createClient, WagmiConfig } from "wagmi";
 import { polygonMumbai, mainnet, optimism, polygon, arbitrum } from 'wagmi/chains'
 import { publicProvider } from "wagmi/providers/public";
-import {
-  LivepeerConfig,
-  createReactClient,
-  studioProvider
-} from "@livepeer/react"
 
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import { metaMaskWallet, injectedWallet, rainbowWallet, walletConnectWallet, coinbaseWallet } from "@rainbow-me/rainbowkit/wallets";
@@ -20,7 +15,7 @@ import { metaMaskWallet, injectedWallet, rainbowWallet, walletConnectWallet, coi
 import { ArcanaConnector } from "@arcana/auth-wagmi";
 
 import { ApolloProvider } from "@apollo/client";
-import client from '@/utils/client';
+import client from '/utils/client';
 
 const ArcanaRainbowConnector = ({ chains }) => {
   return {
@@ -65,26 +60,18 @@ const wagmiClient = createClient({
   provider
 });
 
-const livepeerClient = createReactClient({
-  provider: studioProvider({
-    apiKey: process.env.NEXT_PUBLIC_LIVEPEER_API_KEY
-  })
-})
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       <ApolloProvider client={client}>
-        <LivepeerConfig client={livepeerClient}>
           <WagmiConfig client={wagmiClient}>
             <RainbowKitProvider chains={chains} theme={midnightTheme()}>
               <Header />
               <Component {...pageProps} />
             </RainbowKitProvider>
           </WagmiConfig>
-        </LivepeerConfig>
       </ApolloProvider>
     </>
-
   )
 }
