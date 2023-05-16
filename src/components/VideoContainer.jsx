@@ -1,11 +1,4 @@
 import React from "react";
-import { Player } from "@livepeer/react";
-import {
-  handleLike,
-  handleBookmark,
-  handleShare,
-  handleSubscribe,
-} from "@/utils/VideoFunction";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";

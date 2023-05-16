@@ -2,7 +2,7 @@ import React from "react";
 import { BiCheck } from "react-icons/bi";
 import moment from "moment";
 import { useRouter } from "next/router";
-// import { getRoomsContract } from "/utils/getContracts";
+// import { getRoomsContract } from "@/utils/getContracts";
 import Link from "next/link";
 import { ethers } from "ethers";
 

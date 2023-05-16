@@ -1,6 +1,6 @@
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { useState } from "react";
-// import { getSocialTokenContract } from "/utils/getContracts";
+// import { getSocialTokenContract } from "@/utils/getContracts";
 
 export default function MintToken() {
   const [title, setTitle] = useState("");

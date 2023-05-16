@@ -15,7 +15,7 @@ import { metaMaskWallet, injectedWallet, rainbowWallet, walletConnectWallet, coi
 import { ArcanaConnector } from "@arcana/auth-wagmi";
 
 import { ApolloProvider } from "@apollo/client";
-import client from '/utils/client';
+import client from '@/utils/client';
 
 const ArcanaRainbowConnector = ({ chains }) => {
   return {

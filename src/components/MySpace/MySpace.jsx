@@ -1,6 +1,6 @@
 import { useAccount } from "wagmi";
 import { useEffect, useState, useCallback } from "react";
-import { NotificationOptIn, NotificationOptOut } from "/utils/notification";
+import { NotificationOptIn, NotificationOptOut } from "@/utils/notification";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";

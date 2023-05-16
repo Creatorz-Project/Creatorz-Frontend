@@ -9,8 +9,8 @@ import { BiCloud, BiMusic, BiPlus } from "react-icons/bi";
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import Zoom from '@mui/material/Zoom';
 import Tooltip from '@mui/material/Tooltip';
-import saveToIPFS from "/utils/saveToIPFS";
-import { saveMetaData } from "/utils/saveMetaDataToIPFS";
+import saveToIPFS from "@/utils/saveToIPFS";
+import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 import { useApolloClient, gql } from "@apollo/client";
 import { useAccount } from "wagmi";
 import { Polybase } from "@polybase/client";
@@ -19,7 +19,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { ethers } from "ethers";
 import * as PushAPI from "@pushprotocol/restapi";
 
-import convertFileToOctetStream from "/utils/fileToOctetStream";
+import convertFileToOctetStream from "@/utils/fileToOctetStream";
 
 const db = new Polybase({
   defaultNamespace:

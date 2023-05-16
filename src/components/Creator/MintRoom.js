@@ -1,9 +1,9 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 import { GrChannel } from "react-icons/gr";
 import { ethers } from "ethers";
-import { saveMetaData } from "/utils/saveMetaDataToIPFS";
+import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 import * as PushAPI from "@pushprotocol/restapi";
-// import { getRoomsContract } from "/utils/getContracts";
+// import { getRoomsContract } from "@/utils/getContracts";
 import AddIcon from "@mui/icons-material/Add";
 import { Polybase } from "@polybase/client";
 
