@@ -45,12 +45,12 @@ export default function MintRoom() {
 
   const handleSubmit = async () => {
     setSend(false);
-    const contract = await getRoomsContract();
-    const RoomMetaData = {
-      title: title,
-      description: description,
-      category: category,
-    };
+    // const contract = await getRoomsContract();
+    // const RoomMetaData = {
+    //   title: title,
+    //   description: description,
+    //   category: category,
+    // };
     const cid = await saveMetaData(RoomMetaData);
     // try {
     //   const tx = await contract.mintRoom(cid);
