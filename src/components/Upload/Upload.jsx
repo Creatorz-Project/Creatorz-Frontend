@@ -38,7 +38,7 @@ export default function Upload() {
   const [room, setRoom] = useState("");
   const [userRooms, setUserRooms] = useState([]);
   const [updatedUserRooms, setUpdatedUserRooms] = useState([]);
-  const [disabled, setDisabled] = useState(true)
+  const [videoId, setVideoId] = useState("");
   const { address } = useAccount();
   const [loading, setLoading] = useState(false);
 
@@ -172,7 +172,7 @@ export default function Upload() {
 
     const response = await fetch('https://api.thetavideoapi.com/video', requestOptions)
     const result = await response.json()
-    // setVideoId(result.body.videos[0].id)
+    setVideoId(result.body.videos[0].id)
     console.log(result)
 
     console.log("upload complete")
