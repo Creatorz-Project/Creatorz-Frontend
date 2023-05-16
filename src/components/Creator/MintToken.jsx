@@ -5,8 +5,10 @@ import { useState } from "react";
 export default function MintToken() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
+  const [maxHoldingAmount, setMaxHoldingAmount] = useState("");
   const [amount, setAmount] = useState("");
+  const [relatedVideo, setRelatedVideo] = useState("");
+  const [URI, setURI] = useState("");
 
   const handleClick = async () => {
     const data = {
@@ -69,22 +71,37 @@ export default function MintToken() {
                 />
               </div>
               <div className="flex flex-col w-2/5    ">
-                <label className="text-[#9CA3AF]  text-sm">Category</label>
-                <select
-                  value={category}
-                  onChange={(e) => setCategory(e.target.value)}
+                <label className="text-[#9CA3AF]  text-sm">Amount</label>
+                <input
+                  value={maxHoldingAmount}
+                  onChange={(e) => setMaxHoldingAmount(e.target.value)}
+                  type="number"
+                  placeholder="Max Holding Amount of Token"
                   className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
-                >
-                  <option>Music</option>
-                  <option>Sports</option>
-                  <option>Gaming</option>
-                  <option>News</option>
-                  <option>Entertainment</option>
-                  <option>Education</option>
-                  <option>Science & Technology</option>
-                  <option>Travel</option>
-                  <option>Other</option>
-                </select>
+                />
+              </div>
+
+            </div>
+            <div className="flex flex-row mt-10 w-[90%]  justify-between">
+              <div className="flex flex-col w-2/5    ">
+                <label className="text-[#9CA3AF]  text-sm">Related Video</label>
+                <input
+                  value={relatedVideo}
+                  onChange={(e) => setRelatedVideo(e.target.value)}
+                  type="text"
+                  placeholder="Video Id of video binded to this token"
+                  className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
+                />
+              </div>
+              <div className="flex flex-col w-2/5    ">
+                <label className="text-[#9CA3AF]  text-sm">Token URI</label>
+                <input
+                  value={URI}
+                  onChange={(e) => setURI(e.target.value)}
+                  type="text"
+                  placeholder=""
+                  className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
+                />
               </div>
             </div>
           </div>
