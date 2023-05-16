@@ -10,21 +10,21 @@ import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
 import Zoom from '@mui/material/Zoom';
 import Tooltip from '@mui/material/Tooltip';
 import saveToIPFS from "@/utils/saveToIPFS";
-import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
-import { useApolloClient, gql } from "@apollo/client";
+// import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
+// import { useApolloClient, gql } from "@apollo/client";
 import { useAccount } from "wagmi";
 import { Polybase } from "@polybase/client";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { ethers } from "ethers";
-import * as PushAPI from "@pushprotocol/restapi";
+// import * as PushAPI from "@pushprotocol/restapi";
 
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
 
-// const db = new Polybase({
-//   defaultNamespace:
-//     "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Testing-2103",
-// });
+const db = new Polybase({
+  defaultNamespace:
+    "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Testing-2103",
+});
 
 export default function Upload() {
   // Creating state for the input field
@@ -128,11 +128,11 @@ export default function Upload() {
   //   setUpdatedUserRooms(tempChoicesArray);
   // }, [userRooms]);
 
-  useEffect(() => {
-    if (userRooms.length > 0) {
-      forloop();
-    }
-  }, [userRooms]);
+  // useEffect(() => {
+  //   if (userRooms.length > 0) {
+  //     forloop();
+  //   }
+  // }, [userRooms]);
 
   console.log(userRooms);
 
