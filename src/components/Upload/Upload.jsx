@@ -11,7 +11,7 @@ import Zoom from '@mui/material/Zoom';
 import Tooltip from '@mui/material/Tooltip';
 import saveToIPFS from "@/utils/saveToIPFS";
 // import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
-// import { useApolloClient, gql } from "@apollo/client";
+import { useApolloClient, gql } from "@apollo/client";
 import { useAccount } from "wagmi";
 import { Polybase } from "@polybase/client";
 import Backdrop from "@mui/material/Backdrop";
@@ -57,55 +57,55 @@ export default function Upload() {
     return cid;
   };
 
-  // const client = useApolloClient();
+  const client = useApolloClient();
 
-  // const GET_ROOMS = gql`
-  //   query rooms(
-  //     $first: Int
-  //     $skip: Int
-  //     $orderBy: Video_orderBy
-  //     $orderDirection: OrderDirection
-  //     $where: String
-  //   ) {
-  //     rooms(where: { Owner: $where }) {
-  //       id
-  //       RoomId
-  //       Owner
-  //       URI
-  //       BlockTimestamp
-  //       IsListed
-  //       Price
-  //       Videos
-  //     }
-  //   }
-  // `;
+  const GET_ROOMS = gql`
+    query rooms(
+      $first: Int
+      $skip: Int
+      $orderBy: Video_orderBy
+      $orderDirection: OrderDirection
+      $where: String
+    ) {
+      rooms(where: { Owner: $where }) {
+        id
+        RoomId
+        Owner
+        URI
+        BlockTimestamp
+        IsListed
+        Price
+        Videos
+      }
+    }
+  `;
 
-  // const getUserRooms = () => {
-  //   client
-  //     .query({
-  //       query: GET_ROOMS,
-  //       variables: {
-  //         first: 20,
-  //         skip: 0,
-  //         where: address,
-  //       },
-  //       fetchPolicy: "network-only",
-  //     })
-  //     .then(({ data }) => {
-  //       console.log(data.rooms);
-  //       setUserRooms(data.rooms);
-  //       if (data.rooms.length > 0) {
-  //         setRoom(data.rooms[0].RoomId);
-  //       }
-  //     });
-  //   // .catch((err) => {
-  //   //     alert("Something went wrong. please try again.!", err.message);
-  //   // });
-  // };
+  const getUserRooms = () => {
+    client
+      .query({
+        query: GET_ROOMS,
+        variables: {
+          first: 20,
+          skip: 0,
+          where: address,
+        },
+        fetchPolicy: "network-only",
+      })
+      .then(({ data }) => {
+        console.log(data.rooms);
+        setUserRooms(data.rooms);
+        if (data.rooms.length > 0) {
+          setRoom(data.rooms[0].RoomId);
+        }
+      });
+    // .catch((err) => {
+    //     alert("Something went wrong. please try again.!", err.message);
+    // });
+  };
 
-  // useEffect(() => {
-  //   getUserRooms();
-  // }, []);
+  useEffect(() => {
+    getUserRooms();
+  }, []);
 
   // const forloop = useCallback(async () => {
   //   const tempChoicesArray = [];
@@ -134,7 +134,7 @@ export default function Upload() {
   //   }
   // }, [userRooms]);
 
-  console.log(userRooms);
+  // console.log(userRooms);
 
   const getUploadUrl = async () => {
     console.log("getting upload url")
@@ -220,28 +220,25 @@ export default function Upload() {
   const _signer = new ethers.Wallet(Pkey);
 
   const sendNotification = async () => {
-    // await PushAPI.payloads.sendNotification({
-    //   signer: _signer,
-    //   type: 1, // broadcast
-    //   identityType: 2, // direct payload
-    //   notification: {
-    //     title: `New video published`,
-    //     body: ``,
-    //   },
-    //   payload: {
-    //     title: `published a new video > ${title}`,
-    //     body: `${description}`,
-    //     cta: "",
-    //     img: `https://${thumbnailCID}.ipfs.w3s.link`,
-    //   },
-    //   channel: "eip155:5:0x2D449c535E4B2e07Bc311fbe1c14bf17fEC16AAb", // your channel address
-    //   env: "staging",
-    // });
+    await PushAPI.payloads.sendNotification({
+      signer: _signer,
+      type: 1, // broadcast
+      identityType: 2, // direct payload
+      notification: {
+        title: `New video published`,
+        body: ``,
+      },
+      payload: {
+        title: `published a new video > ${title}`,
+        body: `${description}`,
+        cta: "",
+        img: `https://${thumbnailCID}.ipfs.w3s.link`,
+      },
+      channel: "eip155:5:0x2D449c535E4B2e07Bc311fbe1c14bf17fEC16AAb", // your channel address
+      env: "staging",
+    });
   };
 
-  // console.log(asset);
-  // console.log(updateStatus);
-  // console.log(updatedAsset);
 
   // const roomData = (e) => {
   //   for (let i = 0; i < updatedUserRooms.length; i++) {
