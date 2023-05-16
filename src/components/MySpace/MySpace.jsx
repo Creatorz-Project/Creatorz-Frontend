@@ -1,6 +1,6 @@
 import { useAccount } from "wagmi";
 import { useEffect, useState, useCallback } from "react";
-import { NotificationOptIn, NotificationOptOut } from "@/utils/notification";
+import { NotificationOptIn, NotificationOptOut } from "/utils/notification";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -12,7 +12,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import * as PushAPI from "@pushprotocol/restapi";
 import { ethers } from "ethers";
-import { getRoomsContract } from "@/utils/getContracts";
+// import { getRoomsContract } from "/utils/getContracts";
 import TextField from '@mui/material/TextField';
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
@@ -130,20 +130,20 @@ export default function MySpace(props) {
   const ListVideo = async (event, data) => {
     setListed(event.target.checked);
     console.log(data);
-    if (event.target.checked == true) {
-      const task = "Listed";
-      const roomsContract = await getRoomsContract();
-      const tx = await roomsContract.listVideo(data.id, "8949494");
-      await tx.wait();
-      sendNotification(data, task);
-    }
-    else {
-      const task = "Unlisted";
-      const roomsContract = await getRoomsContract();
-      const tx = await roomsContract.unListVideo(data.id);
-      await tx.wait();
-      sendNotification(data, task);
-    }
+    // if (event.target.checked == true) {
+    //   const task = "Listed";
+    //   const roomsContract = await getRoomsContract();
+    //   const tx = await roomsContract.listVideo(data.id, "8949494");
+    //   await tx.wait();
+    //   sendNotification(data, task);
+    // }
+    // else {
+    //   const task = "Unlisted";
+    //   const roomsContract = await getRoomsContract();
+    //   const tx = await roomsContract.unListVideo(data.id);
+    //   await tx.wait();
+    //   sendNotification(data, task);
+    // }
   };
 
   const ListingPrice = (event, data) => {

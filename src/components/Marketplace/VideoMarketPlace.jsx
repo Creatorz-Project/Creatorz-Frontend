@@ -4,7 +4,7 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { React, useState } from "react";
 import Video from "./VideoCard";
-import { getRoomsContract } from "@/utils/getContracts";
+// import { getRoomsContract } from "/utils/getContracts";
 import { ethers } from "ethers";
 import { formatEther, parseEther } from "ethers/lib/utils.js";
 import { useAccount } from "wagmi";
@@ -25,11 +25,11 @@ export default function VideoMarketPlace(props) {
   ];
 
   const getTokensHandler = async () => {
-    const roomsContract = getRoomsContract();
-    const tx = await roomsContract.getCreatorzTokens(
-      ethers.utils.parseEther("100")
-    );
-    await tx.wait();
+    // const roomsContract = getRoomsContract();
+    // const tx = await roomsContract.getCreatorzTokens(
+    //   ethers.utils.parseEther("100")
+    // );
+    // await tx.wait();
   };
 
   // const forloop = useCallback(async () => {

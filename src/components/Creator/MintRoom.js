@@ -1,9 +1,9 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
 import { GrChannel } from "react-icons/gr";
 import { ethers } from "ethers";
-import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
+import { saveMetaData } from "/utils/saveMetaDataToIPFS";
 import * as PushAPI from "@pushprotocol/restapi";
-import { getRoomsContract } from "@/utils/getContracts";
+// import { getRoomsContract } from "/utils/getContracts";
 import AddIcon from "@mui/icons-material/Add";
 import { Polybase } from "@polybase/client";
 
@@ -14,6 +14,7 @@ const db = new Polybase({
 
 export default function MintRoom() {
   // Creating state for the input field
+  const [price, setPrice] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Music");
@@ -51,17 +52,17 @@ export default function MintRoom() {
       category: category,
     };
     const cid = await saveMetaData(RoomMetaData);
-    try {
-      const tx = await contract.mintRoom(cid);
-      const res = await tx.wait();
-      const event = res.events;
-      const RoomId = event[2].args.id.toNumber();
-      await db.collection("Room").create([RoomId.toString()]);
-      setSend(true);
-      console.log("sent");
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const tx = await contract.mintRoom(cid);
+    //   const res = await tx.wait();
+    //   const event = res.events;
+    //   const RoomId = event[2].args.id.toNumber();
+    //   await db.collection("Room").create([RoomId.toString()]);
+    //   setSend(true);
+    //   console.log("sent");
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   useEffect(() => {
@@ -124,6 +125,16 @@ export default function MintRoom() {
                   <option>Travel</option>
                   <option>Other</option>
                 </select>
+              </div>
+              <div className="flex flex-col w-2/5 ">
+              <label className="text-[#9CA3AF]  text-sm">Charges for Ads</label>
+                <input
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  type="text"
+                  placeholder=""
+                  className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
+                />
               </div>
             </div>
           </div>

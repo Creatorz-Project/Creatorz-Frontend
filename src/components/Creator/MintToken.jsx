@@ -1,6 +1,6 @@
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { useState } from "react";
-import { getSocialTokenContract } from "@/utils/getContracts";
+// import { getSocialTokenContract } from "/utils/getContracts";
 
 export default function MintToken() {
   const [title, setTitle] = useState("");
@@ -8,22 +8,22 @@ export default function MintToken() {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
-  // const handleClick = async () => {
-  //   const data = {
-  //     title,
-  //     description,
-  //     category,
-  //     amount,
-  //   };
-  //   try {
-  //     const socialTokenContract = await getSocialTokenContract();
-  //     const tx = await socialTokenContract.mintSocialToken(amount);
-  //     await tx.wait();
-  //     console.log(tx);
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
+  const handleClick = async () => {
+    const data = {
+      title,
+      description,
+      category,
+      amount,
+    };
+    // try {
+    //   const socialTokenContract = await getSocialTokenContract();
+    //   const tx = await socialTokenContract.mintSocialToken(amount);
+    //   await tx.wait();
+    //   console.log(tx);
+    // } catch (err) {
+    //   console.log(err);
+    // }
+  };
 
   return (
     <>

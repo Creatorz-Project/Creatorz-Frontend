@@ -2,22 +2,22 @@ import React from "react";
 import { BiCheck } from "react-icons/bi";
 import moment from "moment";
 import { useRouter } from "next/router";
-import { getRoomsContract } from "@/utils/getContracts";
+// import { getRoomsContract } from "/utils/getContracts";
 import Link from "next/link";
 import { ethers } from "ethers";
 
 export default function Video({ horizontal, video }) {
   const buyHandler = async () => {
-    try {
-      const roomsContract = await getRoomsContract();
-      const tx = await roomsContract.buyVideo(video.VideoId, {
-        value: ethers.utils.parseEther("0"),
-      });
-      await tx.wait();
-      console.log("Video bought");
-    } catch (err) {
-      console.log(err);
-    }
+    // try {
+    //   const roomsContract = await getRoomsContract();
+    //   const tx = await roomsContract.buyVideo(video.VideoId, {
+    //     value: ethers.utils.parseEther("0"),
+    //   });
+    //   await tx.wait();
+    //   console.log("Video bought");
+    // } catch (err) {
+    //   console.log(err);
+    // }
   };
 
   return (

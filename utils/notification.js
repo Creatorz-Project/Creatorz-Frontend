@@ -28,7 +28,7 @@ const NotificationOptIn = () => {
 
     return (
         <>
-            <Button variant="contained" className=" bg-sky-600" onClick={OptIn}>Opt In</Button>
+            <Button variant="contained" className=" bg-cyan-700" onClick={OptIn}>Opt In</Button>
         </>
     )
 
