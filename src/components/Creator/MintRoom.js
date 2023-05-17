@@ -1,5 +1,5 @@
 import React, { useState, useRef, useMemo, useEffect } from "react";
-import { GrChannel } from "react-icons/gr";
+import { BiCloud, BiMusic, BiPlus } from "react-icons/bi";
 import { ethers } from "ethers";
 import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 import { TokenAddress } from "@/utils/Constants/Addresses";
@@ -8,6 +8,13 @@ import { getContract } from "@/utils/Constants/Contracts";
 import * as PushAPI from "@pushprotocol/restapi";
 // import { getRoomsContract } from "@/utils/getContracts";
 import AddIcon from "@mui/icons-material/Add";
+import { Polybase } from "@polybase/client";
+import saveToIPFS from "@/utils/saveToIPFS";
+
+const db = new Polybase({
+  defaultNamespace:
+    "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Testing-2103",
+});
 
 export default function MintRoom() {
   // Creating state for the input field
@@ -16,6 +23,16 @@ export default function MintRoom() {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("Music");
   const [send, setSend] = useState(false);
+  const [thumbnail, setThumbnail] = useState("");
+
+  const thumbnailRef = useRef(null);
+
+  const uploadThumbnail = async () => {
+    // Passing the file to the saveToIPFS function and getting the CID
+    const cid = await saveToIPFS(thumbnail);
+    // Returning the CID
+    return cid;
+  };
 
   const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
   const _signer = new ethers.Wallet(Pkey);
@@ -42,10 +59,12 @@ export default function MintRoom() {
 
   const handleSubmit = async () => {
     setSend(false);
+    const thumbnail = await uploadThumbnail();
     const RoomMetaData = {
       title: title,
       description: description,
       category: category,
+      wallPoster: thumbnail,
     };
     const cid = await saveMetaData(RoomMetaData);
     try {
@@ -131,6 +150,40 @@ export default function MintRoom() {
                 />
               </div>
             </div>
+            <div className="flex flex-row mt-10 w-[90%] justify-between">
+              <div className="flex flex-col w-64">
+                <label className="text-[#9CA3AF] text-sm">
+                  Room Profile Picture* (Required)
+                </label>
+                <div
+                  onClick={() => {
+                    thumbnailRef.current.click();
+                  }}
+                  className="border-2 w-64 border-gray-600  border-dashed rounded-md mt-2 p-2  h-36 items-center justify-center flex"
+                >
+                  {thumbnail ? (
+                    <img
+                      onClick={() => {
+                        thumbnailRef.current.click();
+                      }}
+                      src={URL.createObjectURL(thumbnail)}
+                      alt="thumbnail"
+                      className="h-full rounded-md"
+                    />
+                  ) : (
+                    <BiPlus size={40} color="gray" />
+                  )}
+                </div>
+              </div>
+            </div>
+            <input
+              type="file"
+              className="hidden"
+              ref={thumbnailRef}
+              onChange={(e) => {
+                setThumbnail(e.target.files[0]);
+              }}
+            />
           </div>
         </div>
       </div>
