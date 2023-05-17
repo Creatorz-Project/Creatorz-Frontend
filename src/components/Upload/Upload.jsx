@@ -17,7 +17,6 @@ import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 // import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 import { useApolloClient, gql } from "@apollo/client";
 import { useAccount } from "wagmi";
-import { Polybase } from "@polybase/client";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { ethers } from "ethers";
@@ -25,10 +24,6 @@ import { ethers } from "ethers";
 
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
 
-const db = new Polybase({
-  defaultNamespace:
-    "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Testing-2103",
-});
 
 export default function Upload() {
   // Creating state for the input field

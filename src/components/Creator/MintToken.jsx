@@ -1,11 +1,8 @@
-import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { useState } from "react";
 import { getContract } from "@/utils/Constants/Contracts";
 import { Token } from "@/utils/Constants/ABIs";
 import { TokenAddress } from "@/utils/Constants/Addresses";
 import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
-import { ethers } from "ethers";
-// import { getSocialTokenContract } from "@/utils/getContracts";
 
 export default function MintToken() {
   const [title, setTitle] = useState("");
@@ -47,9 +44,6 @@ export default function MintToken() {
               className="bg-gray-900 p-1 px-[12px] rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 hover:bg-opacity-100 border border-gray-800 text-lg h-fit"
             >
               Mint Social Token
-            </button>
-            <button className="bg-gray-900 p-1 px-[12px] rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 hover:bg-opacity-100 border border-gray-800 text-lg h-fit">
-              Launch Social Token <RocketLaunchIcon />
             </button>
           </div>
         </div>
