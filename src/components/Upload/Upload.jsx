@@ -45,6 +45,7 @@ export default function Upload() {
   const [presignedurl, setPresignedurl] = useState('')
   const [uploadId, setUploadId] = useState('')
   const [uploadStatus, setUploadStatus] = useState(false)
+  const [transcodeStatus, setTranscodeStatus] = useState(false)
 
   //  Creating a ref for thumbnail and video
   const thumbnailRef = useRef(null);
@@ -172,6 +173,11 @@ export default function Upload() {
 
     const response = await fetch('https://api.thetavideoapi.com/video', requestOptions)
     const result = await response.json()
+
+    if (response.ok) {
+      setTranscodeStatus(true)
+    }
+    
     setVideoId(result.body.videos[0].id)
     console.log(result)
 
@@ -204,14 +210,12 @@ export default function Upload() {
     if (response.ok) {
       setUploadStatus("success")
     }
-    
     console.log(response.ok)
     console.log(uploadId)
 
     const CID = await uploadThumbnail();
 
     setThumbnailCID(CID);
-
     console.log(`thumbnail CID ${CID}`)
 
   }
@@ -238,6 +242,12 @@ export default function Upload() {
       env: "staging",
     });
   };
+
+  useEffect(() => {
+    if (transcodeStatus == true) {
+
+    }
+  }, [transcodeStatus])
 
 
   // const roomData = (e) => {
