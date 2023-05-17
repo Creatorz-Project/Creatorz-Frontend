@@ -1,5 +1,10 @@
 import RocketLaunchIcon from "@mui/icons-material/RocketLaunch";
 import { useState } from "react";
+import { getContract } from "@/utils/Constants/Contracts";
+import { Token } from "@/utils/Constants/ABIs";
+import { TokenAddress } from "@/utils/Constants/Addresses";
+import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
+import { ethers } from "ethers";
 // import { getSocialTokenContract } from "@/utils/getContracts";
 
 export default function MintToken() {
@@ -8,23 +13,28 @@ export default function MintToken() {
   const [maxHoldingAmount, setMaxHoldingAmount] = useState("");
   const [amount, setAmount] = useState("");
   const [relatedVideo, setRelatedVideo] = useState("");
-  const [URI, setURI] = useState("");
+  const [Price, setPrice] = useState("");
 
   const handleClick = async () => {
     const data = {
       title,
       description,
-      category,
       amount,
     };
-    // try {
-    //   const socialTokenContract = await getSocialTokenContract();
-    //   const tx = await socialTokenContract.mintSocialToken(amount);
-    //   await tx.wait();
-    //   console.log(tx);
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    const URI = await saveMetaData(data);
+    try {
+      const token = await getContract(TokenAddress, Token);
+      const tx = await token.mintSocialTokens(
+        amount,
+        Price,
+        URI,
+        maxHoldingAmount,
+        relatedVideo
+      );
+      await tx.wait();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -80,7 +90,6 @@ export default function MintToken() {
                   className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
                 />
               </div>
-
             </div>
             <div className="flex flex-row mt-10 w-[90%]  justify-between">
               <div className="flex flex-col w-2/5    ">
@@ -94,12 +103,12 @@ export default function MintToken() {
                 />
               </div>
               <div className="flex flex-col w-2/5    ">
-                <label className="text-[#9CA3AF]  text-sm">Token URI</label>
+                <label className="text-[#9CA3AF]  text-sm">Token Price</label>
                 <input
-                  value={URI}
-                  onChange={(e) => setURI(e.target.value)}
+                  value={Price}
+                  onChange={(e) => setPrice(e.target.value)}
                   type="text"
-                  placeholder=""
+                  placeholder="Price of Each Token"
                   className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
                 />
               </div>

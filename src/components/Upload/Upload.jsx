@@ -5,11 +5,15 @@ import React, {
   useEffect,
   useCallback,
 } from "react";
+import { Token } from "../../utils/Constants/ABIs";
+import { TokenAddress } from "../../utils/Constants/Addresses";
+import { getContract } from "@/utils/Constants/Contracts";
 import { BiCloud, BiMusic, BiPlus } from "react-icons/bi";
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded';
-import Zoom from '@mui/material/Zoom';
-import Tooltip from '@mui/material/Tooltip';
+import InfoRoundedIcon from "@mui/icons-material/InfoRounded";
+import Zoom from "@mui/material/Zoom";
+import Tooltip from "@mui/material/Tooltip";
 import saveToIPFS from "@/utils/saveToIPFS";
+import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 // import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 import { useApolloClient, gql } from "@apollo/client";
 import { useAccount } from "wagmi";
@@ -42,10 +46,10 @@ export default function Upload() {
   const { address } = useAccount();
   const [loading, setLoading] = useState(false);
 
-  const [presignedurl, setPresignedurl] = useState('')
-  const [uploadId, setUploadId] = useState('')
-  const [uploadStatus, setUploadStatus] = useState(false)
-  const [transcodeStatus, setTranscodeStatus] = useState(false)
+  const [presignedurl, setPresignedurl] = useState("");
+  const [uploadId, setUploadId] = useState("");
+  const [uploadStatus, setUploadStatus] = useState(false);
+  const [transcodeStatus, setTranscodeStatus] = useState(false);
 
   //  Creating a ref for thumbnail and video
   const thumbnailRef = useRef(null);
@@ -73,7 +77,6 @@ export default function Upload() {
         RoomId
         Owner
         URI
-        BlockTimestamp
         IsListed
         Price
         Videos
@@ -138,87 +141,95 @@ export default function Upload() {
   // console.log(userRooms);
 
   const getUploadUrl = async () => {
-    console.log("getting upload url")
+    console.log("getting upload url");
     var myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append('x-tva-sa-id', 'srvacc_kb0ub280r8mf2wsgjrp2q31tq');
-    myHeaders.append('x-tva-sa-secret', '59iwg4ev1s99u5vh3yt2btgv71ud8vpp')
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("x-tva-sa-id", "srvacc_kb0ub280r8mf2wsgjrp2q31tq");
+    myHeaders.append("x-tva-sa-secret", "59iwg4ev1s99u5vh3yt2btgv71ud8vpp");
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
-    const response = await fetch('https://api.thetavideoapi.com/upload', requestOptions)
-    const result = await response.json()
-    setPresignedurl(result.body.uploads[0].presigned_url)
-    setUploadId(result.body.uploads[0].id)
-    console.log(result)
-  }
+    const response = await fetch(
+      "https://api.thetavideoapi.com/upload",
+      requestOptions
+    );
+    const result = await response.json();
+    setPresignedurl(result.body.uploads[0].presigned_url);
+    setUploadId(result.body.uploads[0].id);
+    console.log(result);
+  };
 
   const transcodeVideo = async () => {
-    console.log("transcoding")
+    console.log("transcoding");
     var myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append('x-tva-sa-id', 'srvacc_kb0ub280r8mf2wsgjrp2q31tq');
-    myHeaders.append('x-tva-sa-secret', '59iwg4ev1s99u5vh3yt2btgv71ud8vpp')
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("x-tva-sa-id", "srvacc_kb0ub280r8mf2wsgjrp2q31tq");
+    myHeaders.append("x-tva-sa-secret", "59iwg4ev1s99u5vh3yt2btgv71ud8vpp");
 
     var requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: myHeaders,
-      redirect: 'follow',
-      body: JSON.stringify({ "source_upload_id": uploadId, "playback_policy": "public" })
+      redirect: "follow",
+      body: JSON.stringify({
+        source_upload_id: uploadId,
+        playback_policy: "public",
+      }),
     };
 
-    const response = await fetch('https://api.thetavideoapi.com/video', requestOptions)
-    const result = await response.json()
+    const response = await fetch(
+      "https://api.thetavideoapi.com/video",
+      requestOptions
+    );
+    const result = await response.json();
 
     if (response.ok) {
-      setTranscodeStatus(true)
+      setTranscodeStatus(true);
     }
-    
-    setVideoId(result.body.videos[0].id)
-    console.log(result)
 
-    console.log("upload complete")
-  }
+    setVideoId(result.body.videos[0].id);
+    console.log(result);
+
+    console.log("upload complete");
+  };
 
   const handleSubmit = async () => {
-    console.log("uploading video ....")
+    console.log("uploading video ....");
 
-    console.log(presignedurl, uploadId)
+    console.log(presignedurl, uploadId);
 
-    const octetStreamData = await convertFileToOctetStream(video)
-    console.log(octetStreamData)
+    const octetStreamData = await convertFileToOctetStream(video);
+    console.log(octetStreamData);
 
     var myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/octet-stream');
+    myHeaders.append("Content-Type", "application/octet-stream");
 
-    console.log(octetStreamData)
-    console.log("uploading")
+    console.log(octetStreamData);
+    console.log("uploading");
 
     var requestOptions = {
-      method: 'PUT',
+      method: "PUT",
       headers: myHeaders,
       body: octetStreamData,
-      redirect: 'follow',
+      redirect: "follow",
     };
 
-    const response = await fetch(presignedurl, requestOptions)
+    const response = await fetch(presignedurl, requestOptions);
 
     if (response.ok) {
-      setUploadStatus("success")
+      setUploadStatus("success");
     }
-    console.log(response.ok)
-    console.log(uploadId)
+    console.log(response.ok);
+    console.log(uploadId);
 
     const CID = await uploadThumbnail();
 
     setThumbnailCID(CID);
-    console.log(`thumbnail CID ${CID}`)
-
-  }
+    console.log(`thumbnail CID ${CID}`);
+  };
 
   const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
   const _signer = new ethers.Wallet(Pkey);
@@ -245,10 +256,34 @@ export default function Upload() {
 
   useEffect(() => {
     if (transcodeStatus == true) {
-
+      setLoading(true);
+      const createVideo = async () => {
+        const data = {
+          title: title,
+          description: description,
+          category: category,
+          location: location,
+          thumbnail: thumbnailCID,
+          video: videoId,
+          room: 2,
+          owner: address,
+        };
+        const URI = await saveMetaData(data);
+        try {
+          const token = await getContract(TokenAddress, Token);
+          console.log(token);
+          const tx = await token.mintVideo(URI, room);
+          tx.wait();
+          setLoading(false);
+          console.log("video minted");
+        } catch (err) {
+          console.log(err);
+          setLoading(false);
+        }
+      };
+      createVideo();
     }
-  }, [transcodeStatus])
-
+  }, [transcodeStatus]);
 
   // const roomData = (e) => {
   //   for (let i = 0; i < updatedUserRooms.length; i++) {
@@ -272,8 +307,8 @@ export default function Upload() {
             <button className="bg-transparent  text-[#9CA3AF] py-2 px-6 border rounded-lg  border-gray-600  mr-6">
               Discard
             </button>
-            {presignedurl == ""
-              ? <button
+            {presignedurl == "" ? (
+              <button
                 onClick={() => {
                   getUploadUrl();
                 }}
@@ -282,28 +317,27 @@ export default function Upload() {
                 <BiCloud />
                 <p className="ml-2">Get Upload URL</p>
               </button>
-              : (uploadStatus == "success"
-                ? <button
-                  onClick={() => {
-                    transcodeVideo();
-                  }}
-                  className="bg-blue-500 hover:bg-blue-700 hover:shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] hover:shadow-[#485e9a] text-white  py-2  rounded-lg flex px-4 justify-between flex-row items-center"
-                >
-                  <BiCloud />
-                  <p className="ml-2">Transcode video</p>
-                </button>
-                : <button
-                  onClick={() => {
-                    handleSubmit();
-                  }}
-                  className="bg-blue-500 hover:bg-blue-700 hover:shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] hover:shadow-[#485e9a] text-white  py-2  rounded-lg flex px-4 justify-between flex-row items-center"
-                >
-                  <BiCloud />
-                  <p className="ml-2">upload</p>
-                </button>
-              )
-            }
-
+            ) : uploadStatus == "success" ? (
+              <button
+                onClick={() => {
+                  transcodeVideo();
+                }}
+                className="bg-blue-500 hover:bg-blue-700 hover:shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] hover:shadow-[#485e9a] text-white  py-2  rounded-lg flex px-4 justify-between flex-row items-center"
+              >
+                <BiCloud />
+                <p className="ml-2">Transcode video</p>
+              </button>
+            ) : (
+              <button
+                onClick={() => {
+                  handleSubmit();
+                }}
+                className="bg-blue-500 hover:bg-blue-700 hover:shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] hover:shadow-[#485e9a] text-white  py-2  rounded-lg flex px-4 justify-between flex-row items-center"
+              >
+                <BiCloud />
+                <p className="ml-2">upload</p>
+              </button>
+            )}
           </div>
         </div>
         <div className="flex flex-col m-10     mt-5  lg:flex-row">
@@ -315,7 +349,9 @@ export default function Upload() {
               placeholder="Rick Astley - Never Gonna Give You Up (Official Music Video)"
               className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
             />
-            <label className="text-[#9CA3AF] mt-10">Description*  (Required)</label>
+            <label className="text-[#9CA3AF] mt-10">
+              Description* (Required)
+            </label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -335,7 +371,9 @@ export default function Upload() {
                 />
               </div>
               <div className="flex flex-col w-2/5">
-                <label className="text-[#9CA3AF]  text-sm">Category* (Required)</label>
+                <label className="text-[#9CA3AF]  text-sm">
+                  Category* (Required)
+                </label>
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
@@ -355,7 +393,9 @@ export default function Upload() {
             </div>
             <div className="flex flex-row mt-10 w-[90%] justify-between">
               <div className="flex flex-col w-64">
-                <label className="text-[#9CA3AF] text-sm">Thumbnail* (Required)</label>
+                <label className="text-[#9CA3AF] text-sm">
+                  Thumbnail* (Required)
+                </label>
                 <div
                   onClick={() => {
                     thumbnailRef.current.click();
@@ -377,10 +417,16 @@ export default function Upload() {
                 </div>
               </div>
               <div className="flex flex-col w-2/5">
-                <label
-                  className="text-[#9CA3AF]  text-sm"
-                >
-                  Rooms* (Required) <Tooltip title="Select the room in which you want to publish this video. If, you don't have any create a room first" placement="top" arrow TransitionComponent={Zoom}><InfoRoundedIcon /></Tooltip>
+                <label className="text-[#9CA3AF]  text-sm">
+                  Rooms* (Required){" "}
+                  <Tooltip
+                    title="Select the room in which you want to publish this video. If, you don't have any create a room first"
+                    placement="top"
+                    arrow
+                    TransitionComponent={Zoom}
+                  >
+                    <InfoRoundedIcon />
+                  </Tooltip>
                 </label>
                 <select
                   // value={room}

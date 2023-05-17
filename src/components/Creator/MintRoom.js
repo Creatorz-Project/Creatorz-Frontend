@@ -2,6 +2,9 @@ import React, { useState, useRef, useMemo, useEffect } from "react";
 import { GrChannel } from "react-icons/gr";
 import { ethers } from "ethers";
 import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
+import { TokenAddress } from "@/utils/Constants/Addresses";
+import { Token } from "@/utils/Constants/ABIs";
+import { getContract } from "@/utils/Constants/Contracts";
 import * as PushAPI from "@pushprotocol/restapi";
 // import { getRoomsContract } from "@/utils/getContracts";
 import AddIcon from "@mui/icons-material/Add";
@@ -45,24 +48,19 @@ export default function MintRoom() {
 
   const handleSubmit = async () => {
     setSend(false);
-    // const contract = await getRoomsContract();
-    // const RoomMetaData = {
-    //   title: title,
-    //   description: description,
-    //   category: category,
-    // };
+    const RoomMetaData = {
+      title: title,
+      description: description,
+      category: category,
+    };
     const cid = await saveMetaData(RoomMetaData);
-    // try {
-    //   const tx = await contract.mintRoom(cid);
-    //   const res = await tx.wait();
-    //   const event = res.events;
-    //   const RoomId = event[2].args.id.toNumber();
-    //   await db.collection("Room").create([RoomId.toString()]);
-    //   setSend(true);
-    //   console.log("sent");
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      const token = await getContract(TokenAddress, Token);
+      const tx = await token.createRoom(cid, price);
+      await tx.wait();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   useEffect(() => {
@@ -127,7 +125,9 @@ export default function MintRoom() {
                 </select>
               </div>
               <div className="flex flex-col w-2/5 ">
-              <label className="text-[#9CA3AF]  text-sm">Charges for Ads</label>
+                <label className="text-[#9CA3AF]  text-sm">
+                  Charges for Ads
+                </label>
                 <input
                   value={price}
                   onChange={(e) => setPrice(e.target.value)}
