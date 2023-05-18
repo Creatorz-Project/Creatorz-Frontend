@@ -4,9 +4,10 @@ import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { React, useState } from "react";
 import Video from "./VideoCard";
-// import { getRoomsContract } from "@/utils/getContracts";
-import { ethers } from "ethers";
-import { formatEther, parseEther } from "ethers/lib/utils.js";
+import { getContract } from "@/utils/Constants/Contracts";
+import { TokenAddress } from "@/utils/Constants/Addresses";
+import { Token } from "@/utils/Constants/ABIs";
+import { formatEther } from "ethers/lib/utils.js";
 import { useAccount } from "wagmi";
 
 export default function VideoMarketPlace(props) {
@@ -25,11 +26,18 @@ export default function VideoMarketPlace(props) {
   ];
 
   const getTokensHandler = async () => {
-    // const roomsContract = getRoomsContract();
-    // const tx = await roomsContract.getCreatorzTokens(
-    //   ethers.utils.parseEther("100")
-    // );
-    // await tx.wait();
+    try {
+      setLoading(true);
+      const tokenContract = await getContract(TokenAddress, Token);
+      const tx = await tokenContract.getCreatorzTokens();
+      await tx.wait();
+      const Balance = await tokenContract.getBalance(address, 0);
+      setBalance(Balance);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
   };
 
   // const forloop = useCallback(async () => {
@@ -65,14 +73,14 @@ export default function VideoMarketPlace(props) {
 
   // console.log(videos, videosData);
 
-  // useEffect(() => {
-  //   const getBalance = async () => {
-  //     const roomsContract = await getRoomsContract();
-  //     const balance = await roomsContract.balanceOf(address, 0);
-  //     setBalance(formatEther(balance));
-  //   };
-  //   getBalance();
-  // }, []);
+  useEffect(() => {
+    const getBalance = async () => {
+      const tokenContract = await getContract(TokenAddress, Token);
+      const Balance = await tokenContract.getBalance(address, 0);
+      setBalance(Balance);
+    };
+    getBalance();
+  }, []);
 
   return (
     <div>
@@ -142,10 +150,7 @@ export default function VideoMarketPlace(props) {
               .filter((data) => data.IsListed == true)
               .map((data, index) => {
                 return (
-                  <div
-                    className="w-80 bg-[#1a1c1f] rounded-xl"
-                    key={index}
-                  >
+                  <div className="w-80 bg-[#1a1c1f] rounded-xl" key={index}>
                     <Video video={data} />
                   </div>
                 );

@@ -12,9 +12,12 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import * as PushAPI from "@pushprotocol/restapi";
 import { ethers } from "ethers";
-// import { getRoomsContract } from "/utils/getContracts";
-import TextField from '@mui/material/TextField';
+import { getContract } from "@/utils/Constants/Contracts";
+import { ContentManager as CMAddresss } from "../../utils/Constants/Addresses";
+import { ContentManger as CMABI } from "../../utils/Constants/ABIs";
+import TextField from "@mui/material/TextField";
 
+const contract = getContract(CMAddresss, CMABI);
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
   "& .MuiSwitch-track": {
@@ -56,7 +59,7 @@ export default function MySpace(props) {
   const [Publish, setPublish] = useState();
   const { address } = useAccount();
   const [ethAccount, setEthAccount] = useState("null");
-  const [price, setPrice] = useState(0)
+  const [price, setPrice] = useState(0);
 
   useEffect(() => {
     const setAcc = () => {
@@ -149,7 +152,7 @@ export default function MySpace(props) {
   const ListingPrice = (event, data) => {
     if (event.target.value > 0) {
       setPrice(event.target.value);
-      console.log(event.target.value)
+      console.log(event.target.value);
     }
   };
 
@@ -160,11 +163,7 @@ export default function MySpace(props) {
       </div>
       <div className=" w-full h-48 m-auto mt-11 rounded-md bg-[url('/waves-light.svg')] flex">
         <div className=" w-3/4 m-auto h-36 flex gap-6 justify-end items-center flex-wrap">
-          <div
-            className=" text-4xl font-semibold"
-          >
-            Social Tokens Holding
-          </div>
+          <div className=" text-4xl font-semibold">Social Tokens Holding</div>
         </div>
       </div>
       <div className="mt-2 mx-12">
@@ -175,44 +174,57 @@ export default function MySpace(props) {
       <div className="mt-10 mx-12">
         <h3 className=" text-2xl mb-7">Videos</h3>
         <div className=" flex flex-wrap gap-5">
-          {videosData.filter(element => element.Owner.toLowerCase() == ethAccount.toLowerCase()).map((data, index) => {
-
-            return (
-              <Card sx={{ maxWidth: 345 }}>
-                <CardMedia
-                  sx={{ height: 140 }}
-                  image={`https://ipfs.io/ipfs/${data.thumbnail}`}
-                  title="thumbnail"
-                />
-                <CardContent>
-                  <Typography gutterBottom variant="h5" component="div">
-                    {data.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {data.description}
-                  </Typography>
-                </CardContent>
-                <CardActions>
-                  {data.IsListed == true
-                    ? <FormControlLabel
-                      control={<Android12Switch defaultChecked />}
-                      label="UnList From marketplace"
-                      onChange={(event) => ListVideo(event, data)}
-                    />
-                    : <><FormControlLabel
-                      control={<Android12Switch />}
-                      label="List on marketplace"
-                      onChange={(event) => ListVideo(event, data)}
-                    />
-                      <TextField id="standard-basic" label="Price" variant="standard" type="number" defaultValue={data.Price} onChange={(e) => ListingPrice(e, data)} />
-                    </>
-                  }
-                </CardActions>
-              </Card>
+          {videosData
+            .filter(
+              (element) =>
+                element.Owner.toLowerCase() == ethAccount.toLowerCase()
             )
-          })}
+            .map((data, index) => {
+              return (
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardMedia
+                    sx={{ height: 140 }}
+                    image={`https://ipfs.io/ipfs/${data.thumbnail}`}
+                    title="thumbnail"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="h5" component="div">
+                      {data.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {data.description}
+                    </Typography>
+                  </CardContent>
+                  <CardActions>
+                    {data.IsListed == true ? (
+                      <FormControlLabel
+                        control={<Android12Switch defaultChecked />}
+                        label="UnList From marketplace"
+                        onChange={(event) => ListVideo(event, data)}
+                      />
+                    ) : (
+                      <>
+                        <FormControlLabel
+                          control={<Android12Switch />}
+                          label="List on marketplace"
+                          onChange={(event) => ListVideo(event, data)}
+                        />
+                        <TextField
+                          id="standard-basic"
+                          label="Price"
+                          variant="standard"
+                          type="number"
+                          defaultValue={data.Price}
+                          onChange={(e) => ListingPrice(e, data)}
+                        />
+                      </>
+                    )}
+                  </CardActions>
+                </Card>
+              );
+            })}
         </div>
       </div>
     </div>
-  )
+  );
 }
