@@ -22,11 +22,10 @@ export default function Video({ horizontal, video }) {
 
   return (
     <div
-      className={`${
-        horizontal
+      className={`${horizontal
           ? "flex flex-row mx-5 mb-5 item-center justify-center"
           : "flex flex-col m-5 "
-      } `}
+        } `}
     >
       <Link href={`/video?id=${video.VideoId}`}>
         <img
@@ -45,10 +44,10 @@ export default function Video({ horizontal, video }) {
             {video.title}
           </h4>
           <p className="text-sm flex items-center text-[#878787] mt-1">
-            {video.category + " • " + moment(video.createdAt * 1000).fromNow()}
+            {video.category + " • " + video.CreatedDate}
           </p>
           <p className="text-sm flex items-center text-[#878787] mt-1">
-            {video?.Owner?.slice(0, 9)}...{" "}
+            {video?.owner?.slice(0, 9)}...{" "}
             <BiCheck size="20px" color="green" className="ml-1" />
           </p>
           <div className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-600 text-xl font-medium">

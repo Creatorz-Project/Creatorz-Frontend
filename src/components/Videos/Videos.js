@@ -36,7 +36,7 @@ export default function Video({ horizontal, video }) {
           {video.category + " • " + video.CreatedDate}
         </p>
         <p className="text-sm flex items-center text-[#878787] mt-1">
-          {video?.Owner?.slice(0, 9)}...{" "}
+          {video?.owner?.slice(0, 9)}...{" "}
           <BiCheck size="20px" color="green" className="ml-1" />
         </p>
       </div>

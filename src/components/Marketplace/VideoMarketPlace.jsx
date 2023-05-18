@@ -32,38 +32,40 @@ export default function VideoMarketPlace(props) {
     // await tx.wait();
   };
 
-  // const forloop = useCallback(async () => {
-  //   setLoading(true);
+  const forloop = useCallback(async () => {
+    setLoading(true);
 
-  //   const tempChoicesArray = [];
+    const tempChoicesArray = [];
 
-  //   var requestOptions = {
-  //     method: "GET",
-  //     redirect: "follow",
-  //   };
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-  //   for (let i = 0; i < videos.length; i++) {
-  //     let obj = {};
-  //     const newresponse = await fetch(
-  //       `https://${videos[i].URI}.ipfs.w3s.link/RoomMetaData.json`,
-  //       requestOptions
-  //     );
-  //     const result = await newresponse.json();
-  //     obj = { ...result, ...videos[i] };
-  //     tempChoicesArray.push(obj);
+    for (let i = 0; i < videos.length; i++) {
+      let obj = {};
+      if (videos[i].MetadataURI.length > 8) {
+        const newresponse = await fetch(
+          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          requestOptions
+        );
+        const result = await newresponse.json();
+        obj = { ...result, ...videos[i] };
+        tempChoicesArray.push(obj);
+      }
 
-  //     setLoading(false);
-  //   }
-  //   setVideosData(tempChoicesArray);
-  // }, [videos, videosData]);
+      setLoading(false);
+    }
+    setVideosData(tempChoicesArray);
+  }, [videos, videosData]);
 
-  // useEffect(() => {
-  //   if (videos.length > 0) {
-  //     forloop();
-  //   }
-  // }, [videos]);
+  useEffect(() => {
+    if (videos.length > 0) {
+      forloop();
+    }
+  }, [videos]);
 
-  // console.log(videos, videosData);
+  console.log(videos, videosData);
 
   // useEffect(() => {
   //   const getBalance = async () => {
@@ -139,7 +141,7 @@ export default function VideoMarketPlace(props) {
         <div className="flex flex-row flex-wrap gap-5 mx-5 my-5">
           {videosData.length > 0 ? (
             videosData
-              .filter((data) => data.IsListed == true)
+              .filter((data) => data.Listed == true)
               .map((data, index) => {
                 return (
                   <div
