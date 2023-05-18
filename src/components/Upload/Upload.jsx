@@ -24,7 +24,6 @@ import { ethers } from "ethers";
 
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
 
-
 export default function Upload() {
   // Creating state for the input field
   const [title, setTitle] = useState("");
@@ -267,7 +266,7 @@ export default function Upload() {
         try {
           const token = await getContract(TokenAddress, Token);
           console.log(token);
-          const tx = await token.mintVideo(URI, room);
+          const tx = await token.mintVideo(URI, 2);
           tx.wait();
           setLoading(false);
           console.log("video minted");
