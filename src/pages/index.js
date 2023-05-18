@@ -25,23 +25,40 @@ export async function getServerSideProps() {
 
   const post = {}
 
-  console.log("getting video list")
-  var myHeaders = new Headers();
-  myHeaders.append('Content-Type', 'application/json');
-  myHeaders.append('x-tva-sa-id', 'srvacc_kb0ub280r8mf2wsgjrp2q31tq');
-  myHeaders.append('x-tva-sa-secret', '59iwg4ev1s99u5vh3yt2btgv71ud8vpp')
-
-  var requestOptions = {
-    method: 'GET',
-    headers: myHeaders,
-    redirect: 'follow',
-
-  };
-
-  const response = await fetch(`https://api.thetavideoapi.com/video/srvacc_kb0ub280r8mf2wsgjrp2q31tq/list?page=1&number=100`, requestOptions)
-  const result = await response.json()
+  const response = await fetch(
+    "https://api.thegraph.com/subgraphs/name/karthikeyagundumogula/creatorzv1",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: `
+        {
+          videos(orderBy: CreatedDate, orderDirection: desc) {
+            id
+            RoomId
+            Creator
+            owner
+            Listed
+            Price
+            Published
+            AdsEnabled
+            CreatedDate
+            MetadataURI
+            Beneficiaries
+            HolderPercentage
+            LastPublishedDate
+            OwnerPercentage
+            SocialTokenId
+            TotalEarnings
+          }
+        }
+    `,
+      }),
+    }
+  );
+  const result = await response.json();
   console.log(result)
-  post.videos = result.body.videos
+  post.videos = result.data["videos"]
 
   return {
     props: {

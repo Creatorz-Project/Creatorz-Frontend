@@ -25,7 +25,7 @@ export default function Video({ horizontal, video }) {
             ? "object-cover rounded-lg w-60 "
             : "object-cover rounded-lg w-full h-40"
         }
-        src="https://images.unsplash.com/photo-1682685797898-6d7587974771?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80"
+        src={`https://ipfs.io/ipfs/${video.thumbnail}`}
         alt=""
       />
       <div className={horizontal && "ml-3  w-80"}>
@@ -33,7 +33,7 @@ export default function Video({ horizontal, video }) {
           {video.title}
         </h4>
         <p className="text-sm flex items-center text-[#878787] mt-1">
-          {video.category + " • " + moment(video.createdAt * 1000).fromNow()}
+          {video.category + " • " + video.CreatedDate}
         </p>
         <p className="text-sm flex items-center text-[#878787] mt-1">
           {video?.Owner?.slice(0, 9)}...{" "}
