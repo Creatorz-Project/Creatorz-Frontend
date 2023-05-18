@@ -11,7 +11,7 @@ export default function Video({ horizontal, video }) {
     <div
       className={`${horizontal
         ? "flex flex-row mx-5 mb-5 item-center justify-center cursor-pointer"
-        : "flex flex-col m-5 cursor-pointer"
+        : "flex flex-col m-2 cursor-pointer"
         } `}
 
       onClick={() => {
@@ -28,7 +28,7 @@ export default function Video({ horizontal, video }) {
         src={`https://ipfs.io/ipfs/${video.thumbnail}`}
         alt=""
       />
-      <div className={horizontal && "ml-3  w-80"}>
+      <div className={` m-2 ${horizontal && "ml-3  w-80"}`}>
         <h4 className="text-md font-bold dark:text-white mt-3">
           {video.title}
         </h4>
