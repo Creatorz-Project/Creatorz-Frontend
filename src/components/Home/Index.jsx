@@ -46,6 +46,8 @@ export default function Main(props) {
     }
   }, [videos]);
 
+  console.log(videosData);
+
   return (
     <div className="w-full flex flex-row">
       <Backdrop

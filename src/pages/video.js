@@ -91,13 +91,13 @@ export default function VideoPage(props) {
     }, [videosData])
 
     useEffect(() => {
-        if (relatedVideos.length > 0) {
+        if (relatedVideos.length > 0 && query) {
             const video = relatedVideos.find(
-                (video) => video.video === query
+                (video) => video.video == query
             );
             setVideo(video);
         }
-    }, [relatedVideos])
+    }, [relatedVideos, query])
 
     return (
         <div className="w-full bg-[#1a1c1f]  flex flex-row min-h-screen">

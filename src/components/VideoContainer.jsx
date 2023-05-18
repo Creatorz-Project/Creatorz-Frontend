@@ -110,27 +110,29 @@ export default function VideoComponent({ videoId, video }) {
         allowfullscreen
         className="h-[calc(((1080/1920)*67vw))]"
       />
-      <div className="flex justify-between flex-row py-4">
-        <div>
-          <h3 className="text-2xl dark:text-white">{video.title}</h3>
-          <p className="text-gray-500 mt-1">
-            {video.category}
-            {video.CreatedDate}
-          </p>
-          <p className="text-gray-500 mt-1">{video.description}</p>
+      {video &&
+        <div className="flex justify-between flex-row py-4">
+          <div>
+            <h3 className="text-2xl dark:text-white">{video.title}</h3>
+            <p className="text-gray-500 mt-1">
+              {video.category}
+              {video.CreatedDate}
+            </p>
+            <p className="text-gray-500 mt-1">{video.description}</p>
+          </div>
+          <div className="flex gap-3 h-fit place-items-center">
+            <ThumbUpIcon onClick={LikeHandler} />
+            <BookmarkAddIcon onClick={BookmarkHandler} />
+            <ShareIcon onClick={ShareHandler} />
+            <button
+              className=" border-0 bg-white rounded-[20px] px-5 py-1 text-black h-fit"
+              onClick={SubscribeHandler}
+            >
+              Subscribe
+            </button>
+          </div>
         </div>
-        <div className="flex gap-3 h-fit place-items-center">
-          <ThumbUpIcon onClick={LikeHandler} />
-          <BookmarkAddIcon onClick={BookmarkHandler} />
-          <ShareIcon onClick={ShareHandler} />
-          <button
-            className=" border-0 bg-white rounded-[20px] px-5 py-1 text-black h-fit"
-            onClick={SubscribeHandler}
-          >
-            Subscribe
-          </button>
-        </div>
-      </div>
+      }
     </div>
   );
 }
