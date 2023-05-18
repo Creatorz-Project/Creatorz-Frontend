@@ -106,13 +106,15 @@ export default function MySpace(props) {
 
     for (let i = 0; i < videos.length; i++) {
       let obj = {};
-      const newresponse = await fetch(
-        `https://ipfs.io/ipfs/${videos[i].URI}/RoomMetaData.json`,
-        requestOptions
-      );
-      const result = await newresponse.json();
-      obj = { ...result, ...videos[i] };
-      tempChoicesArray.push(obj);
+      if (videos[i].MetadataURI.length > 8) {
+        const newresponse = await fetch(
+          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          requestOptions
+        );
+        const result = await newresponse.json();
+        obj = { ...result, ...videos[i] };
+        tempChoicesArray.push(obj);
+      }
 
       setLoading(false);
     }
@@ -128,7 +130,26 @@ export default function MySpace(props) {
   }, [videos]);
 
   const ListVideo = async (event, data) => {
-    setListed(event.target.checked);
+
+    console.log(data);
+    // if (event.target.checked == true) {
+    //   const task = "Listed";
+    //   const roomsContract = await getRoomsContract();
+    //   const tx = await roomsContract.listVideo(data.id, "8949494");
+    //   await tx.wait();
+    //   sendNotification(data, task);
+    // }
+    // else {
+    //   const task = "Unlisted";
+    //   const roomsContract = await getRoomsContract();
+    //   const tx = await roomsContract.unListVideo(data.id);
+    //   await tx.wait();
+    //   sendNotification(data, task);
+    // }
+  };
+
+  const PublishVideo = async (event, data) => {
+
     console.log(data);
     // if (event.target.checked == true) {
     //   const task = "Listed";
@@ -175,8 +196,7 @@ export default function MySpace(props) {
       <div className="mt-10 mx-12">
         <h3 className=" text-2xl mb-7">Videos</h3>
         <div className=" flex flex-wrap gap-5">
-          {videosData.filter(element => element.Owner.toLowerCase() == ethAccount.toLowerCase()).map((data, index) => {
-
+          {videosData.filter(element => element.owner.toLowerCase() != ethAccount.toLowerCase()).map((data, index) => {
             return (
               <Card sx={{ maxWidth: 345 }}>
                 <CardMedia
@@ -191,23 +211,37 @@ export default function MySpace(props) {
                   <Typography variant="body2" color="text.secondary">
                     {data.description}
                   </Typography>
+                  <CardActions>
+                    {data.Published == true
+                      ? <FormControlLabel
+                        control={<Android12Switch defaultChecked />}
+                        label="Remove Video"
+                        onChange={(event) => PublishVideo(event, data)}
+                      />
+                      : <FormControlLabel
+                        control={<Android12Switch />}
+                        label="Publish Video"
+                        onChange={(event) => PublishVideo(event, data)}
+                      />
+                    }
+                  </CardActions>
+                  <CardActions>
+                    {data.Listed == true
+                      ? <FormControlLabel
+                        control={<Android12Switch defaultChecked />}
+                        label="UnList From marketplace"
+                        onChange={(event) => ListVideo(event, data)}
+                      />
+                      : <><FormControlLabel
+                        control={<Android12Switch />}
+                        label="List on marketplace"
+                        onChange={(event) => ListVideo(event, data)}
+                      />
+                        <TextField id="standard-basic" label="Price" variant="standard" type="number" defaultValue={data.Price} onChange={(e) => ListingPrice(e, data)} />
+                      </>
+                    }
+                  </CardActions>
                 </CardContent>
-                <CardActions>
-                  {data.IsListed == true
-                    ? <FormControlLabel
-                      control={<Android12Switch defaultChecked />}
-                      label="UnList From marketplace"
-                      onChange={(event) => ListVideo(event, data)}
-                    />
-                    : <><FormControlLabel
-                      control={<Android12Switch />}
-                      label="List on marketplace"
-                      onChange={(event) => ListVideo(event, data)}
-                    />
-                      <TextField id="standard-basic" label="Price" variant="standard" type="number" defaultValue={data.Price} onChange={(e) => ListingPrice(e, data)} />
-                    </>
-                  }
-                </CardActions>
               </Card>
             )
           })}
