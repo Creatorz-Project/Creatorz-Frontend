@@ -50,13 +50,14 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
 
 export default function MySpace(props) {
   const [videos, setVideos] = useState(props.Post.videos);
+  const [rooms, setRooms] = useState(props.Post.rooms);
+  const [roomsData, setRoomsData] = useState([]);
   const [videosData, setVideosData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [listed, setListed] = useState();
-  const [Publish, setPublish] = useState();
+
   const { address } = useAccount();
   const [ethAccount, setEthAccount] = useState("null");
-  const [price, setPrice] = useState(0)
+  const [videoPrice, setVideoPrice] = useState(0)
 
   useEffect(() => {
     const setAcc = () => {
@@ -94,7 +95,7 @@ export default function MySpace(props) {
     });
   };
 
-  const forloop = useCallback(async () => {
+  const videoForLoop = useCallback(async () => {
     setLoading(true);
 
     const tempChoicesArray = [];
@@ -125,9 +126,44 @@ export default function MySpace(props) {
 
   useEffect(() => {
     if (videos.length > 0) {
-      forloop();
+      videoForLoop();
     }
   }, [videos]);
+
+  const roomForLoop = useCallback(async () => {
+    setLoading(true);
+
+    const tempChoicesArray = [];
+
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    for (let i = 0; i < rooms.length; i++) {
+      let obj = {};
+      if (rooms[i].URI.length > 8) {
+        const newresponse = await fetch(
+          `https://ipfs.io/ipfs/${rooms[i].URI}/RoomMetaData.json`,
+          requestOptions
+        );
+        const result = await newresponse.json();
+        obj = { ...result, ...rooms[i] };
+        tempChoicesArray.push(obj);
+      }
+
+      setLoading(false);
+    }
+    setRoomsData(tempChoicesArray);
+  }, [rooms, roomsData]);
+
+  console.log(roomsData);
+
+  useEffect(() => {
+    if (rooms.length > 0) {
+      roomForLoop();
+    }
+  }, [rooms]);
 
   const ListVideo = async (event, data) => {
 
@@ -169,10 +205,11 @@ export default function MySpace(props) {
 
   const ListingPrice = (event, data) => {
     if (event.target.value > 0) {
-      setPrice(event.target.value);
+      setVideoPrice(event.target.value);
       console.log(event.target.value)
     }
   };
+  console.log(rooms, videos)
 
   return (
     <div>

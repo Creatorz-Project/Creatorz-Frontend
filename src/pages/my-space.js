@@ -36,6 +36,17 @@ export async function getServerSideProps() {
               OwnerPercentage
               SocialTokenId
             }
+            rooms(orderBy: CreatedDate, orderDirection: desc) {
+              id
+              RoomId
+              Creator
+              Owner
+              Videos
+              TotalEarning
+              IsListed
+              CreatedDate
+              URI
+            }
           }
       `,
         }),
@@ -44,6 +55,7 @@ export async function getServerSideProps() {
     const result = await response.json();
     console.log(result)
     post.videos = result.data["videos"]
+    post.rooms = result.data["rooms"]
   
     return {
       props: {
