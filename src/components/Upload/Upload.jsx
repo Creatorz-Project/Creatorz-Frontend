@@ -14,16 +14,19 @@ import Zoom from "@mui/material/Zoom";
 import Tooltip from "@mui/material/Tooltip";
 import saveToIPFS from "@/utils/saveToIPFS";
 import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
-// import { saveMetaData } from "@/utils/saveMetaDataToIPFS";
 import { useApolloClient, gql } from "@apollo/client";
 import { useAccount } from "wagmi";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
 import { ethers } from "ethers";
 // import * as PushAPI from "@pushprotocol/restapi";
-
+import { Polybase } from "@polybase/client";
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
 
+const db = new Polybase({
+  defaultNamespace:
+    "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Creatorz",
+});
 export default function Upload() {
   // Creating state for the input field
   const [title, setTitle] = useState("");
@@ -266,10 +269,13 @@ export default function Upload() {
         try {
           const token = await getContract(TokenAddress, Token);
           console.log(token);
-          const tx = await token.mintVideo(URI, 2);
-          tx.wait();
+          const tx = await token.mintVideo(URI, 11);
+          const res = await tx.wait();
+          const events = res.events;
+          const videoId = events[2].args.Id.toNumber().toString();
+          const roomId = events[2].args.roomId.toNumber().toString();
+          await db.collection("Video").create([videoId, roomId]);
           setLoading(false);
-          console.log("video minted");
         } catch (err) {
           console.log(err);
           setLoading(false);

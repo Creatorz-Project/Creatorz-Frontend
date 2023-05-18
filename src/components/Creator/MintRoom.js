@@ -13,9 +13,8 @@ import saveToIPFS from "@/utils/saveToIPFS";
 
 const db = new Polybase({
   defaultNamespace:
-    "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Testing-2103",
+    "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Creatorz",
 });
-
 export default function MintRoom() {
   // Creating state for the input field
   const [price, setPrice] = useState("");
@@ -70,7 +69,10 @@ export default function MintRoom() {
     try {
       const token = await getContract(TokenAddress, Token);
       const tx = await token.createRoom(cid, price);
-      await tx.wait();
+      const res = await tx.wait();
+      const events = res.events;
+      const roomId = events[2].args.Id.toNumber().toString();
+      await db.collection("Room").create([roomId]);
     } catch (err) {
       console.log(err);
     }

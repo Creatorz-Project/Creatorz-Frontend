@@ -2,7 +2,6 @@ import React from "react";
 import { BiCheck } from "react-icons/bi";
 import moment from "moment";
 import { useRouter } from "next/router";
-// import { getRoomsContract } from "@/utils/getContracts";
 import Link from "next/link";
 import { Marketplace as MPAddress } from "@/utils/Constants/Addresses";
 import { Marketplace as MPAbi } from "@/utils/Constants/ABIs";
