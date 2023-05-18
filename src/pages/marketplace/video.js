@@ -8,40 +8,47 @@ export default function market(props){
 
 export async function getServerSideProps() {
 
-    const post = {}
-  
-    const response = await fetch(
-      "https://api.thegraph.com/subgraphs/name/karthikeyagundumogula/creatorz",
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          query: `
-          {
-            videos(orderBy: BlockTimestamp, orderDirection: desc) {
-              id
-              VideoId
-              Owner
-              URI
-              Room
-              IsListed
-              IsPublished
-              Price
-              BlockTimestamp
-            }
+  const post = {}
+
+  const response = await fetch(
+    "https://api.thegraph.com/subgraphs/name/karthikeyagundumogula/creatorzv1",
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        query: `
+        {
+          videos(orderBy: CreatedDate, orderDirection: desc) {
+            id
+            RoomId
+            Creator
+            owner
+            Listed
+            Price
+            Published
+            AdsEnabled
+            CreatedDate
+            MetadataURI
+            Beneficiaries
+            HolderPercentage
+            LastPublishedDate
+            OwnerPercentage
+            SocialTokenId
+            TotalEarnings
           }
-      `,
-        }),
-      }
-    );
-    const result = await response.json();
-    console.log(result)
-    post.videos = result.data["videos"]
-  
-    return {
-      props: {
-        post,
-      },
-    };
+        }
+    `,
+      }),
+    }
+  );
+  const result = await response.json();
+  console.log(result)
+  post.videos = result.data["videos"]
+
+  return {
+    props: {
+      post,
+    },
+  };
   }
   

@@ -5,7 +5,6 @@ export const getContract = async (Address, ABI) => {
     await provider.send("eth_requestAccounts", []);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(Address, ABI, signer);
-    console.log(contract);
     return contract;
   } catch (err) {
     console.log(err);

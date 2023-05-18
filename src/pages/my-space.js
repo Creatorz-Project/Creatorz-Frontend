@@ -10,38 +10,57 @@ export default function Index(props) {
 export async function getServerSideProps() {
 
     const post = {}
-
+  
     const response = await fetch(
-        "https://api.thegraph.com/subgraphs/name/karthikeyagundumogula/creatorz",
-        {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                query: `
+      "https://api.thegraph.com/subgraphs/name/karthikeyagundumogula/creatorzv1",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          query: `
           {
-            videos(orderBy: BlockTimestamp, orderDirection: desc) {
+            videos(orderBy: CreatedDate, orderDirection: desc) {
               id
-              VideoId
-              Owner
-              URI
-              Room
-              IsListed
-              IsPublished
+              RoomId
+              Creator
+              owner
+              Listed
               Price
-              BlockTimestamp
+              Published
+              AdsEnabled
+              CreatedDate
+              MetadataURI
+              Beneficiaries
+              HolderPercentage
+              LastPublishedDate
+              OwnerPercentage
+              SocialTokenId
+            }
+            rooms(orderBy: CreatedDate, orderDirection: desc) {
+              id
+              RoomId
+              Creator
+              Owner
+              Videos
+              TotalEarning
+              IsListed
+              CreatedDate
+              URI
             }
           }
       `,
-            }),
-        }
+        }),
+      }
     );
     const result = await response.json();
     console.log(result)
     post.videos = result.data["videos"]
-
+    post.rooms = result.data["rooms"]
+  
     return {
-        props: {
-            post,
-        },
+      props: {
+        post,
+      },
     };
-}
+  }
+  

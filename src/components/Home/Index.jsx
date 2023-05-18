@@ -28,7 +28,7 @@ export default function Main(props) {
         continue;
       } else {
         const newresponse = await fetch(
-          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://gateway.pinata.cloud/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -45,6 +45,8 @@ export default function Main(props) {
       forloop();
     }
   }, [videos]);
+
+  console.log(videosData);
 
   return (
     <div className="w-full flex flex-row">

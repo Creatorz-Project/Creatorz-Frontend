@@ -4,20 +4,21 @@ import moment from "moment";
 import { useRouter } from "next/router";
 // import { getRoomsContract } from "@/utils/getContracts";
 import Link from "next/link";
+import { Marketplace as MPAddress } from "@/utils/Constants/Addresses";
+import { Marketplace as MPAbi } from "@/utils/Constants/ABIs";
+import { getContract } from "@/utils/Constants/Contracts";
 import { ethers } from "ethers";
 
 export default function Video({ horizontal, video }) {
   const buyHandler = async () => {
-    // try {
-    //   const roomsContract = await getRoomsContract();
-    //   const tx = await roomsContract.buyVideo(video.VideoId, {
-    //     value: ethers.utils.parseEther("0"),
-    //   });
-    //   await tx.wait();
-    //   console.log("Video bought");
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      const Marketplace = await getContract(MPAddress, MPAbi);
+      console.log(video.VideoId);
+      const tx = await Marketplace.buyVideo(10, 11);
+      await tx.wait();
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -45,17 +46,14 @@ export default function Video({ horizontal, video }) {
             {video.title}
           </h4>
           <p className="text-sm flex items-center text-[#878787] mt-1">
-            {video.category + " • " + moment(video.createdAt * 1000).fromNow()}
+            {video.category + " • " + video.CreatedDate}
           </p>
           <p className="text-sm flex items-center text-[#878787] mt-1">
-            {video?.Owner?.slice(0, 9)}...{" "}
+            {video?.owner?.slice(0, 9)}...{" "}
             <BiCheck size="20px" color="green" className="ml-1" />
           </p>
           <div className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-600 text-xl font-medium">
-            Price{" "}
-            <span className="font-bold">
-              {ethers.utils.formatEther(video.Price)} CRTZ
-            </span>
+            Price <span className="font-bold">{video.Price} CRTZ</span>
           </div>
         </div>
         <div>

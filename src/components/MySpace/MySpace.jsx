@@ -15,6 +15,8 @@ import { ethers } from "ethers";
 import { getContract } from "@/utils/Constants/Contracts";
 import { ContentManager as CMAddresss } from "../../utils/Constants/Addresses";
 import { ContentManger as CMABI } from "../../utils/Constants/ABIs";
+import { Marketplace as MarketplaceAddress } from "@/utils/Constants/Addresses";
+import { Marketplace as MarketplaceABI } from "@/utils/Constants/ABIs";
 import TextField from "@mui/material/TextField";
 
 const contract = getContract(CMAddresss, CMABI);
@@ -53,12 +55,14 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
 
 export default function MySpace(props) {
   const [videos, setVideos] = useState(props.Post.videos);
+  const [rooms, setRooms] = useState(props.Post.rooms);
+  const [roomsData, setRoomsData] = useState([]);
   const [videosData, setVideosData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [listed, setListed] = useState();
-  const [Publish, setPublish] = useState();
+
   const { address } = useAccount();
   const [ethAccount, setEthAccount] = useState("null");
+  const [videoPrice, setVideoPrice] = useState(0);
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
@@ -90,14 +94,14 @@ export default function MySpace(props) {
         title: `${task} a new video -> ${data.title}`,
         body: `${data.description}`,
         cta: "",
-        img: `https://ipfs.io/ipfs/${data.thumbnail}`,
+        img: `https://gateway.pinata.cloud/ipfs/${data.thumbnail}`,
       },
       channel: "eip155:5:0x2D449c535E4B2e07Bc311fbe1c14bf17fEC16AAb", // your channel address
       env: "staging",
     });
   };
 
-  const forloop = useCallback(async () => {
+  const videoForLoop = useCallback(async () => {
     setLoading(true);
 
     const tempChoicesArray = [];
@@ -109,13 +113,15 @@ export default function MySpace(props) {
 
     for (let i = 0; i < videos.length; i++) {
       let obj = {};
-      const newresponse = await fetch(
-        `https://ipfs.io/ipfs/${videos[i].URI}/RoomMetaData.json`,
-        requestOptions
-      );
-      const result = await newresponse.json();
-      obj = { ...result, ...videos[i] };
-      tempChoicesArray.push(obj);
+      if (videos[i].MetadataURI.length > 8) {
+        const newresponse = await fetch(
+          `https://gateway.pinata.cloud/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          requestOptions
+        );
+        const result = await newresponse.json();
+        obj = { ...result, ...videos[i] };
+        tempChoicesArray.push(obj);
+      }
 
       setLoading(false);
     }
@@ -126,27 +132,58 @@ export default function MySpace(props) {
 
   useEffect(() => {
     if (videos.length > 0) {
-      forloop();
+      videoForLoop();
     }
   }, [videos]);
 
+  const roomForLoop = useCallback(async () => {
+    setLoading(true);
+
+    const tempChoicesArray = [];
+
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    for (let i = 0; i < rooms.length; i++) {
+      let obj = {};
+      if (rooms[i].URI.length > 8) {
+        const newresponse = await fetch(
+          `https://gateway.pinata.cloud/ipfs/${rooms[i].URI}/RoomMetaData.json`,
+          requestOptions
+        );
+        const result = await newresponse.json();
+        obj = { ...result, ...rooms[i] };
+        tempChoicesArray.push(obj);
+      }
+
+      setLoading(false);
+    }
+    setRoomsData(tempChoicesArray);
+  }, [rooms, roomsData]);
+
+  console.log(roomsData);
+
+  useEffect(() => {
+    if (rooms.length > 0) {
+      roomForLoop();
+    }
+  }, [rooms]);
+
   const ListVideo = async (event, data) => {
-    setListed(event.target.checked);
     console.log(data);
-    // if (event.target.checked == true) {
-    //   const task = "Listed";
-    //   const roomsContract = await getRoomsContract();
-    //   const tx = await roomsContract.listVideo(data.id, "8949494");
-    //   await tx.wait();
-    //   sendNotification(data, task);
-    // }
-    // else {
-    //   const task = "Unlisted";
-    //   const roomsContract = await getRoomsContract();
-    //   const tx = await roomsContract.unListVideo(data.id);
-    //   await tx.wait();
-    //   sendNotification(data, task);
-    // }
+    const contract = await getContract(MarketplaceAddress, MarketplaceABI);
+    if (event.target.checked == true) {
+      const tx = await contract.listVideo(data.id, price);
+      await tx.wait();
+    } else {
+      const tx = await contract.unListVideo(data.id);
+      await tx.wait();
+    }
+  };
+  const PublishVideo = async (event, data) => {
+    console.log(data);
   };
 
   const ListingPrice = (event, data) => {
@@ -155,6 +192,7 @@ export default function MySpace(props) {
       console.log(event.target.value);
     }
   };
+  console.log(rooms, videos);
 
   return (
     <div>
@@ -177,14 +215,14 @@ export default function MySpace(props) {
           {videosData
             .filter(
               (element) =>
-                element.Owner.toLowerCase() == ethAccount.toLowerCase()
+                element.owner.toLowerCase() == ethAccount.toLowerCase()
             )
             .map((data, index) => {
               return (
                 <Card sx={{ maxWidth: 345 }}>
                   <CardMedia
                     sx={{ height: 140 }}
-                    image={`https://ipfs.io/ipfs/${data.thumbnail}`}
+                    image={`https://gateway.pinata.cloud/ipfs/${data.thumbnail}`}
                     title="thumbnail"
                   />
                   <CardContent>
