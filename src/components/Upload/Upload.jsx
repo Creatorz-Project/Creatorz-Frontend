@@ -22,6 +22,7 @@ import { ethers } from "ethers";
 // import * as PushAPI from "@pushprotocol/restapi";
 import { Polybase } from "@polybase/client";
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
+import moment from 'moment'
 
 const db = new Polybase({
   defaultNamespace:
@@ -51,6 +52,7 @@ export default function Upload() {
   //  Creating a ref for thumbnail and video
   const thumbnailRef = useRef(null);
   const videoRef = useRef(null);
+  const CreatedAt = moment().format("MMM Do YY")
 
   const uploadThumbnail = async () => {
     // Passing the file to the saveToIPFS function and getting the CID
@@ -264,6 +266,7 @@ export default function Upload() {
           video: videoId,
           room: 2,
           owner: address,
+          CreatedAt: CreatedAt,
         };
         const URI = await saveMetaData(data);
         try {
