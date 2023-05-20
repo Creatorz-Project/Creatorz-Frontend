@@ -128,31 +128,31 @@ export default function VideoPage(props) {
     );
 }
 
-export async function getServerSideProps() {
+// export async function getServerSideProps() {
 
-    const post = {}
+//     const post = {}
 
-    console.log("getting video list")
-    var myHeaders = new Headers();
-    myHeaders.append('Content-Type', 'application/json');
-    myHeaders.append('x-tva-sa-id', 'srvacc_kb0ub280r8mf2wsgjrp2q31tq');
-    myHeaders.append('x-tva-sa-secret', '59iwg4ev1s99u5vh3yt2btgv71ud8vpp')
+//     console.log("getting video list")
+//     var myHeaders = new Headers();
+//     myHeaders.append('Content-Type', 'application/json');
+//     myHeaders.append('x-tva-sa-id', 'srvacc_kb0ub280r8mf2wsgjrp2q31tq');
+//     myHeaders.append('x-tva-sa-secret', '59iwg4ev1s99u5vh3yt2btgv71ud8vpp')
 
-    var requestOptions = {
-        method: 'GET',
-        headers: myHeaders,
-        redirect: 'follow',
+//     var requestOptions = {
+//         method: 'GET',
+//         headers: myHeaders,
+//         redirect: 'follow',
 
-    };
+//     };
 
-    const response = await fetch(`https://api.thetavideoapi.com/video/srvacc_kb0ub280r8mf2wsgjrp2q31tq/list?page=1&number=100`, requestOptions)
-    const result = await response.json()
-    console.log(result)
-    post.videos = result.body.videos
+//     const response = await fetch(`https://api.thetavideoapi.com/video/srvacc_kb0ub280r8mf2wsgjrp2q31tq/list?page=1&number=100`, requestOptions)
+//     const result = await response.json()
+//     console.log(result)
+//     post.videos = result.body.videos
 
-    return {
-        props: {
-            post,
-        },
-    };
-}
+//     return {
+//         props: {
+//             post,
+//         },
+//     };
+// }
