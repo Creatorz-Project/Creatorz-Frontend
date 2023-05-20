@@ -1,16 +1,56 @@
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
+import { useAccount } from "wagmi";
+import TokenCard from "./TokenCard";
+import Backdrop from "@mui/material/Backdrop";
+import CircularProgress from "@mui/material/CircularProgress";
 
-export default function TokenMarketPlace() {
+export default function TokenMarketPlace(props) {
     const [selectedOption, setSelectedOption] = useState("Social Token")
     const router = useRouter()
+    const [tokens, setTokens] = useState(props.Post.socialTokenHoldings);
+    const [tokensData, setTokensData] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [balance, setBalance] = useState(0);
+    const { address } = useAccount();
 
     const options = [
         { name: "Videos", url: "/marketplace/video" }, { name: "Rooms", url: "/marketplace/room" }, { name: "Social Token", url: "/marketplace/token" }
     ]
 
-    console.log(selectedOption)
+    const forloop = useCallback(async () => {
+        setLoading(true);
 
+        const tempChoicesArray = [];
+
+        var requestOptions = {
+            method: "GET",
+            redirect: "follow",
+        };
+
+        for (let i = 0; i < tokens.length; i++) {
+            let obj = {};
+            if (tokens[i].URI.length > 8) {
+                const newresponse = await fetch(
+                    `https://ipfs.io/ipfs/${tokens[i].URI}/RoomMetaData.json`,
+                    requestOptions
+                );
+                const result = await newresponse.json();
+                obj = { ...result, ...tokens[i] };
+                tempChoicesArray.push(obj);
+            }
+            setLoading(false);
+        }
+        setTokensData(tempChoicesArray);
+    }, [tokens, tokensData]);
+
+    useEffect(() => {
+        if (tokens.length > 0) {
+            forloop();
+        }
+    }, [tokens]);
+
+    console.log(tokens, tokensData);
 
     return (
         <div>
@@ -60,6 +100,29 @@ export default function TokenMarketPlace() {
                     >
                         Get Creators Token
                     </button>
+                </div>
+            </div>
+            <div className="w-full flex flex-row">
+                <Backdrop
+                    sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={loading}
+                >
+                    <CircularProgress color="inherit" />
+                </Backdrop>
+                <div className="flex flex-row flex-wrap gap-5 mx-5 my-5">
+                    {tokensData.length > 0 ? (
+                        tokensData
+                            // .filter((data) => data.IsListed == true)
+                            .map((data, index) => {
+                                return (
+                                    <div className="w-80 bg-[#1a1c1f] rounded-xl" key={index}>
+                                        <TokenCard token={data} />
+                                    </div>
+                                );
+                            })
+                    ) : (
+                        <></>
+                    )}
                 </div>
             </div>
         </div>

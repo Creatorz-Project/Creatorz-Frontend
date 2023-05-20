@@ -1,4 +1,4 @@
-
+import { Button } from "@mui/material"
 
 export default function RoomCard(props) {
     return (
@@ -45,6 +45,7 @@ export default function RoomCard(props) {
                     <dd class="text-xs text-gray-300">{props.room.Price}</dd>
                 </div>
             </dl>
+        <Button variant="contained" color="primary" className=" bg-sky-600 font-semibold mt-2">Buy</Button>
         </main>
     )
 }
