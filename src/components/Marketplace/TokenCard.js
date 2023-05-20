@@ -29,9 +29,9 @@ export default function TokenCard(props) {
                 </div>
                 <div className="flex items-center justify-between md:items-center lg:justify-between ">
                     <div className="flex">
-                        <p className="!mb-0 text-sm font-bold text-brand-500">Current Bid: 0.91 <span>ETH</span></p>
+                        <p className="!mb-0 text-sm font-bold text-brand-500">Amount for Sale: <span>{props.token.AmountListedByHolder}</span></p>
                     </div>
-                    <button href="" className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700">Place Bid</button>
+                    <button href="" className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700">Buy</button>
                 </div>
             </div>
         </div>

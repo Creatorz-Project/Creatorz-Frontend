@@ -80,7 +80,7 @@ export default function MintToken() {
                   value={maxHoldingAmount}
                   onChange={(e) => setMaxHoldingAmount(e.target.value)}
                   type="number"
-                  placeholder="Max Holding Amount of Token"
+                  placeholder="Max Holding Amount of the Token per User"
                   className="w-[90%] text-white placeholder:text-gray-600  rounded-md mt-2 h-12 p-2 border  bg-[#1a1c1f] border-[#444752] focus:outline-none"
                 />
               </div>

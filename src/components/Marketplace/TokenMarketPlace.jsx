@@ -112,7 +112,7 @@ export default function TokenMarketPlace(props) {
                 <div className="flex flex-row flex-wrap gap-5 mx-5 my-5">
                     {tokensData.length > 0 ? (
                         tokensData
-                            // .filter((data) => data.IsListed == true)
+                            .filter((data) => parseInt(data.AmountListedByHolder) > 0 )
                             .map((data, index) => {
                                 return (
                                     <div className="w-80 bg-[#1a1c1f] rounded-xl" key={index}>
