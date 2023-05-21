@@ -138,7 +138,7 @@ export default function RoomMarketPlace(props) {
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
-                <div className="flex flex-row flex-wrap gap-5 mx-5 my-5">
+                <div className="flex flex-row flex-wrap gap-5 mx-5 my-5 min-h-[70vh]">
                     {roomsData.length > 0 ? (
                         roomsData
                             .filter((data) => data.IsListed == true)

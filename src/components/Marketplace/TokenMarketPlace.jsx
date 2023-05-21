@@ -109,7 +109,7 @@ export default function TokenMarketPlace(props) {
                 >
                     <CircularProgress color="inherit" />
                 </Backdrop>
-                <div className="flex flex-row flex-wrap gap-5 mx-5 my-5">
+                <div className="flex flex-row flex-wrap gap-5 mx-5 my-5 min-h-[70vh]">
                     {tokensData.length > 0 ? (
                         tokensData
                             .filter((data) => parseInt(data.AmountListedByHolder) > 0 )

@@ -1,5 +1,6 @@
 import '@/styles/globals.css'
 import Header from '@/components/Header/Header';
+import Footer from '@/components/Footer';
 import "@rainbow-me/rainbowkit/styles.css";
 import {
   RainbowKitProvider,
@@ -69,6 +70,7 @@ export default function App({ Component, pageProps }) {
             <RainbowKitProvider chains={chains} theme={midnightTheme()}>
               <Header />
               <Component {...pageProps} />
+              <Footer />
             </RainbowKitProvider>
           </WagmiConfig>
       </ApolloProvider>

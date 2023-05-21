@@ -146,7 +146,7 @@ export default function VideoMarketPlace(props) {
         >
           <CircularProgress color="inherit" />
         </Backdrop>
-        <div className="flex flex-row flex-wrap gap-5 mx-5 my-5">
+        <div className="flex flex-row flex-wrap gap-5 mx-5 my-5 min-h-[70vh]">
           {videosData.length > 0 ? (
             videosData
               .filter((data) => data.Listed == true)

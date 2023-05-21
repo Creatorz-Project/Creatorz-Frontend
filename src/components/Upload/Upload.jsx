@@ -110,34 +110,37 @@ export default function Upload() {
     getUserRooms();
   }, []);
 
-  // const forloop = useCallback(async () => {
-  //   const tempChoicesArray = [];
+  const forloop = useCallback(async () => {
+    const tempChoicesArray = [];
 
-  //   var requestOptions = {
-  //     method: "GET",
-  //     redirect: "follow",
-  //   };
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
 
-  //   for (let i = 0; i < userRooms.length; i++) {
-  //     let obj = {};
-  //     const newresponse = await fetch(
-  //       `https://ipfs.io/ipfs/${userRooms[i].URI}/RoomMetaData.json`,
-  //       requestOptions
-  //     );
-  //     const result = await newresponse.json();
-  //     obj = { ...result, ...userRooms[i] };
-  //     tempChoicesArray.push(obj);
-  //   }
-  //   setUpdatedUserRooms(tempChoicesArray);
-  // }, [userRooms]);
+    for (let i = 0; i < userRooms.length; i++) {
+      let obj = {};
+      if (userRooms[i].URI.length > 8) {
+        const newresponse = await fetch(
+          `https://ipfs.io/ipfs/${userRooms[i].URI}/RoomMetaData.json`,
+          requestOptions
+        );
+        const result = await newresponse.json();
+        obj = { ...result, ...userRooms[i] };
+        tempChoicesArray.push(obj);
+      }
+      setLoading(false);
+    }
+    setUpdatedUserRooms(tempChoicesArray);
+  }, [userRooms]);
 
-  // useEffect(() => {
-  //   if (userRooms.length > 0) {
-  //     forloop();
-  //   }
-  // }, [userRooms]);
+  useEffect(() => {
+    if (userRooms.length > 0) {
+      forloop();
+    }
+  }, [userRooms]);
 
-  // console.log(userRooms);
+  console.log(room);
 
   const getUploadUrl = async () => {
     console.log("getting upload url");
@@ -288,13 +291,13 @@ export default function Upload() {
     }
   }, [transcodeStatus]);
 
-  // const roomData = (e) => {
-  //   for (let i = 0; i < updatedUserRooms.length; i++) {
-  //     if (updatedUserRooms[i].title == e.target.value) {
-  //       setRoom(updatedUserRooms[i].RoomId);
-  //     }
-  //   }
-  // };
+  const roomData = (e) => {
+    for (let i = 0; i < updatedUserRooms.length; i++) {
+      if (updatedUserRooms[i].title == e.target.value) {
+        setRoom(updatedUserRooms[i].RoomId);
+      }
+    }
+  };
 
   return (
     <div className="w-full h-screen bg-[#000000] flex flex-row">
