@@ -4,6 +4,7 @@ import moment from "moment";
 import { useRouter } from "next/router";
 
 export default function Video({ horizontal, video }) {
+  console.log(video)
 
   const router = useRouter()
 
@@ -16,7 +17,7 @@ export default function Video({ horizontal, video }) {
       } `}
       onClick={() => {
         // Navigation to the video screen (which we will create later)
-        router.push(`/video?id=${video.id}`);
+        router.push(`/video?id=${video.video}`);
       }}
     >
       <img

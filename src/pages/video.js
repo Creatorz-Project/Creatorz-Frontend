@@ -111,11 +111,11 @@ export default function VideoPage(props) {
                             <h4 className="text-md font-bold text-white ml-5 mb-3">
                                 Related Videos
                             </h4>
-                            {relatedVideos.map((video) => (
+                            {relatedVideos.map((video,index) => (
                                 <Link
                                     // Navigation to the video screen (which we will create later)
                                     href={`/video?id=${video.video}`}
-                                    key={video.id}
+                                    key={index}
                                 >
                                     <Video video={video} horizontal={true} />
                                 </Link>
