@@ -23,6 +23,7 @@ import { ethers } from "ethers";
 import { Polybase } from "@polybase/client";
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
 import moment from 'moment'
+import SuccessDialog from "../SuccessDialog";
 
 const db = new Polybase({
   defaultNamespace:
@@ -48,6 +49,7 @@ export default function Upload() {
   const [uploadId, setUploadId] = useState("");
   const [uploadStatus, setUploadStatus] = useState(false);
   const [transcodeStatus, setTranscodeStatus] = useState(false);
+  const [finalStatus, setFinalStatus] = useState(false)
 
   //  Creating a ref for thumbnail and video
   const thumbnailRef = useRef(null);
@@ -60,6 +62,10 @@ export default function Upload() {
     // Returning the CID
     return cid;
   };
+
+  const DialogOpenHandler = () => {
+    setFinalStatus(!finalStatus)
+  }
 
   const client = useApolloClient();
 
@@ -488,6 +494,7 @@ export default function Upload() {
           }}
         />
       </div>
+      <SuccessDialog open={finalStatus} openHandler={DialogOpenHandler} />
     </div>
   );
 }
