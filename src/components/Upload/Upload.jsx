@@ -146,8 +146,8 @@ export default function Upload() {
     console.log("getting upload url");
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("x-tva-sa-id", "srvacc_kb0ub280r8mf2wsgjrp2q31tq");
-    myHeaders.append("x-tva-sa-secret", "59iwg4ev1s99u5vh3yt2btgv71ud8vpp");
+    myHeaders.append("x-tva-sa-id", process.env.NEXT_PUBLIC_THETA_VIDEO_API_ID);
+    myHeaders.append("x-tva-sa-secret", process.env.NEXT_PUBLIC_THETA_VIDEO_API_SECRET);
 
     var requestOptions = {
       method: "POST",
@@ -169,8 +169,8 @@ export default function Upload() {
     console.log("transcoding");
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("x-tva-sa-id", "srvacc_kb0ub280r8mf2wsgjrp2q31tq");
-    myHeaders.append("x-tva-sa-secret", "59iwg4ev1s99u5vh3yt2btgv71ud8vpp");
+    myHeaders.append("x-tva-sa-id", process.env.NEXT_PUBLIC_THETA_VIDEO_API_ID);
+    myHeaders.append("x-tva-sa-secret", process.env.NEXT_PUBLIC_THETA_VIDEO_API_SECRET);
 
     var requestOptions = {
       method: "POST",
