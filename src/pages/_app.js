@@ -70,7 +70,7 @@ export default function App({ Component, pageProps }) {
             <RainbowKitProvider chains={chains} theme={midnightTheme()}>
               <Header />
               <Component {...pageProps} />
-              <Footer />
+              {/* <Footer /> */}
             </RainbowKitProvider>
           </WagmiConfig>
       </ApolloProvider>

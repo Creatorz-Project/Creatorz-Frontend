@@ -2,7 +2,7 @@ import Link from "next/link"
 
 export default function Footer() {
     return (
-        <footer className="bg-[#0a0a0a] flex flex-col items-center gap-4 p-10 bg-base-200 text-base-content rounded">
+        <footer className="bg-[#0a0a0a] flex flex-col items-center gap-4 p-10 bg-base-200 text-base-content rounded w-full mt-7">
             <div className="grid grid-flow-col gap-4">
                 <Link href="#" className="link link-hover">About us</Link>
                 <Link href="#" className="link link-hover">Contact</Link>

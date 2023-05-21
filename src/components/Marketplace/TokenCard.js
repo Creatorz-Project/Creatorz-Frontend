@@ -1,4 +1,16 @@
+import { useState } from "react"
+import TokenInfoModal from "./TokenInfoModal"
+
 export default function TokenCard(props) {
+
+    const [open, setOpen] = useState(false)
+    const openHandler = () => {
+        setOpen(!open)
+    }
+
+    console.log(open)
+
+
     return (
         <div className="!z-5 relative flex flex-col rounded-[20px] bg-clip-border shadow-3xl shadow-shadow-500 w-full !p-4 3xl:p-![18px]">
             <div className="h-full w-full">
@@ -10,12 +22,13 @@ export default function TokenCard(props) {
                         </div> 
                     </button> */}
                 </div>
-                <div className="mb-3 flex items-center justify-between px-1 md:items-start">
-                    <div className="mb-2">
-                        <p className="text-lg font-bold text-navy-700"> {props.token.title} </p>
-                        <p className="mt-1 text-sm font-medium text-gray-500 md:mt-2">By {props.token?.Creator?.slice(0, 7)}...</p>
-                    </div>
-                    {/* <div class="flex flex-row-reverse md:mt-2 lg:mt-0">
+                <div onClick={() => openHandler()}>
+                    <div className="mb-3 flex items-center justify-between px-1 md:items-start">
+                        <div className="mb-2">
+                            <p className="text-lg font-bold text-navy-700"> {props.token.title} </p>
+                            <p className="mt-1 text-sm font-medium text-gray-500 md:mt-2">By {props.token?.Creator?.slice(0, 7)}...</p>
+                        </div>
+                        {/* <div class="flex flex-row-reverse md:mt-2 lg:mt-0">
                         <span class="z-0 ml-px inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#E0E5F2] text-xs text-navy-700 ">+5</span><span class="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white">
                             <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar1.eeef2af6dfcd3ff23cb8.png" alt="" />
                         </span>
@@ -26,14 +39,16 @@ export default function TokenCard(props) {
                             <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar3.9f646ac5920fa40adf00.png" alt="" />
                         </span>
                     </div> */}
-                </div>
-                <div className="flex items-center justify-between md:items-center lg:justify-between ">
-                    <div className="flex">
-                        <p className="!mb-0 text-sm font-bold text-brand-500">Amount for Sale: <span>{props.token.AmountListedByHolder}</span></p>
                     </div>
-                    <button href="" className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700">Buy</button>
+                    <div className="flex items-center justify-between md:items-center lg:justify-between ">
+                        <div className="flex">
+                            <p className="!mb-0 text-sm font-bold text-brand-500">Amount for Sale: <span>{props.token.AmountListedByHolder}</span></p>
+                        </div>
+                        <button href="" className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700">Buy</button>
+                    </div>
                 </div>
             </div>
+            <TokenInfoModal openHandler={openHandler} open={open} />
         </div>
     )
 }
