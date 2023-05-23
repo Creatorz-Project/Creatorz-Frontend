@@ -53,10 +53,10 @@ export default function Header() {
 
     return (
         <nav x-data="{ isOpen: false }" class="relative bg-[#0D171C]">
-            <div class="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
+            <div class="container px-4 py-4 mx-auto md:flex md:justify-between md:items-center">
                 <div class="flex items-center justify-between">
                     <Link href="/">
-                        <div className=" font-semibold text-2xl">Creatorz</div>
+                        <img src="/logo.png" className="w-[150px]"></img>
                     </Link>
                     <div class="flex lg:hidden">
                         <button x-cloak onClick={() => { setIsOpen(!isOpen) }} type="button" class="text-gray-500 dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-400 focus:outline-none focus:text-gray-600 dark:focus:text-gray-400" aria-label="toggle menu">
