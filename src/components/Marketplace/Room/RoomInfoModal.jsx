@@ -1,13 +1,17 @@
-import { React, useState } from 'react';
+import { React, useState, useCallback } from 'react';
 import { useApolloClient, gql } from "@apollo/client";
 import { useEffect } from "react";
 import Link from 'next/link';
 
-export default function TokenInfoModal(props) {
+export default function RoomInfoModal(props) {
     console.log(props.data)
 
     const [URI, setURI] = useState("");
     const [videoId, setVideoId] = useState("");
+    const [videos, setVideos] = useState([]);
+    const [videosData, setVideosData] = useState([]);
+    const [loading, setLoading] = useState(false);
+
     const name = Object.keys(props.data)
 
     const client = useApolloClient();
@@ -20,8 +24,9 @@ export default function TokenInfoModal(props) {
         $orderDirection: OrderDirection
         $where: String
       ) {
-        videos(where: { id : $where }) {
+        videos {
             MetadataURI
+            id
         }
       }
     `;
@@ -31,14 +36,12 @@ export default function TokenInfoModal(props) {
             .query({
                 query: GET_VIDEOS,
                 variables: {
-                    first: 20,
-                    skip: 0,
-                    where: props.data.VideoId,
                 },
                 fetchPolicy: "network-only",
             })
             .then(({ data }) => {
                 console.log(data.videos);
+                setVideos(data.videos);
                 setURI(data.videos[0].MetadataURI);
             });
     };
@@ -57,6 +60,43 @@ export default function TokenInfoModal(props) {
                 .catch((error) => console.log('error', error));
         }
     }, [URI])
+
+    const forloop = useCallback(async () => {
+        setLoading(true);
+
+        const tempChoicesArray = [];
+
+        var requestOptions = {
+            method: "GET",
+            redirect: "follow",
+        };
+
+        for (let i = 0; i < videos.length; i++) {
+            let obj = {};
+
+            if (videos[i].MetadataURI.length < 8) {
+                continue;
+            } else {
+                const newresponse = await fetch(
+                    `https://gateway.pinata.cloud/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+                    requestOptions
+                );
+                const result = await newresponse.json();
+                obj = { ...result, ...videos[i] };
+                tempChoicesArray.push(obj);
+            }
+        }
+        setLoading(false);
+        setVideosData(tempChoicesArray);
+    }, [videos, videosData]);
+
+    useEffect(() => {
+        if (videos.length > 0) {
+            forloop();
+        }
+    }, [videos]);
+
+    console.log(videosData.filter((data) => props.data.Videos.includes(String(data.id)) == true ))
 
     return (
         <>
@@ -78,7 +118,7 @@ export default function TokenInfoModal(props) {
                             {/* Modal body  */}
                             <div className="p-6 flex flex-wrap gap-8">
                                 {
-                                    name.filter((data) => data != "VideoId" && data != "URI" && data != "id").map((data) => {
+                                    name.filter((data) => data != "Videos" && data != "URI" && data != "id").map((data) => {
                                         return (
                                             <div className="flex flex-wrap items-center justify-center gap-2 ">
                                                 <div className="text-lg font-semibold text-gray-400">{data}</div>
@@ -88,7 +128,12 @@ export default function TokenInfoModal(props) {
                                     })
                                 }
                                 <div className="flex flex-wrap items-center justify-center gap-2 ">
-                                    <Link href={videoId == "" ? `#` : `/video?id=${videoId}`} target="_blank" className="text-lg font-semibold underline text-cyan-600 "> Video Linked </Link>
+                                    {videosData.filter((data) => props.data.Videos.includes(String(data.id)) == true ).map((data) => {
+                                        console.log(data.id in props.data.Videos)
+                                        return (
+                                            <Link href={data.video == "" ? `#` : `/video?id=${data.video}`} target="_blank" className="text-lg font-semibold underline text-cyan-600 "> Video Linked </Link>
+                                        )
+                                    })}
                                 </div>
                             </div>
                             {/* Modal footer  */}
