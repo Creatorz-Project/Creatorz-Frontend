@@ -1,4 +1,4 @@
-import VideoMarketPlace from '@/components/Marketplace/VideoMarketPlace'
+import VideoMarketPlace from '@/components/Marketplace/Video/VideoMarketPlace'
 
 export default function market(props){
     return (

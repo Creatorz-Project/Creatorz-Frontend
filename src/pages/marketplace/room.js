@@ -1,4 +1,4 @@
-import RoomMarketPlace from '@/components/Marketplace/RoomMarketPlace'
+import RoomMarketPlace from '@/components/Marketplace/Room/RoomMarketPlace'
 
 export default function market(props) {
     return (

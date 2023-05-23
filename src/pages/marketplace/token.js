@@ -1,4 +1,4 @@
-import TokenMarketPlace from '@/components/Marketplace/TokenMarketPlace'
+import TokenMarketPlace from '@/components/Marketplace/Token/TokenMarketPlace'
 
 export default function market(props){
     return (
