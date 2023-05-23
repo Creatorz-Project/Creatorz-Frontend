@@ -1,9 +1,10 @@
 import { useState } from "react"
-import TokenInfoModal from "./TokenInfoModal"
+import TokenInfoModal from "./TokenInfoModal.jsx"
 
 export default function TokenCard(props) {
 
     const [open, setOpen] = useState(false)
+
     const openHandler = () => {
         setOpen(!open)
     }
@@ -48,7 +49,7 @@ export default function TokenCard(props) {
                     </div>
                 </div>
             </div>
-            <TokenInfoModal openHandler={openHandler} open={open} />
+            <TokenInfoModal openHandler={openHandler} open={open} data={props.token}/>
         </div>
     )
 }
