@@ -4,9 +4,9 @@ import moment from "moment";
 import { useRouter } from "next/router";
 
 export default function Video({ horizontal, video }) {
-  console.log(video)
+  console.log(video);
 
-  const router = useRouter()
+  const router = useRouter();
 
   return (
     <div
@@ -26,7 +26,7 @@ export default function Video({ horizontal, video }) {
             ? "object-cover rounded-lg w-60 "
             : "object-cover rounded-lg w-full h-40"
         }
-        src={`https://gateway.pinata.cloud/ipfs/${video.thumbnail}`}
+        src={`https://w3s.link/ipfs/${video.thumbnail}`}
         alt=""
       />
       <div className={` m-2 ${horizontal && "ml-3  w-80"}`}>

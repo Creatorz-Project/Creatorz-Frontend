@@ -27,6 +27,7 @@ export default function VideoMarketPlace(props) {
 
   const getTokensHandler = async () => {
     try {
+      console.log(address);
       setLoading(true);
       const tokenContract = await getContract(TokenAddress, Token);
       const tx = await tokenContract.getCreatorzTokens();
@@ -54,7 +55,7 @@ export default function VideoMarketPlace(props) {
       let obj = {};
       if (videos[i].MetadataURI.length > 8) {
         const newresponse = await fetch(
-          `https://gateway.pinata.cloud/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();

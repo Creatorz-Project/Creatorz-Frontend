@@ -115,7 +115,7 @@ export default function MySpace(props) {
       let obj = {};
       if (videos[i].MetadataURI.length > 8) {
         const newresponse = await fetch(
-          `https://gateway.pinata.cloud/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -150,7 +150,7 @@ export default function MySpace(props) {
       let obj = {};
       if (rooms[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://gateway.pinata.cloud/ipfs/${rooms[i].URI}/RoomMetaData.json`,
+          `https://w3s.link/ipfs/${rooms[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -222,7 +222,7 @@ export default function MySpace(props) {
                 <Card sx={{ maxWidth: 345 }}>
                   <CardMedia
                     sx={{ height: 140 }}
-                    image={`https://gateway.pinata.cloud/ipfs/${data.thumbnail}`}
+                    image={`https://w3s.link/ipfs/${data.thumbnail}`}
                     title="thumbnail"
                   />
                   <CardContent>

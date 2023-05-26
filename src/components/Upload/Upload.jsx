@@ -22,7 +22,7 @@ import { ethers } from "ethers";
 // import * as PushAPI from "@pushprotocol/restapi";
 import { Polybase } from "@polybase/client";
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
-import moment from 'moment'
+import moment from "moment";
 import SuccessDialog from "../SuccessDialog";
 
 const db = new Polybase({
@@ -49,12 +49,12 @@ export default function Upload() {
   const [uploadId, setUploadId] = useState("");
   const [uploadStatus, setUploadStatus] = useState(false);
   const [transcodeStatus, setTranscodeStatus] = useState(false);
-  const [finalStatus, setFinalStatus] = useState(false)
+  const [finalStatus, setFinalStatus] = useState(false);
 
   //  Creating a ref for thumbnail and video
   const thumbnailRef = useRef(null);
   const videoRef = useRef(null);
-  const CreatedAt = moment().format("MMM Do YY")
+  const CreatedAt = moment().format("MMM Do YY");
 
   const uploadThumbnail = async () => {
     // Passing the file to the saveToIPFS function and getting the CID
@@ -64,8 +64,8 @@ export default function Upload() {
   };
 
   const DialogOpenHandler = () => {
-    setFinalStatus(!finalStatus)
-  }
+    setFinalStatus(!finalStatus);
+  };
 
   const client = useApolloClient();
 
@@ -128,7 +128,7 @@ export default function Upload() {
       let obj = {};
       if (userRooms[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://ipfs.io/ipfs/${userRooms[i].URI}/RoomMetaData.json`,
+          `https://w3s.link/ipfs/${userRooms[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -153,7 +153,10 @@ export default function Upload() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("x-tva-sa-id", process.env.NEXT_PUBLIC_THETA_VIDEO_API_ID);
-    myHeaders.append("x-tva-sa-secret", process.env.NEXT_PUBLIC_THETA_VIDEO_API_SECRET);
+    myHeaders.append(
+      "x-tva-sa-secret",
+      process.env.NEXT_PUBLIC_THETA_VIDEO_API_SECRET
+    );
 
     var requestOptions = {
       method: "POST",
@@ -176,7 +179,10 @@ export default function Upload() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("x-tva-sa-id", process.env.NEXT_PUBLIC_THETA_VIDEO_API_ID);
-    myHeaders.append("x-tva-sa-secret", process.env.NEXT_PUBLIC_THETA_VIDEO_API_SECRET);
+    myHeaders.append(
+      "x-tva-sa-secret",
+      process.env.NEXT_PUBLIC_THETA_VIDEO_API_SECRET
+    );
 
     var requestOptions = {
       method: "POST",

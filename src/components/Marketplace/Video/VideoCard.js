@@ -9,17 +9,16 @@ import { getContract } from "@/utils/Constants/Contracts";
 import { ethers } from "ethers";
 import VideoInfoModal from "./VideoInfoModal";
 import { useState } from "react";
-import { IoMdInformationCircle } from "react-icons/io"
+import { IoMdInformationCircle } from "react-icons/io";
 
 export default function Video({ horizontal, video }) {
-
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(true);
 
   const openHandler = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
-  console.log(video)
+  console.log(video);
 
   const buyHandler = async () => {
     try {
@@ -34,10 +33,11 @@ export default function Video({ horizontal, video }) {
 
   return (
     <div
-      className={`${horizontal
-        ? "flex flex-row mx-5 mb-5 item-center justify-center"
-        : "flex flex-col m-5 "
-        } `}
+      className={`${
+        horizontal
+          ? "flex flex-row mx-5 mb-5 item-center justify-center"
+          : "flex flex-col m-5 "
+      } `}
     >
       <Link href={`/video?id=${video.VideoId}`}>
         <img
@@ -46,7 +46,7 @@ export default function Video({ horizontal, video }) {
               ? "object-cover rounded-lg w-60  cursor-pointer"
               : "object-cover rounded-lg w-full h-40  cursor-pointer"
           }
-          src={`https://ipfs.io/ipfs/${video.thumbnail}`}
+          src={`https://w3s.link/ipfs/${video.thumbnail}`}
           alt=""
         />
       </Link>
@@ -75,7 +75,17 @@ export default function Video({ horizontal, video }) {
           </button>
         </div>
       </div>
-      <div className=" flex items-center gap-1 text-gray-500" onClick={() => openHandler()}><span><IoMdInformationCircle /></span> <span className="cursor-pointer font-medium">Click here for more info</span></div>
+      <div
+        className=" flex items-center gap-1 text-gray-500"
+        onClick={() => openHandler()}
+      >
+        <span>
+          <IoMdInformationCircle />
+        </span>{" "}
+        <span className="cursor-pointer font-medium">
+          Click here for more info
+        </span>
+      </div>
       <VideoInfoModal openHandler={openHandler} open={open} data={video} />
     </div>
   );

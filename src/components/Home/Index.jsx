@@ -28,7 +28,7 @@ export default function Main(props) {
         continue;
       } else {
         const newresponse = await fetch(
-          `https://gateway.pinata.cloud/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -58,18 +58,17 @@ export default function Main(props) {
       </Backdrop>
       <div className="flex flex-row flex-wrap gap-5 mx-5 my-5 justify-center">
         {videosData.length > 0 ? (
-          videosData
-            .map((data, index) => {
-              return (
-                <Link
-                  className="w-80 bg-[#1a1c1f] rounded-xl cursor-pointer"
-                  href={`/video?id=${data.video}`}
-                  key={index}
-                >
-                  <Video video={data} />
-                </Link>
-              );
-            })
+          videosData.map((data, index) => {
+            return (
+              <Link
+                className="w-80 bg-[#1a1c1f] rounded-xl cursor-pointer"
+                href={`/video?id=${data.video}`}
+                key={index}
+              >
+                <Video video={data} />
+              </Link>
+            );
+          })
         ) : (
           <></>
         )}
