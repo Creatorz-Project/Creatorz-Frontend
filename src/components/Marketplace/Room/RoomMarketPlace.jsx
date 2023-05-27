@@ -25,13 +25,15 @@ export default function RoomMarketPlace(props) {
 
   const getTokensHandler = async () => {
     try {
-      setLoading(true);
-      const tokenContract = await getContract(TokenAddress, Token);
-      const tx = await tokenContract.getCreatorzTokens();
-      await tx.wait();
-      const Balance = await tokenContract.getBalance(address, 0);
-      setBalance(Balance);
-      setLoading(false);
+      if (address) {
+        setLoading(true);
+        const tokenContract = await getContract(TokenAddress, Token);
+        const tx = await tokenContract.getCreatorzTokens();
+        await tx.wait();
+        const Balance = await tokenContract.getBalance(address, 0);
+        setBalance(Balance);
+        setLoading(false);
+      }
     } catch (err) {
       setLoading(false);
       console.log(err);

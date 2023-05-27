@@ -28,7 +28,7 @@ export default function Main(props) {
         continue;
       } else {
         const newresponse = await fetch(
-          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();

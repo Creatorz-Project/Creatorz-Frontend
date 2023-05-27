@@ -26,11 +26,14 @@ export default function Video({ horizontal, video }) {
             ? "object-cover rounded-lg w-60 "
             : "object-cover rounded-lg w-full h-40"
         }
-        src={`https://ipfs.io/ipfs/${video.thumbnail}`}
+        src={`https://w3s.link/ipfs/${video.thumbnail}`}
         alt=""
       />
       <div className="flex gap-[10px]">
-        <img src={`https://api.dicebear.com/6.x/identicon/svg?seed=${video.title}`} className="rounded-full w-10 h-10 mt-5" />
+        <img
+          src={`https://api.dicebear.com/6.x/identicon/svg?seed=${video.title}`}
+          className="rounded-full w-10 h-10 mt-5"
+        />
         <div className={` m-2 ${horizontal && "ml-3  w-80"}`}>
           <h4 className="text-md font-bold dark:text-white mt-3">
             {video.title}

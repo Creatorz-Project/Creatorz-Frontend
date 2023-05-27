@@ -199,11 +199,6 @@ export default function MySpace(props) {
       <div className=" flex justify-end mt-12 mr-12">
         <ConnectButton />
       </div>
-      <div className=" w-full h-48 m-auto mt-11 rounded-md bg-[url('/waves-light.svg')] flex">
-        <div className=" w-3/4 m-auto h-36 flex gap-6 justify-end items-center flex-wrap">
-          <div className=" text-4xl font-semibold">Social Tokens Holding</div>
-        </div>
-      </div>
       <div className="mt-2 mx-12">
         <h3 className="text-2xl mb-7">Notification</h3>
         <NotificationOptIn />

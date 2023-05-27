@@ -11,9 +11,11 @@ import VideoInfoModal from "./VideoInfoModal";
 import { useState } from "react";
 import { IoMdInformationCircle } from "react-icons/io";
 import BuyModal from "./BuyModal";
+import { useAccount } from "wagmi";
 
 export default function Video({ horizontal, video }) {
   const [open, setOpen] = useState(false);
+  const { address } = useAccount();
   const [openBuyModal, setOpenBuyModal] = useState(false);
   const [roomId, setRoomId] = useState("");
 
@@ -29,11 +31,14 @@ export default function Video({ horizontal, video }) {
 
   const buyHandler = async (e) => {
     e.preventDefault();
+    console.log(e.target.value);
     try {
-      const Marketplace = await getContract(MPAddress, MPAbi);
-      const tx = await Marketplace.buyVideo(video.id, 2);
-      await tx.wait();
-      openBuyModalHandler();
+      if (address) {
+        const Marketplace = await getContract(MPAddress, MPAbi);
+        const tx = await Marketplace.buyVideo(video.id, roomId);
+        await tx.wait();
+        openBuyModalHandler();
+      }
     } catch (err) {
       console.log(err);
     }

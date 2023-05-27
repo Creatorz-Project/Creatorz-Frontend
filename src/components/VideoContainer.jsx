@@ -4,7 +4,7 @@ import ShareIcon from "@mui/icons-material/Share";
 import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
 import { Polybase } from "@polybase/client";
 import { useAccount } from "wagmi";
-
+import { useEffect } from "react";
 const db = new Polybase({
   defaultNamespace:
     "pk/0xdaf07b7db43321236f6739b10bff96379508a07d2bcbd793b4c22c31711c795d5ca356ad7fd4d8b7691aa36f7f6b44d8106538a54f41e49174aab02e64bd3cde/Creatorz",
@@ -17,101 +17,77 @@ export default function VideoComponent({ videoId, video }) {
   const [subscribers, setSubscribers] = React.useState(0);
   const { address } = useAccount();
 
+  useEffect(() => {
+    try {
+      async function fetchData() {
+        const result = await db
+          .collection("Video")
+          .record(18)
+          .get();
+        setLikes(result.data.Likes);
+        setBookmarks(result.data.Bookmarks);
+        setShares(result.data.Shares);
+      }
+      fetchData();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
   const LikeHandler = async () => {
     console.log("Like");
     try {
-      const user = await db.collection("User").record(address).get();
-      if (!user.data.LikedVideos.includes(video.id)) {
-        await db
-          .collection("User")
-          .record(address)
-          .call("addLikedVideo", [video.id]);
-        await db
-          .collection("Video")
-          .record(video.id)
-          .call("incrementLikes", []);
-      }
-      video = await db.collection("Video").record(video.id).get();
-      setLikes(video.data.Likes);
+      await db
+        .collection("Video")
+        .record(18)
+        .call("incrementLikes", []);
+      setLikes(1);
     } catch (err) {
-      if (err.message === "Record not found") {
-        await db.collection("User").create([address]);
-        await db
-          .collection("User")
-          .record(address)
-          .call("addLikedVideo", [video.id]);
-        const user = await db.collection("User").record(address).get();
-      }
+      console.log(err);
     }
   };
 
   const BookmarkHandler = async () => {
     try {
-      const user = await db.collection("User").record(address).get();
-      if (!user.data.BookmarkedVideos.includes(video.id)) {
-        await db
-          .collection("User")
-          .record(address)
-          .call("bookmarkVideo", [video.id]);
-        await db
-          .collection("Video")
-          .record(video.id)
-          .call("incrementBookmarks", []);
-      }
-    } catch (err) {
-      await db.collection("User").create([address]);
-      await db
-        .collection("User")
-        .record(address)
-        .call("bookmarkVideo", [video.id]);
       await db
         .collection("Video")
-        .record(video.id)
+        .record(18)
         .call("incrementBookmarks", []);
+      setBookmarks(bookmarks + 1);
+    } catch (err) {
+      console.log(err);
     }
   };
   const ShareHandler = async () => {
-    await db.collection("Video").record(video.id).call("incrementShares", []);
+    await db
+      .collection("Video")
+      .record(18)
+      .call("incrementShares", []);
+    setShares(shares + 1);
   };
   const SubscribeHandler = async () => {
     console.log(video);
     try {
-      const user = await db.collection("User").record(address).get();
-      if (!user.data.SubscribedRooms.includes(video.Room)) {
-        await db
-          .collection("User")
-          .record(address)
-          .call("addRoom", [video.Room]);
-        await db
-          .collection("Room")
-          .record(video.RoomId)
-          .call("incrementSubscribers", []);
-      }
+      await db
+        .collection("Room")
+        .record(18)
+        .call("incrementSubscribers", []);
+      setSubscribers(subscribers + 1);
     } catch (err) {
-      if (err.code === 501) {
-        await db.collection("User").create([address]);
-        await db
-          .collection("User")
-          .record(address)
-          .call("subscribeChannel", [video.Room]);
-        await db
-          .collection("ROom")
-          .record(video.Room)
-          .call("incrementSubscribers", []);
-      }
+      console.log(err);
     }
   };
-  console.log(video)
+  console.log(video);
 
   return (
     <div>
-      <iframe src={`https://player.thetavideoapi.com/video/${videoId}`}
+      <iframe
+        src={`https://player.thetavideoapi.com/video/${videoId}`}
         border="0"
         width="100%"
         allowfullscreen
         className="h-[calc(((1080/1920)*67vw))]"
       />
-      {video &&
+      {video && (
         <div className="flex justify-between flex-row py-4">
           <div>
             <h3 className="text-2xl dark:text-white">{video.title}</h3>
@@ -133,7 +109,7 @@ export default function VideoComponent({ videoId, video }) {
             </button>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }
