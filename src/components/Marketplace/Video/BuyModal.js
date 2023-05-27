@@ -3,6 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect, useCallback } from "react";
 import { useApolloClient, gql } from "@apollo/client";
 import { useAccount } from "wagmi";
+import Link from "next/link";
 
 export default function BuyModal(props) {
   const handleChange = (event) => {
@@ -126,24 +127,30 @@ export default function BuyModal(props) {
                         Room Id
                       </label>
                       <div class="relative">
-                        <Select
-                          type="number"
-                          id="room"
-                          name="roomId"
-                          class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
-                          required
-                          aria-describedby="roomId-error"
-                          value={props.roomId}
-                          onChange={handleChange}
-                        >
-                          {updatedUserRooms.map((data) => {
-                            return (
-                              <MenuItem value={data.RoomId}>
-                                {data.title}
-                              </MenuItem>
-                            );
-                          })}
-                        </Select>
+                        {updatedUserRooms.length > 0
+                          ? <Select
+                            type="number"
+                            id="room"
+                            name="roomId"
+                            class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                            required
+                            aria-describedby="roomId-error"
+                            value={props.roomId}
+                            onChange={handleChange}
+                          >
+                            {updatedUserRooms.map((data) => {
+                              return (
+                                <MenuItem value={data.RoomId}>
+                                  {data.title}
+                                </MenuItem>
+                              );
+                            })}
+                          </Select>
+                          : <div>
+                            <span className=" text-rose-600 text-xl font-medium">You don't have any rooms. Firstly, create one </span><Link href="/creator" className=" text-rose-600 text-xl font-medium underline ">here</Link><span className=" text-rose-600 text-xl font-medium"> to buy a video</span>
+                          </div>
+                        }
+
                       </div>
                       <p
                         class="hidden text-xs text-red-600 mt-2"
@@ -153,13 +160,15 @@ export default function BuyModal(props) {
                         your room
                       </p>
                     </div>
-                    <button
-                      type="submit"
-                      onClick={(e) => props.buyHandler(e)}
-                      class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm focus:ring-offset-gray-800"
-                    >
-                      Buy Video
-                    </button>
+                    {updatedUserRooms.length > 0 &&
+                      <button
+                        type="submit"
+                        onClick={(e) => props.buyHandler(e)}
+                        class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm focus:ring-offset-gray-800"
+                      >
+                        Buy Video
+                      </button>
+                    }
                     <button
                       onClick={() => props.openHandler()}
                       class="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-600 text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all text-sm focus:ring-offset-gray-800"

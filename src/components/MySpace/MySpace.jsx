@@ -2,7 +2,6 @@ import { useAccount } from "wagmi";
 import { useEffect, useState, useCallback } from "react";
 import { NotificationOptIn, NotificationOptOut } from "@/utils/notification";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -18,6 +17,7 @@ import { ContentManger as CMABI } from "../../utils/Constants/ABIs";
 import { Marketplace as MarketplaceAddress } from "@/utils/Constants/Addresses";
 import { Marketplace as MarketplaceABI } from "@/utils/Constants/ABIs";
 import TextField from "@mui/material/TextField";
+import RoomCard from "./RoomCard";
 
 const contract = getContract(CMAddresss, CMABI);
 const Android12Switch = styled(Switch)(({ theme }) => ({
@@ -59,10 +59,10 @@ export default function MySpace(props) {
   const [roomsData, setRoomsData] = useState([]);
   const [videosData, setVideosData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [enableVideoListing, setEnableVideoListing] = useState(false);
 
   const { address } = useAccount();
   const [ethAccount, setEthAccount] = useState("null");
-  const [videoPrice, setVideoPrice] = useState(0);
   const [price, setPrice] = useState(0);
 
   useEffect(() => {
@@ -115,7 +115,7 @@ export default function MySpace(props) {
       let obj = {};
       if (videos[i].MetadataURI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -150,7 +150,7 @@ export default function MySpace(props) {
       let obj = {};
       if (rooms[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${rooms[i].URI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${rooms[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -188,24 +188,27 @@ export default function MySpace(props) {
 
   const ListingPrice = (event, data) => {
     if (event.target.value > 0) {
+      setEnableVideoListing(true)
       setPrice(event.target.value);
       console.log(event.target.value);
     }
   };
-  console.log(rooms, videos);
+
+  console.log(videosData);
 
   return (
-    <div className="bg-[#150A22]">
-      <div className=" flex justify-end mt-12 mr-12">
+    <div className="bg-[#150A22] pb-5">
+      <div className=" flex justify-end pt-12 mr-12">
         <ConnectButton />
       </div>
       <div className="mt-2 mx-12">
         <h3 className="text-2xl mb-7">Notification</h3>
-        <NotificationOptIn />
+        <div>Want stay up-to-date with all the videos and updates?  <NotificationOptIn /></div>
+
         <NotificationOptOut />
       </div>
       <div className="mt-10 mx-12">
-        <h3 className=" text-2xl mb-7">Videos</h3>
+        <h3 className=" text-2xl mb-7 font-semibold">Videos</h3>
         <div className=" flex flex-wrap gap-5">
           {videosData
             .filter(
@@ -214,48 +217,113 @@ export default function MySpace(props) {
             )
             .map((data, index) => {
               return (
-                <Card sx={{ maxWidth: 345 }}>
+                <div className=" w-[345px] bg-[#2c2c2e] rounded-lg p-4" key={index}>
                   <CardMedia
                     sx={{ height: 140 }}
-                    image={`https://w3s.link/ipfs/${data.thumbnail}`}
+                    image={`https://ipfs.io/ipfs/${data.thumbnail}`}
                     title="thumbnail"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
+                    <Typography gutterBottom variant="h5" component="div" color="#aa9bd1">
                       {data.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" color="#dcd3f2">
                       {data.description}
                     </Typography>
                   </CardContent>
                   <CardActions>
-                    {data.IsListed == true ? (
+                    {data.Listed == true ? (
                       <FormControlLabel
                         control={<Android12Switch defaultChecked />}
                         label="UnList From marketplace"
+                        color="GrayText"
                         onChange={(event) => ListVideo(event, data)}
                       />
                     ) : (
                       <>
-                        <FormControlLabel
-                          control={<Android12Switch />}
-                          label="List on marketplace"
-                          onChange={(event) => ListVideo(event, data)}
-                        />
-                        <TextField
-                          id="standard-basic"
-                          label="Price"
-                          variant="standard"
-                          type="number"
-                          defaultValue={data.Price}
-                          onChange={(e) => ListingPrice(e, data)}
-                        />
+                        {enableVideoListing
+                          ? <>
+                            <FormControlLabel
+                              control={<Android12Switch />}
+                              label="List on marketplace"
+                              onChange={(event) => ListVideo(event, data)}
+                              color="GrayText"
+                            />
+                            <div class="relative mb-3" data-te-input-wrapper-init>
+                              <input
+                                type="number"
+                                defaultValue={data.Price}
+                                onChange={(e) => ListingPrice(e, data)}
+                                className=" border-b-2 border-gray-500 p-2 bg-transparent w-full "
+                                id="exampleFormControlInput1"
+                                placeholder="listing price" />
+                              <label
+                                for="exampleFormControlInput1"
+                                className=""
+                              >listing price
+                              </label>
+                            </div>
+                          </>
+                          : <>
+                            <FormControlLabel
+                              control={<Android12Switch />}
+                              label="List on marketplace"
+                              color="GrayText"
+                              onChange={(event) => ListVideo(event, data)}
+                              disabled
+                            />
+                            <div class="relative mb-3" data-te-input-wrapper-init>
+                              <input
+                                type="number"
+                                defaultValue={data.Price}
+                                onChange={(e) => ListingPrice(e, data)}
+                                className="border-b-2 border-gray-500 p-2 bg-transparent w-full "
+                                id="exampleFormControlInput1"
+                                placeholder="listing price" />
+                              <label
+                                for="exampleFormControlInput1"
+                                className=""
+                              >listing price
+                              </label>
+                            </div>
+                          </>
+
+                        }
+
                       </>
                     )}
                   </CardActions>
-                </Card>
+                  <CardActions>
+                    {data.Published == true ? (
+                      <FormControlLabel
+                        control={<Android12Switch defaultChecked />}
+                        label="unpublish video"
+                        onChange={(event) => PublishVideo(event, data)}
+                      />
+                    ) : (
+                      <FormControlLabel
+                        control={<Android12Switch />}
+                        label="publish"
+                        onChange={(event) => PublishVideo(event, data)}
+                      />
+                    )}
+                  </CardActions>
+                </div>
               );
             })}
+        </div>
+      </div>
+      <div className="mt-10 mx-12">
+        <h3 className=" text-2xl mb-7 font-semibold">Rooms</h3>
+        <div className=" flex flex-wrap gap-5">
+          {roomsData.filter(
+            (element) =>
+              element.Owner.toLowerCase() == ethAccount.toLowerCase()
+          )
+            .map((data, index) => {
+              return <RoomCard room={data} key={index} />
+             })
+          }
         </div>
       </div>
     </div>

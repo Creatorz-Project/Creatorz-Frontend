@@ -108,6 +108,10 @@ a {
   width: 100% !important;
 }
 
+.MuiTypography-h5{
+  font-weight: 500
+}
+
 
 @tailwind base;
 @tailwind components;
