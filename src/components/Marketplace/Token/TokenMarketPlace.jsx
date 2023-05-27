@@ -125,21 +125,17 @@ export default function TokenMarketPlace(props) {
             </ul>
           </div>
         </div>
-<<<<<<< HEAD
-        <div className="absolute top-28 right-6 flex"></div>
-=======
         <div className="absolute top-28 right-6 flex">
-              <div className=" bg-gray-800 text-yellow-50 text-lg font-semibold rounded-md py-2 px-3">
-                {(Math.round(balance * 100) / 100).toFixed(4)} CRTZ
-              </div>
-              <button
-                className="bg-[rgba(55,112,255,1)] rounded-md py-2 px-4 border-0 outline-0 hover:bg-[#537de8] text-base font-semibold"
-                onClick={getTokensHandler}
-              >
-                Get Creators Token
-              </button>
-            </div>
->>>>>>> 4cab2c7a73f53d0abf7071f22d6b8eefb7fa89da
+          <div className=" bg-gray-800 text-yellow-50 text-lg font-semibold rounded-md py-2 px-3">
+            {(Math.round(balance * 100) / 100).toFixed(4)} CRTZ
+          </div>
+          <button
+            className="bg-[rgba(55,112,255,1)] rounded-md py-2 px-4 border-0 outline-0 hover:bg-[#537de8] text-base font-semibold"
+            onClick={getTokensHandler}
+          >
+            Get Creators Token
+          </button>
+        </div>
       </div>
       <div className="w-full flex flex-row">
         <Backdrop
