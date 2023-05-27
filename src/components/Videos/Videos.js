@@ -3,7 +3,7 @@ import { BiCheck } from "react-icons/bi";
 import moment from "moment";
 import { useRouter } from "next/router";
 
-export default function Video({ horizontal, video }) {
+export default function Video({ horizontal, video, showAvatar }) {
   console.log(video);
 
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function Video({ horizontal, video }) {
         className={
           horizontal
             ? "object-cover rounded-lg w-60 "
-            : "object-cover rounded-lg w-full h-40"
+            : "object-cover rounded-lg w-[325px] h-40"
         }
         src={`https://w3s.link/ipfs/${video.thumbnail}`}
         alt=""

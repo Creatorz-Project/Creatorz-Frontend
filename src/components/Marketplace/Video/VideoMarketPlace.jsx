@@ -89,9 +89,15 @@ export default function VideoMarketPlace(props) {
 
   return (
     <div>
+<<<<<<< HEAD
       {address ? (
         <>
           <div className="flex flex-col mt-12">
+=======
+      {address
+        ? <>
+          <div className="flex flex-col mt-12 bg-[#150A22]">
+>>>>>>> 203e6b1821ad4efe0f5b4095dce788cd7780785c
             <div className="flex gap-3 flex-col items-center">
               <div display="flex">
                 <ul className="flex p-0 m-0 w-full bg-gray-800 rounded-lg list-none">
