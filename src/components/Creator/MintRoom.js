@@ -87,7 +87,7 @@ export default function MintRoom() {
   console.log(send);
 
   return (
-    <div className="w-full h-screen bg-[#000000] flex flex-row">
+    <div className="w-full h-screen bg-[#150A22] flex flex-row">
       <div className="flex-1 flex flex-col">
         <div className="mt-5 mr-10 flex  justify-end">
           <div className="flex items-center">

@@ -312,7 +312,7 @@ export default function Upload() {
   };
 
   return (
-    <div className="w-full h-screen bg-[#000000] flex flex-row">
+    <div className="w-full h-screen bg-[#150A22] flex flex-row">
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={loading}

@@ -14,7 +14,7 @@ export default function Dashboard() {
 
   return (
     <div>
-      <div className="flex flex-col mt-12 bg-[#150A22]">
+      <div className="flex flex-col pt-12 bg-[#150A22]">
         <div className="flex gap-3 flex-col items-center">
           <div className="flex shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] rounded-lg p-0 m-0 shadow-[#485e9a]">
             <ul className="flex p-0 m-0 w-full bg-gray-800 rounded-lg list-none">

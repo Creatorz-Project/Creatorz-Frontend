@@ -93,7 +93,6 @@ export default function BuyModal(props) {
   console.log(props.roomId);
   console.log(updatedUserRooms);
 
-<<<<<<< HEAD
   return (
     <>
       {props.open && (
@@ -111,43 +110,6 @@ export default function BuyModal(props) {
                 <p class="mt-2 text-sm text-gray-400">
                   Choose your Room Id to add video to your room.
                   {/* <a class="text-blue-600 decoration-2 hover:underline font-medium" href="#">
-=======
-        for (let i = 0; i < userRooms.length; i++) {
-            let obj = {};
-            if (userRooms[i].URI.length > 8) {
-                const newresponse = await fetch(
-                    `https://ipfs.io/ipfs/${userRooms[i].URI}/RoomMetaData.json`,
-                    requestOptions
-                );
-                const result = await newresponse.json();
-                obj = { ...result, ...userRooms[i] };
-                tempChoicesArray.push(obj);
-            }
-        }
-        setUpdatedUserRooms(tempChoicesArray);
-    }, [userRooms]);
-
-    useEffect(() => {
-        if (userRooms.length > 0) {
-            forloop();
-        }
-    }, [userRooms]);
-
-    console.log(props.roomId);
-    console.log(updatedUserRooms);
-
-    return (
-        <>
-            {props.open &&
-                <main id="content" role="main" className="fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex items-center justify-center bg-[rgba(0,0,0,0.5)]">
-                    <div class="mt-7  rounded-xl shadow-lg bg-gray-800 border-gray-700 w-[28%]">
-                        <div class="p-4 sm:p-7">
-                            <div class="text-center">
-                                <h1 class="block text-2xl font-bold text-white">Ready to Buy?</h1>
-                                <p class="mt-2 text-sm text-gray-400">
-                                    Choose your Room Id to add video to your room.
-                                    {/* <a class="text-blue-600 decoration-2 hover:underline font-medium" href="#">
->>>>>>> 203e6b1821ad4efe0f5b4095dce788cd7780785c
                                     Login here
                                 </a> */}
                 </p>

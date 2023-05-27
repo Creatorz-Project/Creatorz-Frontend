@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function Footer() {
     return (
 
-        <footer class="bg-[#0D171C] rounded-lg shadow m-4">
+        <footer class="bg-[#150A22] rounded-lg shadow border-t-2 border-solid border-[#39294C]">
             <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between">
                 <span class="text-sm sm:text-center text-gray-400">© 2023 <Link href="/" class="hover:underline">Creatorz™</Link>. All Rights Reserved.
                 </span>

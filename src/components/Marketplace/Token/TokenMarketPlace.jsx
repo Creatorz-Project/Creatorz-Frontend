@@ -86,7 +86,7 @@ export default function TokenMarketPlace(props) {
 
   return (
     <div>
-      <div className="flex flex-col mt-12 bg-[#150A22]">
+      <div className="flex flex-col pt-12 bg-[#150A22]">
         <div className="flex gap-3 flex-col items-center">
           <div display="flex">
             <ul className="flex p-0 m-0 w-full bg-gray-800 rounded-lg list-none">
@@ -139,7 +139,7 @@ export default function TokenMarketPlace(props) {
           </button>
         </div>
       </div>
-      <div className="w-full flex flex-row">
+      <div className="w-full flex flex-row bg-[#150A22]">
         <Backdrop
           sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
           open={loading}

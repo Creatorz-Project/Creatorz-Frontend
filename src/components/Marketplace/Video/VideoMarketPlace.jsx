@@ -57,7 +57,7 @@ export default function VideoMarketPlace(props) {
       let obj = {};
       if (videos[i].MetadataURI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -89,15 +89,9 @@ export default function VideoMarketPlace(props) {
 
   return (
     <div>
-<<<<<<< HEAD
-      {address ? (
-        <>
-          <div className="flex flex-col mt-12">
-=======
       {address
         ? <>
-          <div className="flex flex-col mt-12 bg-[#150A22]">
->>>>>>> 203e6b1821ad4efe0f5b4095dce788cd7780785c
+          <div className="flex flex-col pt-12 bg-[#150A22]">
             <div className="flex gap-3 flex-col items-center">
               <div display="flex">
                 <ul className="flex p-0 m-0 w-full bg-gray-800 rounded-lg list-none">
@@ -150,7 +144,7 @@ export default function VideoMarketPlace(props) {
               </button>
             </div>
           </div>
-          <div className="w-full flex flex-row">
+          <div className="w-full flex flex-row bg-[#150A22]">
             <Backdrop
               sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
               open={loading}
@@ -174,17 +168,17 @@ export default function VideoMarketPlace(props) {
             </div>
           </div>
         </>
-      ) : (
-        <div className="w-full flex flex-row justify-center items-center min-h-[74vh] text-3xl font-semibold text-gray-400">
-          <h1>
-            Please connect your{" "}
-            <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-600 inline">
-              wallet
-            </h1>{" "}
-            to see the videos
-          </h1>
-        </div>
-      )}
+        : (
+          <div className="w-full flex flex-row justify-center items-center min-h-[74vh] text-3xl font-semibold text-gray-400">
+            <h1>
+              Please connect your{" "}
+              <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-600 inline">
+                wallet
+              </h1>{" "}
+              to see the videos
+            </h1>
+          </div>
+        )}
     </div>
   );
 }

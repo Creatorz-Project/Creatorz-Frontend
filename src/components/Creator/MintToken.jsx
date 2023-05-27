@@ -36,18 +36,18 @@ export default function MintToken() {
 
   return (
     <>
-      <div className=" w-screen">
-        <div className=" w-full h-48 m-auto mt-11 rounded-md bg-[url('/waves-light.svg')] flex">
+      <div className=" w-screen bg-[#150A22]">
+        <div className=" w-full h-48 m-auto pt-11 rounded-md bg-[url('/design.png')] flex">
           <div className=" w-3/4 m-auto h-36 flex gap-6 justify-end items-center flex-wrap">
             <button
               onClick={handleClick}
-              className="bg-gray-900 p-1 px-[12px] rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 hover:bg-opacity-100 border border-gray-800 text-lg h-fit"
+              className="bg-[rgba(55,112,255,1)] rounded-md py-2 px-4 border-0 outline-0 hover:bg-[#537de8] text-base font-semibold"
             >
               Mint Social Token
             </button>
           </div>
         </div>
-        <div className="flex flex-col m-10     mt-5  lg:flex-row">
+        <div className="flex flex-col p-10 pt-5  lg:flex-row">
           <div className="flex lg:w-3/4 flex-col ">
             <label className="text-[#9CA3AF]  text-sm">Edition Name</label>
             <input
