@@ -97,14 +97,7 @@ export default function TokenMarketPlace(props) {
             </ul>
           </div>
         </div>
-        <div className="absolute top-28 right-6 flex">
-          <div className=" bg-gray-800 text-yellow-50 text-lg font-semibold rounded-md py-2 px-3">
-            100 SCT
-          </div>
-          <button className="bg-[rgba(55,112,255,1)] rounded-md py-2 px-4 border-0 outline-0 hover:bg-[#537de8] text-base font-semibold">
-            Get Creators Token
-          </button>
-        </div>
+        <div className="absolute top-28 right-6 flex"></div>
       </div>
       <div className="w-full flex flex-row">
         <Backdrop

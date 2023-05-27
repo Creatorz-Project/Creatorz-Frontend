@@ -18,13 +18,11 @@ export default function Video({ horizontal, video }) {
     setOpen(!open);
   };
 
-  console.log(video);
-
   const buyHandler = async () => {
+    console.log(video.id);
     try {
       const Marketplace = await getContract(MPAddress, MPAbi);
-      console.log(video.VideoId);
-      const tx = await Marketplace.buyVideo(10, 11);
+      const tx = await Marketplace.buyVideo(video.id, 2);
       await tx.wait();
     } catch (err) {
       console.log(err);
