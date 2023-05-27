@@ -4,7 +4,7 @@ export default function About() {
     return (
         <>
             {/* Creating a hero component with black background and centering everything in the screen */}
-            <section className="relative bg-black flex flex-col h-screen justify-center items-center">
+            <section className="relative flex flex-col h-screen justify-center items-center bg-[#150A22]">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6">
                     <div className="pt-32 pb-12 md:pt-40 md:pb-20">
                         <div className="text-center pb-12 md:pb-16">

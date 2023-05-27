@@ -65,7 +65,7 @@ export default function Main(props) {
                 href={`/video?id=${data.video}`}
                 key={index}
               >
-                <Video video={data} />
+                <Video video={data} showAvatar={true}/>
               </Link>
             );
           })

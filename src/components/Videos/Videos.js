@@ -3,18 +3,17 @@ import { BiCheck } from "react-icons/bi";
 import moment from "moment";
 import { useRouter } from "next/router";
 
-export default function Video({ horizontal, video }) {
+export default function Video({ horizontal, video, showAvatar }) {
   console.log(video);
 
   const router = useRouter();
 
   return (
     <div
-      className={`${
-        horizontal
+      className={`${horizontal
           ? "flex flex-row mx-5 mb-5 item-center justify-center cursor-pointer"
           : "flex flex-col m-2 cursor-pointer"
-      } `}
+        } `}
       onClick={() => {
         // Navigation to the video screen (which we will create later)
         router.push(`/video?id=${video.video}`);
@@ -24,13 +23,15 @@ export default function Video({ horizontal, video }) {
         className={
           horizontal
             ? "object-cover rounded-lg w-60 "
-            : "object-cover rounded-lg w-full h-40"
+            : "object-cover rounded-lg w-[325px] h-40"
         }
         src={`https://ipfs.io/ipfs/${video.thumbnail}`}
         alt=""
       />
       <div className="flex gap-[10px]">
-        <img src={`https://api.dicebear.com/6.x/identicon/svg?seed=${video.title}`} className="rounded-full w-10 h-10 mt-5" />
+        {showAvatar &&
+          <img src={`https://api.dicebear.com/6.x/identicon/svg?seed=${video.title}`} className="rounded-full w-10 h-10 mt-5" />
+        }
         <div className={` m-2 ${horizontal && "ml-3  w-80"}`}>
           <h4 className="text-md font-bold dark:text-white mt-3">
             {video.title}

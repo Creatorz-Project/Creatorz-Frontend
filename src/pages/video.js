@@ -73,7 +73,7 @@ export default function VideoPage(props) {
       let obj = {};
       if (videosData[i].MetadataURI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${videosData[i].MetadataURI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${videosData[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -115,7 +115,7 @@ export default function VideoPage(props) {
                   href={`/video?id=${video.video}`}
                   key={index}
                 >
-                  <Video video={video} horizontal={true} />
+                  <Video video={video} horizontal={true} showAvatar={false}/>
                 </Link>
               ))}
             </div>

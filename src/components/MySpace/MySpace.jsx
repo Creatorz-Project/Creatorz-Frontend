@@ -195,7 +195,7 @@ export default function MySpace(props) {
   console.log(rooms, videos);
 
   return (
-    <div>
+    <div className="bg-[#150A22]">
       <div className=" flex justify-end mt-12 mr-12">
         <ConnectButton />
       </div>
