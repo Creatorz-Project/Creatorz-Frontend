@@ -10,34 +10,45 @@ import { ethers } from "ethers";
 import VideoInfoModal from "./VideoInfoModal";
 import { useState } from "react";
 import { IoMdInformationCircle } from "react-icons/io";
+import BuyModal from "./BuyModal";
 
 export default function Video({ horizontal, video }) {
-  const [open, setOpen] = useState(true);
+
+  const [open, setOpen] = useState(false);
+  const [openBuyModal, setOpenBuyModal] = useState(false);
+  const [roomId, setRoomId] = useState('');
 
   const openHandler = () => {
     setOpen(!open);
   };
 
+  const openBuyModalHandler = () => {
+    setOpenBuyModal(!openBuyModal);
+  }
+
   console.log(video);
 
-  const buyHandler = async () => {
+  const buyHandler = async (e) => {
+    e.preventDefault();
     try {
       const Marketplace = await getContract(MPAddress, MPAbi);
       console.log(video.VideoId);
       const tx = await Marketplace.buyVideo(10, 11);
       await tx.wait();
+      openBuyModalHandler()
     } catch (err) {
       console.log(err);
     }
+    console.log(roomId);
+
   };
 
   return (
     <div
-      className={`${
-        horizontal
-          ? "flex flex-row mx-5 mb-5 item-center justify-center"
-          : "flex flex-col m-5 "
-      } `}
+      className={`${horizontal
+        ? "flex flex-row mx-5 mb-5 item-center justify-center"
+        : "flex flex-col m-5 "
+        } `}
     >
       <Link href={`/video?id=${video.video}`}>
         <img
@@ -46,7 +57,7 @@ export default function Video({ horizontal, video }) {
               ? "object-cover rounded-lg w-60  cursor-pointer"
               : "object-cover rounded-lg w-full h-40  cursor-pointer"
           }
-          src={`https://w3s.link/ipfs/${video.thumbnail}`}
+          src={`https://ipfs.io/ipfs/${video.thumbnail}`}
           alt=""
         />
       </Link>
@@ -69,7 +80,8 @@ export default function Video({ horizontal, video }) {
         <div>
           <button
             className="bg-[rgba(55,112,255,1)] rounded-md py-2 px-4 border-0 outline-0 hover:bg-[#537de8] text-base font-semibold mt-3"
-            onClick={buyHandler}
+            // onClick={buyHandler}
+            onClick={() => openBuyModalHandler()}
           >
             Buy
           </button>
@@ -86,6 +98,7 @@ export default function Video({ horizontal, video }) {
           Click here for more info
         </span>
       </div>
+      <BuyModal open={openBuyModal} openHandler={openBuyModalHandler} setRoomId={setRoomId} roomId={roomId} buyHandler={buyHandler} />
       <VideoInfoModal openHandler={openHandler} open={open} data={video} />
     </div>
   );

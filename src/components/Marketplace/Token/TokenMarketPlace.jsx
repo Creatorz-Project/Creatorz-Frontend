@@ -4,6 +4,9 @@ import { useAccount } from "wagmi";
 import TokenCard from "./TokenCard";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
+import { getContract } from "@/utils/Constants/Contracts";
+import { TokenAddress } from "@/utils/Constants/Addresses";
+import { Token } from "@/utils/Constants/ABIs";
 
 export default function TokenMarketPlace(props) {
   const [selectedOption, setSelectedOption] = useState("Social Token");
@@ -20,6 +23,31 @@ export default function TokenMarketPlace(props) {
     { name: "Social Token", url: "/marketplace/token" },
   ];
 
+  const getTokensHandler = async () => {
+    try {
+      console.log(address);
+      setLoading(true);
+      const tokenContract = await getContract(TokenAddress, Token);
+      const tx = await tokenContract.getCreatorzTokens();
+      await tx.wait();
+      const Balance = await tokenContract.getBalance(address, 0);
+      setBalance(Balance);
+      setLoading(false);
+    } catch (err) {
+      setLoading(false);
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    const getBalance = async () => {
+      const tokenContract = await getContract(TokenAddress, Token);
+      const Balance = await tokenContract.getBalance(address, 0);
+      setBalance(Balance);
+    };
+    getBalance();
+  }, [address]);
+
   const forloop = useCallback(async () => {
     setLoading(true);
 
@@ -34,7 +62,7 @@ export default function TokenMarketPlace(props) {
       let obj = {};
       if (tokens[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${tokens[i].URI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${tokens[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -98,13 +126,16 @@ export default function TokenMarketPlace(props) {
           </div>
         </div>
         <div className="absolute top-28 right-6 flex">
-          <div className=" bg-gray-800 text-yellow-50 text-lg font-semibold rounded-md py-2 px-3">
-            100 SCT
-          </div>
-          <button className="bg-[rgba(55,112,255,1)] rounded-md py-2 px-4 border-0 outline-0 hover:bg-[#537de8] text-base font-semibold">
-            Get Creators Token
-          </button>
-        </div>
+              <div className=" bg-gray-800 text-yellow-50 text-lg font-semibold rounded-md py-2 px-3">
+                {(Math.round(balance * 100) / 100).toFixed(4)} CRTZ
+              </div>
+              <button
+                className="bg-[rgba(55,112,255,1)] rounded-md py-2 px-4 border-0 outline-0 hover:bg-[#537de8] text-base font-semibold"
+                onClick={getTokensHandler}
+              >
+                Get Creators Token
+              </button>
+            </div>
       </div>
       <div className="w-full flex flex-row">
         <Backdrop

@@ -26,7 +26,7 @@ export default function Video({ horizontal, video }) {
             ? "object-cover rounded-lg w-60 "
             : "object-cover rounded-lg w-full h-40"
         }
-        src={`https://w3s.link/ipfs/${video.thumbnail}`}
+        src={`https://ipfs.io/ipfs/${video.thumbnail}`}
         alt=""
       />
       <div className="flex gap-[10px]">
