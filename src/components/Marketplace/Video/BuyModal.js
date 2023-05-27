@@ -81,7 +81,6 @@ export default function BuyModal(props) {
                 obj = { ...result, ...userRooms[i] };
                 tempChoicesArray.push(obj);
             }
-            setLoading(false);
         }
         setUpdatedUserRooms(tempChoicesArray);
     }, [userRooms]);
