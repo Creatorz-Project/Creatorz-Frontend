@@ -28,7 +28,7 @@ export default function Main(props) {
         continue;
       } else {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -61,7 +61,7 @@ export default function Main(props) {
           videosData.map((data, index) => {
             return (
               <Link
-                className="w-80 bg-[#1a1c1f] rounded-xl cursor-pointer"
+                className="w-80 rounded-xl cursor-pointer"
                 href={`/video?id=${data.video}`}
                 key={index}
               >

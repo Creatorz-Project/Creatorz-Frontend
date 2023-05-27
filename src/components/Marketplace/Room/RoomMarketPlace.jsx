@@ -45,7 +45,7 @@ export default function RoomMarketPlace(props) {
       setBalance(Balance);
     };
     getBalance();
-  }, []);
+  }, [address]);
 
   const forloop = useCallback(async () => {
     setLoading(true);
