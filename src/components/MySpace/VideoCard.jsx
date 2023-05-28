@@ -10,6 +10,9 @@ import PublishModal from "./PublishModal";
 import { Marketplace as MarketplaceAddress } from "@/utils/Constants/Addresses";
 import { Marketplace as MarketplaceABI } from "@/utils/Constants/ABIs";
 import { getContract } from "@/utils/Constants/Contracts";
+import { ContentManager as CMAddresss } from "../../utils/Constants/Addresses";
+import { ContentManager as CMABI } from "../../utils/Constants/ABIs";
+
 const contract = getContract(CMAddresss, CMABI);
 
 const Android12Switch = styled(Switch)(({ theme }) => ({

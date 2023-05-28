@@ -5,8 +5,6 @@ import { ConnectButton } from "@rainbow-me/rainbowkit";
 import * as PushAPI from "@pushprotocol/restapi";
 import { ethers } from "ethers";
 import { getContract } from "@/utils/Constants/Contracts";
-import { ContentManager as CMAddresss } from "../../utils/Constants/Addresses";
-import { ContentManager as CMABI } from "../../utils/Constants/ABIs";
 import TextField from "@mui/material/TextField";
 import RoomCard from "./RoomCard";
 import VideoCard from "./VideoCard";
@@ -150,7 +148,7 @@ export default function MySpace(props) {
           {videosData
             .filter(
               (element) =>
-                element.owner.toLowerCase() != ethAccount.toLowerCase()
+                element.owner.toLowerCase() == ethAccount.toLowerCase()
             )
             .map((data, index) => {
               return (
