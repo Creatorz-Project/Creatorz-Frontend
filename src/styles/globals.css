@@ -101,11 +101,7 @@ a {
 
 .MuiSelect-select {
   background: white;
-  width: 100% !important;
-}
-
-.css-1yk1gt9-MuiInputBase-root-MuiOutlinedInput-root-MuiSelect-root{
-  width: 100% !important;
+  width: auto;
 }
 
 .MuiTypography-h5{

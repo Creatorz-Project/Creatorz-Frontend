@@ -121,7 +121,7 @@ export default function BuyModal(props) {
                   <div class="grid gap-y-4">
                     <div>
                       <label
-                        for="email"
+                        for="roomId"
                         class="block text-sm font-bold ml-1 mb-2 text-white"
                       >
                         Room Id
@@ -132,7 +132,7 @@ export default function BuyModal(props) {
                             type="number"
                             id="room"
                             name="roomId"
-                            class="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
+                            className="py-3 px-4 block w-full border-2 border-gray-200 rounded-md text-sm focus:border-blue-500 focus:ring-blue-500 shadow-sm"
                             required
                             aria-describedby="roomId-error"
                             value={props.roomId}
