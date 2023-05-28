@@ -1,10 +1,13 @@
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/router";
 import { getContract } from "@/utils/Constants/Contracts";
-import { TokenAddress } from "@/utils/Constants/Addresses";
+import {
+  TokenAddress,
+  Marketplace as MAddress,
+} from "@/utils/Constants/Addresses";
 import Backdrop from "@mui/material/Backdrop";
 import CircularProgress from "@mui/material/CircularProgress";
-import { Token } from "@/utils/Constants/ABIs";
+import { Token, Marketplace as MABI } from "@/utils/Constants/ABIs";
 import { useAccount } from "wagmi";
 import Room from "./RoomCard";
 
@@ -46,7 +49,9 @@ export default function RoomMarketPlace(props) {
       const Balance = await tokenContract.getBalance(address, 0);
       setBalance(Balance);
     };
-    getBalance();
+    if (address) {
+      getBalance();
+    }
   }, [address]);
 
   const forloop = useCallback(async () => {

@@ -13,7 +13,7 @@ import * as PushAPI from "@pushprotocol/restapi";
 import { ethers } from "ethers";
 import { getContract } from "@/utils/Constants/Contracts";
 import { ContentManager as CMAddresss } from "../../utils/Constants/Addresses";
-import { ContentManger as CMABI } from "../../utils/Constants/ABIs";
+import { ContentManager as CMABI } from "../../utils/Constants/ABIs";
 import { Marketplace as MarketplaceAddress } from "@/utils/Constants/Addresses";
 import { Marketplace as MarketplaceABI } from "@/utils/Constants/ABIs";
 import TextField from "@mui/material/TextField";
@@ -184,11 +184,20 @@ export default function MySpace(props) {
   };
   const PublishVideo = async (event, data) => {
     console.log(data);
+    const contract = await getContract(CMAddresss, CMABI);
+    console.log(contract);
+    if (event.target.checked == true) {
+      const tx = await contract.publishVideo(data.id);
+      await tx.wait();
+    } else {
+      const tx = await contract.unpublishVideo(data.id);
+      await tx.wait();
+    }
   };
 
   const ListingPrice = (event, data) => {
     if (event.target.value > 0) {
-      setEnableVideoListing(true)
+      setEnableVideoListing(true);
       setPrice(event.target.value);
       console.log(event.target.value);
     }
@@ -203,7 +212,10 @@ export default function MySpace(props) {
       </div>
       <div className="mt-2 mx-12">
         <h3 className="text-2xl mb-7">Notification</h3>
-        <div>Want stay up-to-date with all the videos and updates?  <NotificationOptIn /></div>
+        <div>
+          Want stay up-to-date with all the videos and updates?{" "}
+          <NotificationOptIn />
+        </div>
 
         <NotificationOptOut />
       </div>
@@ -217,14 +229,22 @@ export default function MySpace(props) {
             )
             .map((data, index) => {
               return (
-                <div className=" w-[345px] bg-[#2c2c2e] rounded-lg p-4" key={index}>
+                <div
+                  className=" w-[345px] bg-[#2c2c2e] rounded-lg p-4"
+                  key={index}
+                >
                   <CardMedia
                     sx={{ height: 140 }}
                     image={`https://ipfs.io/ipfs/${data.thumbnail}`}
                     title="thumbnail"
                   />
                   <CardContent>
-                    <Typography gutterBottom variant="h5" component="div" color="#aa9bd1">
+                    <Typography
+                      gutterBottom
+                      variant="h5"
+                      component="div"
+                      color="#aa9bd1"
+                    >
                       {data.title}
                     </Typography>
                     <Typography variant="body2" color="#dcd3f2">
@@ -241,30 +261,36 @@ export default function MySpace(props) {
                       />
                     ) : (
                       <>
-                        {enableVideoListing
-                          ? <>
+                        {enableVideoListing ? (
+                          <>
                             <FormControlLabel
                               control={<Android12Switch />}
                               label="List on marketplace"
                               onChange={(event) => ListVideo(event, data)}
                               color="GrayText"
                             />
-                            <div class="relative mb-3" data-te-input-wrapper-init>
+                            <div
+                              class="relative mb-3"
+                              data-te-input-wrapper-init
+                            >
                               <input
                                 type="number"
                                 defaultValue={data.Price}
                                 onChange={(e) => ListingPrice(e, data)}
                                 className=" border-b-2 border-gray-500 p-2 bg-transparent w-full "
                                 id="exampleFormControlInput1"
-                                placeholder="listing price" />
+                                placeholder="listing price"
+                              />
                               <label
                                 for="exampleFormControlInput1"
                                 className=""
-                              >listing price
+                              >
+                                listing price
                               </label>
                             </div>
                           </>
-                          : <>
+                        ) : (
+                          <>
                             <FormControlLabel
                               control={<Android12Switch />}
                               label="List on marketplace"
@@ -272,24 +298,27 @@ export default function MySpace(props) {
                               onChange={(event) => ListVideo(event, data)}
                               disabled
                             />
-                            <div class="relative mb-3" data-te-input-wrapper-init>
+                            <div
+                              class="relative mb-3"
+                              data-te-input-wrapper-init
+                            >
                               <input
                                 type="number"
                                 defaultValue={data.Price}
                                 onChange={(e) => ListingPrice(e, data)}
                                 className="border-b-2 border-gray-500 p-2 bg-transparent w-full "
                                 id="exampleFormControlInput1"
-                                placeholder="listing price" />
+                                placeholder="listing price"
+                              />
                               <label
                                 for="exampleFormControlInput1"
                                 className=""
-                              >listing price
+                              >
+                                listing price
                               </label>
                             </div>
                           </>
-
-                        }
-
+                        )}
                       </>
                     )}
                   </CardActions>
@@ -316,14 +345,14 @@ export default function MySpace(props) {
       <div className="mt-10 mx-12">
         <h3 className=" text-2xl mb-7 font-semibold">Rooms</h3>
         <div className=" flex flex-wrap gap-5">
-          {roomsData.filter(
-            (element) =>
-              element.Owner.toLowerCase() == ethAccount.toLowerCase()
-          )
+          {roomsData
+            .filter(
+              (element) =>
+                element.Owner.toLowerCase() == ethAccount.toLowerCase()
+            )
             .map((data, index) => {
-              return <RoomCard room={data} key={index} />
-             })
-          }
+              return <RoomCard room={data} key={index} />;
+            })}
         </div>
       </div>
     </div>
