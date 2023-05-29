@@ -98,7 +98,7 @@ export default function VideoPage(props) {
   }, [relatedVideos, query]);
 
   return (
-    <div className="w-full bg-[#1a1c1f]  flex flex-row min-h-screen">
+    <div className="w-full bg-[#150A22]  flex flex-row min-h-screen">
       <div className="flex-1 flex flex-col">
         {query && (
           <div className="flex flex-col m-10 justify-between lg:flex-row">
