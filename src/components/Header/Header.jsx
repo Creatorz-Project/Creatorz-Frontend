@@ -80,7 +80,7 @@ export default function Header() {
                         <Link class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="/creator">Studio</Link>
                         <Link class="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0" href="/about">About</Link>
                     </div>
-                    <button id="sdk-trigger-id" className="mx-4"><NotificationsActiveIcon /></button>
+                    {address && <button id="sdk-trigger-id" className="mx-4"><NotificationsActiveIcon /></button>}
                     <div class="flex justify-center md:block">
                         {ethAccount != null
                             ? <span >

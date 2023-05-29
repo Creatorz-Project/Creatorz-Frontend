@@ -40,7 +40,7 @@ export default function VideoComponent({ videoId, video }) {
         .collection("Video")
         .record(18)
         .call("incrementLikes", []);
-      setLikes(1);
+      setLikes(likes + 1);
     } catch (err) {
       console.log(err);
     }
@@ -78,6 +78,14 @@ export default function VideoComponent({ videoId, video }) {
   };
   console.log(video);
 
+  useEffect(() => {
+    console.log("Mounted");
+    setTimeout(() => {
+      console.log("Delayed for 3 second.");
+    }, 3000);
+  }, [])
+
+
   return (
     <div>
       <iframe
@@ -98,9 +106,9 @@ export default function VideoComponent({ videoId, video }) {
             <p className="text-gray-500 mt-1">{video.description}</p>
           </div>
           <div className="flex gap-3 h-fit place-items-center">
-            <ThumbUpIcon onClick={LikeHandler} />
-            <BookmarkAddIcon onClick={BookmarkHandler} />
-            <ShareIcon onClick={ShareHandler} />
+            <span className="bg-gray-600 rounded-lg py-2 px-4 flex gap-2"><ThumbUpIcon onClick={LikeHandler} className=" cursor-pointer" /> {likes}</span>
+            <span className="bg-gray-600 rounded-lg py-2 px-4 flex gap-2"><BookmarkAddIcon onClick={BookmarkHandler} className=" cursor-pointer" /> {bookmarks}</span>
+            <span className="bg-gray-600 rounded-lg py-2 px-4 flex gap-2"><ShareIcon onClick={ShareHandler} className=" cursor-pointer" /> {shares}</span>
             <button
               className=" border-0 bg-white rounded-[20px] px-5 py-1 text-black h-fit"
               onClick={SubscribeHandler}

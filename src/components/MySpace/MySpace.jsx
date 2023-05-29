@@ -4,8 +4,7 @@ import { NotificationOptIn, NotificationOptOut } from "@/utils/notification";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import * as PushAPI from "@pushprotocol/restapi";
 import { ethers } from "ethers";
-import { getContract } from "@/utils/Constants/Contracts";
-import TextField from "@mui/material/TextField";
+import { useRouter } from "next/router";
 import RoomCard from "./RoomCard";
 import VideoCard from "./VideoCard";
 
@@ -15,8 +14,9 @@ export default function MySpace(props) {
   const [roomsData, setRoomsData] = useState([]);
   const [videosData, setVideosData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const router = useRouter()
 
-  const { address } = useAccount();
+  const { address, isDisconnected } = useAccount();
   const [ethAccount, setEthAccount] = useState("null");
 
   useEffect(() => {
@@ -31,6 +31,12 @@ export default function MySpace(props) {
     };
     setAcc();
   }, [address]);
+
+  useEffect(() => {
+    if (isDisconnected) {
+      router.push("/")
+    }
+  }, [isDisconnected])
 
   const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
   const _signer = new ethers.Wallet(Pkey);
@@ -152,7 +158,7 @@ export default function MySpace(props) {
             )
             .map((data, index) => {
               return (
-                <VideoCard data={data} key={index}/> 
+                <VideoCard data={data} key={index} />
               );
             })}
         </div>
