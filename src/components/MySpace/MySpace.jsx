@@ -196,6 +196,10 @@ export default function MySpace(props) {
                 <VideoCard data={data} key={index} />
               );
             })}
+          {!(videosData.filter(
+            (element) =>
+              element.owner.toLowerCase() == ethAccount.toLowerCase()
+          ).length > 0) && <div className="text-gray-400">No Videos</div>}
         </div>
       </div>
       <div className="mt-10 mx-12">
@@ -209,6 +213,11 @@ export default function MySpace(props) {
             .map((data, index) => {
               return <RoomCard room={data} key={index} />;
             })}
+          {!(roomsData
+            .filter(
+              (element) =>
+                element.Owner.toLowerCase() == ethAccount.toLowerCase()
+            ).length > 0) && <div className="text-gray-400">No Rooms</div>}
         </div>
       </div>
       <div className="mt-10 mx-12">
@@ -226,6 +235,10 @@ export default function MySpace(props) {
                 </div>
               );
             })}
+          {!(socialTokenData.filter(
+            (element) =>
+              element.Creator.toLowerCase() == ethAccount.toLowerCase()
+          ).length > 0) && <div className="text-gray-400">No Tokens</div>}
         </div>
       </div>
     </div>
