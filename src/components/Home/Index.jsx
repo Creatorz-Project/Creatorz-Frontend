@@ -58,14 +58,14 @@ export default function Main(props) {
       </Backdrop>
       <div className="flex flex-row flex-wrap gap-5 mx-5 my-5 justify-center">
         {videosData.length > 0 ? (
-          videosData.map((data, index) => {
+          videosData.filter((data) => data.Published == true).map((data, index) => {
             return (
               <Link
                 className="w-80 rounded-xl cursor-pointer"
                 href={`/video?id=${data.video}`}
                 key={index}
               >
-                <Video video={data} showAvatar={true}/>
+                <Video video={data} showAvatar={true} />
               </Link>
             );
           })

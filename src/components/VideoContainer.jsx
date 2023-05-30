@@ -11,10 +11,15 @@ const db = new Polybase({
 });
 
 export default function VideoComponent({ videoId, video }) {
+
+  const AdVideoId = "video_3gevnj8nqjjw8nj69r3q7az2bs"
+
   const [likes, setLikes] = React.useState(0);
   const [bookmarks, setBookmarks] = React.useState(0);
   const [shares, setShares] = React.useState(0);
   const [subscribers, setSubscribers] = React.useState(0);
+  const [videoData, setVideoData] = React.useState(AdVideoId)
+
   const { address } = useAccount();
 
   useEffect(() => {
@@ -79,17 +84,18 @@ export default function VideoComponent({ videoId, video }) {
   console.log(video);
 
   useEffect(() => {
-    console.log("Mounted");
+    console.log("Ad playing")
     setTimeout(() => {
-      console.log("Delayed for 3 second.");
-    }, 3000);
+      console.log("ad ends");
+      setVideoData(videoId)
+    }, 60000);
   }, [])
 
 
   return (
     <div>
       <iframe
-        src={`https://player.thetavideoapi.com/video/${videoId}`}
+        src={`https://player.thetavideoapi.com/video/${videoData}`}
         border="0"
         width="100%"
         allowfullscreen

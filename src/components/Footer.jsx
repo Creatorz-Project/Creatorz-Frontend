@@ -15,7 +15,7 @@ export default function Footer() {
                         <Link href="#" class="mr-4 hover:underline md:mr-6">Privacy Policy</Link>
                     </li>
                     <li>
-                        <Link href="/docs" class="mr-4 hover:underline md:mr-6">Documentation</Link>
+                        <Link href="https://ayush45.notion.site/Creatorz-Docs-394ea368aed246d7b10446c162e1e1c3" target="_blank" referrerPolicy="no-referrer" class="mr-4 hover:underline md:mr-6">Documentation</Link>
                     </li>
                     <li>
                         <Link href="#" class="hover:underline">Contact</Link>
