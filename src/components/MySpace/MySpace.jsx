@@ -7,12 +7,15 @@ import { ethers } from "ethers";
 import { useRouter } from "next/router";
 import RoomCard from "./RoomCard";
 import VideoCard from "./VideoCard";
+import TokenCard from "./TokenCard";
 
 export default function MySpace(props) {
   const [videos, setVideos] = useState(props.Post.videos);
   const [rooms, setRooms] = useState(props.Post.rooms);
+  const [socialToken, setSocialToken] = useState(props.Post.socialTokenHoldings)
   const [roomsData, setRoomsData] = useState([]);
   const [videosData, setVideosData] = useState([]);
+  const [socialTokenData, setSocialTokenData] = useState([])
   const [loading, setLoading] = useState(false);
   const router = useRouter()
 
@@ -131,6 +134,38 @@ export default function MySpace(props) {
     }
   }, [rooms]);
 
+  const tokenForLoop = useCallback(async () => {
+    setLoading(true);
+
+    const tempChoicesArray = [];
+
+    var requestOptions = {
+      method: "GET",
+      redirect: "follow",
+    };
+
+    for (let i = 0; i < socialToken.length; i++) {
+      let obj = {};
+      if (socialToken[i].URI.length > 8) {
+        const newresponse = await fetch(
+          `https://ipfs.io/ipfs/${socialToken[i].URI}/RoomMetaData.json`,
+          requestOptions
+        );
+        const result = await newresponse.json();
+        obj = { ...result, ...socialToken[i] };
+        tempChoicesArray.push(obj);
+      }
+
+      setLoading(false);
+    }
+    setSocialTokenData(tempChoicesArray);
+  }, [socialToken, socialTokenData]);
+
+  useEffect(() => {
+    if (socialToken.length > 0) {
+      tokenForLoop();
+    }
+  }, [socialToken]);
 
   console.log(videosData);
 
@@ -173,6 +208,23 @@ export default function MySpace(props) {
             )
             .map((data, index) => {
               return <RoomCard room={data} key={index} />;
+            })}
+        </div>
+      </div>
+      <div className="mt-10 mx-12">
+        <h3 className=" text-2xl mb-7 font-semibold">Tokens</h3>
+        <div className=" flex flex-wrap gap-5">
+          {socialTokenData
+            .filter(
+              (element) =>
+                element.Creator.toLowerCase() == ethAccount.toLowerCase()
+            )
+            .map((data, index) => {
+              return (
+                <div className="w-80 bg-[#1a1c1f] rounded-xl" key={index}>
+                  <TokenCard token={data} />
+                </div>
+              );
             })}
         </div>
       </div>

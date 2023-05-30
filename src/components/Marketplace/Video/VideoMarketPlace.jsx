@@ -57,7 +57,7 @@ export default function VideoMarketPlace(props) {
       let obj = {};
       if (videos[i].MetadataURI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${videos[i].MetadataURI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();

@@ -12,6 +12,8 @@ import { Marketplace as MarketplaceABI } from "@/utils/Constants/ABIs";
 import { getContract } from "@/utils/Constants/Contracts";
 import { ContentManager as CMAddresss } from "../../utils/Constants/Addresses";
 import { ContentManager as CMABI } from "../../utils/Constants/ABIs";
+import { IoMdInformationCircle } from "react-icons/io";
+import VideoInfoModal from "../Marketplace/Video/VideoInfoModal";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -50,6 +52,11 @@ export default function VideoCard(props) {
   const [enableVideoListing, setEnableVideoListing] = useState(false);
   const [price, setPrice] = useState(0);
   const [open, setOpen] = useState(false);
+  const [infoModalOpen, setInfoModalOpen] = useState(false);
+
+  const infoModalOpenHandler = () => {
+    setInfoModalOpen(!infoModalOpen)
+  }
 
   const openHandler = () => {
     setOpen(!open);
@@ -196,11 +203,23 @@ export default function VideoCard(props) {
           </>
         )}
       </CardActions>
+      <div
+        className=" flex items-center gap-1 text-gray-500"
+        onClick={() => infoModalOpenHandler()}
+      >
+        <span>
+          <IoMdInformationCircle />
+        </span>{" "}
+        <span className="cursor-pointer font-medium">
+          Click here for more info
+        </span>
+      </div>
       <PublishModal
         publishVideoHandler={PublishVideo}
         open={open}
         openHandler={openHandler}
       />
+      <VideoInfoModal openHandler={infoModalOpenHandler} open={infoModalOpen} data={props.data} />
     </div>
   );
 }

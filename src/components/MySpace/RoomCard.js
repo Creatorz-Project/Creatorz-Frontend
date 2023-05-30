@@ -5,6 +5,7 @@ import { Marketplace as MABI } from "@/utils/Constants/ABIs";
 import { Marketplace as MAddress } from "@/utils/Constants/Addresses";
 import { useState } from "react";
 import { getContract } from "@/utils/Constants/Contracts";
+import RoomInfoModal from "../Marketplace/Room/RoomInfoModal";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -142,8 +143,8 @@ export default function RoomCard(props) {
           )}
         </>
       )}
-      {/* <div className=" flex items-center gap-1 text-gray-500 mt-3" onClick={() => openHandler()}><span><IoMdInformationCircle /></span> <span className="cursor-pointer font-medium">Click here for more info</span></div>
-            <RoomInfoModal openHandler={openHandler} open={open} data={props.room} /> */}
+      <div className=" flex items-center gap-1 text-gray-500 mt-3" onClick={() => openHandler()}><span><IoMdInformationCircle /></span> <span className="cursor-pointer font-medium">Click here for more info</span></div>
+      <RoomInfoModal openHandler={openHandler} open={open} data={props.room} />
     </main>
   );
 }

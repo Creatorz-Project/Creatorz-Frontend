@@ -121,8 +121,8 @@ export default function RoomInfoModal(props) {
                                     name.filter((data) => data != "Videos" && data != "URI" && data != "id").map((data) => {
                                         return (
                                             <div className="flex flex-wrap items-center justify-center gap-2 ">
-                                                <div className="text-lg font-semibold text-gray-400">{data}</div>
-                                                <div className="text-sm font-semibold text-gray-500">{props.data[data]}</div>
+                                                <div className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-300">{data} -</div>
+                                                <div className="text-base font-semibold text-gray-500">{props.data[data]}</div>
                                             </div>
                                         )
                                     })

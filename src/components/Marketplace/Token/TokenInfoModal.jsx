@@ -39,7 +39,9 @@ export default function TokenInfoModal(props) {
       })
       .then(({ data }) => {
         console.log(data.videos);
-        setURI(data.videos[0].MetadataURI);
+        if(data.videos.length > 0){
+           setURI(data.videos[0].MetadataURI);
+        }
       });
   };
 
@@ -102,10 +104,10 @@ export default function TokenInfoModal(props) {
                   .map((data) => {
                     return (
                       <div className="flex flex-wrap items-center justify-center gap-2 ">
-                        <div className="text-lg font-semibold text-gray-400">
-                          {data}
+                        <div className="text-lg font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-300">
+                          {data} -
                         </div>
-                        <div className="text-sm font-semibold text-gray-500">
+                        <div className=" text-base font-semibold text-gray-500">
                           {props.data[data]}
                         </div>
                       </div>
