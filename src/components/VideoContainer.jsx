@@ -88,7 +88,7 @@ export default function VideoComponent({ videoId, video }) {
     setTimeout(() => {
       console.log("ad ends");
       setVideoData(videoId)
-    }, 60000);
+    }, 8000);
   }, [])
 
 
