@@ -36,7 +36,7 @@
   font-size: 50px;
   line-height: 35px;
 
-  color: #1d2030;
+  color: #02edf9;
 }
 
 .description {
@@ -104,7 +104,7 @@
 .workingSubheadingGrowth {
   background: -webkit-linear-gradient(
     90.11deg,
-    #350707 58.31%,
+    #04d1ff 58.31%,
     rgba(35, 31, 31, 0) 115.22%
   );
   -webkit-background-clip: text;
@@ -124,7 +124,7 @@
 
 .workingsteps {
   height: 130px;
- 
+
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
   --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
@@ -137,7 +137,7 @@
 
 .benifitsteps {
   height: 100px;
- 
+
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
   --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
@@ -150,7 +150,7 @@
 
 .workingTechs {
   height: 50px;
- 
+
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
   --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
