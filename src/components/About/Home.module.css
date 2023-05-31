@@ -124,11 +124,12 @@
 
 .workingsteps {
   height: 130px;
-  background: linear-gradient(
-    91.43deg,
-    #522b2b -19.85%,
-    rgba(18, 18, 18, 0) 127.89%
-  );
+ 
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: #2dd4bf var(--tw-gradient-to-position);
   border-radius: 15px;
   width: 550px;
   padding: 15px;
@@ -136,11 +137,12 @@
 
 .benifitsteps {
   height: 100px;
-  background: linear-gradient(
-    91.43deg,
-    #522b2b -19.85%,
-    rgba(18, 18, 18, 0) 127.89%
-  );
+ 
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: #2dd4bf var(--tw-gradient-to-position);
   border-radius: 15px;
   width: 850px;
   padding: 15px;
@@ -148,11 +150,12 @@
 
 .workingTechs {
   height: 50px;
-  background: linear-gradient(
-    91.43deg,
-    #522b2b -29.85%,
-    rgba(18, 18, 18, 0) 127.89%
-  );
+ 
+  background-image: linear-gradient(to right, var(--tw-gradient-stops));
+  --tw-gradient-from: #3b82f6 var(--tw-gradient-from-position);
+  --tw-gradient-to: rgb(59 130 246 / 0) var(--tw-gradient-to-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
+  --tw-gradient-to: #2dd4bf var(--tw-gradient-to-position);
   border-radius: 15px;
   padding: 15px;
 }

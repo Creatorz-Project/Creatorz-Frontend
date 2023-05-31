@@ -226,7 +226,7 @@ export default function MySpace(props) {
           {socialTokenData
             .filter(
               (element) =>
-                element.Creator.toLowerCase() == ethAccount.toLowerCase()
+                element.Holder.toLowerCase() == ethAccount.toLowerCase()
             )
             .map((data, index) => {
               return (
@@ -237,7 +237,7 @@ export default function MySpace(props) {
             })}
           {!(socialTokenData.filter(
             (element) =>
-              element.Creator.toLowerCase() == ethAccount.toLowerCase()
+              element.Holder.toLowerCase() == ethAccount.toLowerCase()
           ).length > 0) && <div className="text-gray-400">No Tokens</div>}
         </div>
       </div>

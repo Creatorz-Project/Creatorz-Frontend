@@ -43,16 +43,25 @@ export default function TokenCard(props) {
     const [open, setOpen] = useState(false)
     const [enableToggle, setEnableToggle] = useState(false)
     const [price, setPrice] = useState(0)
+    const [amount, setAmount] = useState(0)
 
     const openHandler = () => {
         setOpen(!open)
     }
 
     useEffect(() => {
-        if (price.length > 0) {
+        if (price.length > 0 && amount.length > 0) {
             setEnableToggle(true)
         }
     }, [price])
+
+    const ListingPrice = (e) => {
+        setPrice(e.target.value)
+    }
+
+    const ListingAmount = (e) => {
+        setAmount(e.target.value)
+    }
 
     console.log(props.token)
 
@@ -119,6 +128,19 @@ export default function TokenCard(props) {
                                         listing price
                                     </label>
                                 </div>
+                                <div class="relative mb-3" data-te-input-wrapper-init>
+                                    <input
+                                        type="number"
+                                        defaultValue={props.token.Price}
+                                        onChange={(e) => ListingAmount(e)}
+                                        className=" border-b-2 border-gray-500 p-2 bg-transparent w-full "
+                                        id="exampleFormControlInput1"
+                                        placeholder="amount of tokens"
+                                    />
+                                    <label for="exampleFormControlInput1" className="">
+                                        listing amount
+                                    </label>
+                                </div>
                             </>
                         ) : (
                             <>
@@ -140,6 +162,19 @@ export default function TokenCard(props) {
                                     />
                                     <label for="exampleFormControlInput1" className="">
                                         listing price
+                                    </label>
+                                </div>
+                                <div class="relative mb-3" data-te-input-wrapper-init>
+                                    <input
+                                        type="number"
+                                        defaultValue={props.token.Price}
+                                        onChange={(e) => ListingAmount(e)}
+                                        className=" border-b-2 border-gray-500 p-2 bg-transparent w-full "
+                                        id="exampleFormControlInput1"
+                                        placeholder="amount of tokens"
+                                    />
+                                    <label for="exampleFormControlInput1" className="">
+                                        listing amount
                                     </label>
                                 </div>
                             </>
