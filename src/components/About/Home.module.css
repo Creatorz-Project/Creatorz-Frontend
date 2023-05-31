@@ -3,12 +3,13 @@
 .main {
   padding: 0px 50px;
   min-height: 100vh;
-  background: #150A22
+  background: #150a22;
 }
 
 .intro {
   height: 370px;
   width: 100%;
+  border-top: 20px;
   /* background: linear-gradient(
     90.27deg,
     #522b2b 0.27%,
@@ -31,11 +32,11 @@
 .name {
   font-family: "Montserrat";
   font-style: normal;
-  font-weight: 500;
-  font-size: 30px;
+  font-weight: 800;
+  font-size: 50px;
   line-height: 35px;
 
-  color: #85888e;
+  color: #1d2030;
 }
 
 .description {
@@ -101,9 +102,11 @@
 }
 
 .workingSubheadingGrowth {
-  background: -webkit-linear-gradient(90.11deg,
-      #350707 58.31%,
-      rgba(35, 31, 31, 0) 115.22%);
+  background: -webkit-linear-gradient(
+    90.11deg,
+    #350707 58.31%,
+    rgba(35, 31, 31, 0) 115.22%
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -121,9 +124,11 @@
 
 .workingsteps {
   height: 130px;
-  background: linear-gradient(91.43deg,
-      #522b2b -19.85%,
-      rgba(18, 18, 18, 0) 127.89%);
+  background: linear-gradient(
+    91.43deg,
+    #522b2b -19.85%,
+    rgba(18, 18, 18, 0) 127.89%
+  );
   border-radius: 15px;
   width: 550px;
   padding: 15px;
@@ -131,9 +136,11 @@
 
 .benifitsteps {
   height: 100px;
-  background: linear-gradient(91.43deg,
-      #522b2b -19.85%,
-      rgba(18, 18, 18, 0) 127.89%);
+  background: linear-gradient(
+    91.43deg,
+    #522b2b -19.85%,
+    rgba(18, 18, 18, 0) 127.89%
+  );
   border-radius: 15px;
   width: 850px;
   padding: 15px;
@@ -141,14 +148,16 @@
 
 .workingTechs {
   height: 50px;
-  background: linear-gradient(91.43deg,
-      #522b2b -29.85%,
-      rgba(18, 18, 18, 0) 127.89%);
+  background: linear-gradient(
+    91.43deg,
+    #522b2b -29.85%,
+    rgba(18, 18, 18, 0) 127.89%
+  );
   border-radius: 15px;
   padding: 15px;
 }
 
-.workingTechs>div:last-child {
+.workingTechs > div:last-child {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 600;
@@ -163,7 +172,7 @@
   color: #ffffff;
 }
 
-.benifitsteps>div:first-child {
+.benifitsteps > div:first-child {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
@@ -177,7 +186,7 @@
   color: #ffffff;
 }
 
-.workingsteps>div:first-child {
+.workingsteps > div:first-child {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;
@@ -191,7 +200,7 @@
   color: #ffffff;
 }
 
-.workingsteps>div:last-child {
+.workingsteps > div:last-child {
   font-family: "Montserrat";
   font-style: normal;
   font-weight: 500;

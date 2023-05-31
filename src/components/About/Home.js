@@ -4,14 +4,14 @@ export default function HomePage() {
   return (
     <div className={styles.main}>
       <div className={styles.intro}>
-        <div className={styles.name}>AdChain</div>
+        <div className={styles.name}>Creatorz</div>
         <div className={styles.description}>
-          A Better Way to Advertise secure, Decentralized,<br></br>{" "}
-          Privacy-Focused
+          Empowering Creators, Unleashing Something Big,<br></br> on a
+          Privacy-Focused Global Blockchain Stage.
         </div>
         <div className={styles.description2}>
-          Our system is designed to make advertising and managing your Ad easy
-          while leveraging<br></br> the potential of web3 ecosystem{" "}
+          Our platform is designed to make Creating and Monitizing your Content
+          easy while leveraging<br></br> the potential of web3 ecosystem{" "}
         </div>
       </div>
       <div className={styles.working}>
