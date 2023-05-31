@@ -1,13 +1,58 @@
 import TokenInfoModal from "../Marketplace/Token/TokenInfoModal"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+// import { HiRocketLaunch } from "react-icons/hi"
+import { styled } from "@mui/material/styles";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Switch from "@mui/material/Switch";
+
+const Android12Switch = styled(Switch)(({ theme }) => ({
+    padding: 8,
+    "& .MuiSwitch-track": {
+        borderRadius: 22 / 2,
+        "&:before, &:after": {
+            content: '""',
+            position: "absolute",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: 16,
+            height: 16,
+        },
+        "&:before": {
+            backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+                theme.palette.getContrastText(theme.palette.primary.main)
+            )}" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"/></svg>')`,
+            left: 12,
+        },
+        "&:after": {
+            backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 24 24"><path fill="${encodeURIComponent(
+                theme.palette.getContrastText(theme.palette.primary.main)
+            )}" d="M19,13H5V11H19V13Z" /></svg>')`,
+            right: 12,
+        },
+    },
+    "& .MuiSwitch-thumb": {
+        boxShadow: "none",
+        width: 16,
+        height: 16,
+        margin: 2,
+    },
+}));
 
 export default function TokenCard(props) {
 
     const [open, setOpen] = useState(false)
+    const [enableToggle, setEnableToggle] = useState(false)
+    const [price, setPrice] = useState(0)
 
     const openHandler = () => {
         setOpen(!open)
     }
+
+    useEffect(() => {
+        if (price.length > 0) {
+            setEnableToggle(true)
+        }
+    }, [price])
 
     console.log(props.token)
 
@@ -40,13 +85,67 @@ export default function TokenCard(props) {
                     </span>
                 </div> */}
                     </div>
-                    <div className="flex items-center justify-between md:items-center lg:justify-between ">
-                        <div className="flex">
-                            <p className="!mb-0 text-sm font-bold text-brand-500">Amount for Sale: <span>{props.token.AmountListedByHolder}</span></p>
-                        </div>
-                        <button className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700">List</button>
-                    </div>
+                    {/* <div className="flex items-center justify-between md:items-center lg:justify-between ">
+                        <button className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700"><HiRocketLaunch />Launch</button>
+                    </div> */}
                 </div>
+                {props.token.AmountListedByHolder > 0 ? (
+                    <FormControlLabel
+                        control={<Android12Switch defaultChecked />}
+                        label="UnList From marketplace"
+                        color="GrayText"
+                        onChange={(event) => ListRoom(event)}
+                    />
+                ) : (
+                    <>
+                        {enableToggle ? (
+                            <>
+                                <FormControlLabel
+                                    control={<Android12Switch />}
+                                    label="List on marketplace"
+                                    onChange={(event) => ListRoom(event)}
+                                    color="GrayText"
+                                />
+                                <div class="relative mb-3" data-te-input-wrapper-init>
+                                    <input
+                                        type="number"
+                                        defaultValue={props.token.Price}
+                                        onChange={(e) => ListingPrice(e)}
+                                        className=" border-b-2 border-gray-500 p-2 bg-transparent w-full "
+                                        id="exampleFormControlInput1"
+                                        placeholder="listing price"
+                                    />
+                                    <label for="exampleFormControlInput1" className="">
+                                        listing price
+                                    </label>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <FormControlLabel
+                                    control={<Android12Switch />}
+                                    label="List on marketplace"
+                                    color="GrayText"
+                                    onChange={(event) => ListRoom(event)}
+                                    disabled
+                                />
+                                <div class="relative mb-3" data-te-input-wrapper-init>
+                                    <input
+                                        type="number"
+                                        defaultValue={props.token.Price}
+                                        onChange={(e) => ListingPrice(e)}
+                                        className="border-b-2 border-gray-500 p-2 bg-transparent w-full "
+                                        id="exampleFormControlInput1"
+                                        placeholder="listing price"
+                                    />
+                                    <label for="exampleFormControlInput1" className="">
+                                        listing price
+                                    </label>
+                                </div>
+                            </>
+                        )}
+                    </>
+                )}
             </div>
             <TokenInfoModal openHandler={openHandler} open={open} data={props.token} />
         </div>

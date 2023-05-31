@@ -1,3 +1,5 @@
+import HomePage from "./Home";
+
 export default function About() {
   return (
     <>
@@ -54,6 +56,7 @@ export default function About() {
           </div>
         </div>
       </section>
+      <HomePage />
     </>
   );
 }

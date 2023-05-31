@@ -52,7 +52,7 @@ export default function Header() {
     }, [address]);
 
     return (
-        <nav x-data="{ isOpen: false }" className="relative bg-[#150A22]">
+        <nav x-data="{ isOpen: false }" className="relative bg-[#18141c]">
             <div className="container px-4 py-4 mx-auto md:flex md:justify-between md:items-center">
                 <div className="flex items-center justify-between">
                     <Link href="/">
