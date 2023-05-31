@@ -6,6 +6,7 @@ import { Marketplace as MAddress } from "@/utils/Constants/Addresses";
 import { useState } from "react";
 import { getContract } from "@/utils/Constants/Contracts";
 import RoomInfoModal from "../Marketplace/Room/RoomInfoModal";
+import { IoMdInformationCircle } from "react-icons/io";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -43,6 +44,11 @@ const Android12Switch = styled(Switch)(({ theme }) => ({
 export default function RoomCard(props) {
   const [enableRoomListing, setEnableRoomListing] = useState(false);
   const [roomPrice, setRoomPrice] = useState(0);
+  const [open, setOpen] = useState(false);
+
+  const openHandler = () => {
+    setOpen(!open)
+  }
 
   const ListingPrice = (e) => {
     setRoomPrice(e.target.value);
