@@ -53,7 +53,9 @@ export default function TokenMarketPlace(props) {
       const Balance = await tokenContract.getBalance(address, 0);
       setBalance(Balance);
     };
-    getBalance();
+    if (address) {
+      getBalance();
+    }
   }, [address]);
 
   const forloop = useCallback(async () => {
@@ -168,7 +170,7 @@ export default function TokenMarketPlace(props) {
           )}
         </div>
       </div>
-      <InfoModal open={openInfoModal} setOpen={setopenInfoModal}/>
+      <InfoModal open={openInfoModal} setOpen={setopenInfoModal} />
     </div>
   );
 }
