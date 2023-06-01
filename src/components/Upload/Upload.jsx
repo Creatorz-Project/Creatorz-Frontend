@@ -101,7 +101,6 @@ export default function Upload() {
         fetchPolicy: "network-only",
       })
       .then(({ data }) => {
-        console.log(data.rooms);
         setUserRooms(data.rooms);
         if (data.rooms.length > 0) {
           setRoom(data.rooms[0].RoomId);
@@ -146,8 +145,6 @@ export default function Upload() {
     }
   }, [userRooms]);
 
-  console.log(room);
-
   const getUploadUrl = async () => {
     console.log("getting upload url");
     var myHeaders = new Headers();
@@ -171,7 +168,6 @@ export default function Upload() {
     const result = await response.json();
     setPresignedurl(result.body.uploads[0].presigned_url);
     setUploadId(result.body.uploads[0].id);
-    console.log(result);
   };
 
   const transcodeVideo = async () => {
@@ -205,7 +201,6 @@ export default function Upload() {
     }
 
     setVideoId(result.body.videos[0].id);
-    console.log(result);
 
     console.log("upload complete");
   };
@@ -213,15 +208,11 @@ export default function Upload() {
   const handleSubmit = async () => {
     console.log("uploading video ....");
 
-    console.log(presignedurl, uploadId);
-
     const octetStreamData = await convertFileToOctetStream(video);
-    console.log(octetStreamData);
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/octet-stream");
 
-    console.log(octetStreamData);
     console.log("uploading");
 
     var requestOptions = {
@@ -236,8 +227,6 @@ export default function Upload() {
     if (response.ok) {
       setUploadStatus("success");
     }
-    console.log(response.ok);
-    console.log(uploadId);
 
     const CID = await uploadThumbnail();
 
@@ -284,6 +273,7 @@ export default function Upload() {
           CreatedAt: CreatedAt,
         };
         const URI = await saveMetaData(data);
+        console.log(data);
         try {
           const token = await getContract(TokenAddress, Token);
           console.log(token);

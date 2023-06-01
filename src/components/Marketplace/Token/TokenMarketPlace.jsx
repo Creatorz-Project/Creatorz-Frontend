@@ -47,7 +47,9 @@ export default function TokenMarketPlace(props) {
       const Balance = await tokenContract.getBalance(address, 0);
       setBalance(Balance);
     };
-    getBalance();
+    if (address) {
+      getBalance();
+    }
   }, [address]);
 
   const forloop = useCallback(async () => {
@@ -64,7 +66,7 @@ export default function TokenMarketPlace(props) {
       let obj = {};
       if (tokens[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${tokens[i].URI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${tokens[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();

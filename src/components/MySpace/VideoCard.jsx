@@ -55,8 +55,8 @@ export default function VideoCard(props) {
   const [infoModalOpen, setInfoModalOpen] = useState(false);
 
   const infoModalOpenHandler = () => {
-    setInfoModalOpen(!infoModalOpen)
-  }
+    setInfoModalOpen(!infoModalOpen);
+  };
 
   const openHandler = () => {
     setOpen(!open);
@@ -70,14 +70,13 @@ export default function VideoCard(props) {
     }
   };
 
-  const ListVideo = async (event, data) => {
-    console.log(data);
+  const ListVideo = async (event) => {
     const contract = await getContract(MarketplaceAddress, MarketplaceABI);
     if (event.target.checked == true) {
-      const tx = await contract.listVideo(data.id, price);
+      const tx = await contract.listVideo(props.data.id, price);
       await tx.wait();
     } else {
-      const tx = await contract.unListVideo(data.id);
+      const tx = await contract.unListVideo(props.data.id);
       await tx.wait();
     }
   };
@@ -133,7 +132,7 @@ export default function VideoCard(props) {
             control={<Android12Switch defaultChecked />}
             label="UnList From marketplace"
             color="GrayText"
-            onChange={(event) => ListVideo(event, data)}
+            onChange={(event) => ListVideo(event)}
           />
         ) : (
           <>
@@ -142,7 +141,7 @@ export default function VideoCard(props) {
                 <FormControlLabel
                   control={<Android12Switch />}
                   label="List on marketplace"
-                  onChange={(event) => ListVideo(event, data)}
+                  onChange={(event) => ListVideo(event)}
                   color="GrayText"
                 />
                 <div class="relative mb-3" data-te-input-wrapper-init>
@@ -219,7 +218,11 @@ export default function VideoCard(props) {
         open={open}
         openHandler={openHandler}
       />
-      <VideoInfoModal openHandler={infoModalOpenHandler} open={infoModalOpen} data={props.data} />
+      <VideoInfoModal
+        openHandler={infoModalOpenHandler}
+        open={infoModalOpen}
+        data={props.data}
+      />
     </div>
   );
 }

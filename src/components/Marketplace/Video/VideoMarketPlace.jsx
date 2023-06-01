@@ -84,7 +84,9 @@ export default function VideoMarketPlace(props) {
       const Balance = await tokenContract.getBalance(address, 0);
       setBalance(Balance);
     };
-    getBalance();
+    if (address) {
+      getBalance();
+    }
   }, [address]);
 
   return (
