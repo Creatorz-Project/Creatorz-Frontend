@@ -165,7 +165,7 @@ export default function RoomInfoModal(props) {
                       return (
                         <Link
                           href={
-                            data.video == "" ? `#` : `/video?id=${data.video}`
+                            data.video == "" ? `#` : `/video/${data.video}`
                           }
                           target="_blank"
                           className="text-lg font-semibold underline text-cyan-600 "
