@@ -33,21 +33,50 @@ export default function HomePage() {
           </div>
           <div className={styles.workingstepsContainer}>
             <div className={styles.workingsteps}>
-              <div>1.Connect wallet</div>To get started, connect your digital
-              wallet to our ad-server platform. This will enable you to send and
-              receive payments for your ad campaigns. You can connect your
-              wallet by following the prompts on the platform
+              <div
+                style={{
+                  color: "purple",
+                  fontSize: 25,
+                  fontFamily: "monospace",
+                  fontWeight: "bold",
+                }}
+              >
+                1.Connect wallet
+              </div>
+              To get started, connect your digital wallet to our ad-server
+              platform. This will enable you to send and receive payments for
+              your ad campaigns. You can connect your wallet by following the
+              prompts on the platform
             </div>
             <div className={styles.workingsteps}>
-              <div>2.Create Content</div>Once your wallet is connected, you can
-              start creating your Content. Click on the "Studio" section of the
-              platform and provide the details for your Content
+              <div
+                style={{
+                  color: "purple",
+                  fontSize: 25,
+                  fontFamily: "monospace",
+                  fontWeight: "bold",
+                }}
+              >
+                2.Create Content
+              </div>
+              Once your wallet is connected, you can start creating your
+              Content. Click on the "Studio" section of the platform and provide
+              the details for your Content
             </div>
             <div className={styles.workingsteps}>
-              <div>3.Publish / List</div>After your Content is created, you have
-              two options Publishing or Listing to the marketplace .You can also
-              make Publish to our platform and at the samww time list to
-              marketplace.
+              <div
+                style={{
+                  color: "purple",
+                  fontSize: 25,
+                  fontFamily: "monospace",
+                  fontWeight: "bold",
+                }}
+              >
+                3.Publish / List
+              </div>
+              After your Content is created, you have two options Publishing or
+              Listing to the marketplace .You can also make Publish to our
+              platform and at the samww time list to marketplace.
             </div>
           </div>
         </div>
@@ -56,44 +85,120 @@ export default function HomePage() {
         <div className={styles.heading}>Benefits</div>
         <div className={styles.workingstepsContainer}>
           <div className={styles.benifitsteps}>
-            <div>1.Monetize Your Creativity</div>Convert your digital content
-            into valuable NFTs and earn crypto by showcasing and selling your
-            creations to a global audience.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              1.Monetize Your Creativity
+            </div>
+            Convert your digital content into valuable NFTs and earn crypto by
+            showcasing and selling your creations to a global audience.
           </div>
           <div className={styles.benifitsteps}>
-            <div>2.Discover Unique Assets</div> Explore a vast collection of
-            NFTs and social tokens, ranging from artwork and music to virtual
-            real estate, and find exclusive pieces to enhance your collection.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              2.Discover Unique Assets
+            </div>{" "}
+            Explore a vast collection of NFTs and social tokens, ranging from
+            artwork and music to virtual real estate, and find exclusive pieces
+            to enhance your collection.
           </div>
           <div className={styles.benifitsteps}>
-            <div>3.Secure and Transparent Transactions</div> Enjoy a trusted and
-            decentralized platform that ensures secure transactions, immutable
-            ownership records, and transparent transaction histories.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              3.Secure and Transparent Transactions
+            </div>{" "}
+            Enjoy a trusted and decentralized platform that ensures secure
+            transactions, immutable ownership records, and transparent
+            transaction histories.
           </div>
           <div className={styles.benifitsteps}>
-            <div>4.Trade and Invest</div>Participate in the dynamic marketplace,
-            buy and sell assets, engage in auctions, and strategically invest in
-            high-potential NFTs and social tokens.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              4.Trade and Invest
+            </div>
+            Participate in the dynamic marketplace, buy and sell assets, engage
+            in auctions, and strategically invest in high-potential NFTs and
+            social tokens.
           </div>
           <div className={styles.benifitsteps}>
-            <div>5.Exclusive Access to NFT-Gated Content</div>Experience premium
-            content and exclusive perks by accessing NFT-gated rooms and
-            engaging with curated content from your favorite creators.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              5.Exclusive Access to NFT-Gated Content
+            </div>
+            Experience premium content and exclusive perks by accessing
+            NFT-gated rooms and engaging with curated content from your favorite
+            creators.
           </div>
           <div className={styles.benifitsteps}>
-            <div>6.Effortless Account Management</div>Connect your wallet with
-            ease, manage your NFTs and social tokens, track your transactions,
-            and enjoy a seamless user experience.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              6.Effortless Account Management
+            </div>
+            Connect your wallet with ease, manage your NFTs and social tokens,
+            track your transactions, and enjoy a seamless user experience.
           </div>
           <div className={styles.benifitsteps}>
-            <div>7.Flexibility and Control</div>Set your own prices, customize
-            your listings, and have the freedom to negotiate terms when buying,
-            selling, or trading assets.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              7.Flexibility and Control
+            </div>
+            Set your own prices, customize your listings, and have the freedom
+            to negotiate terms when buying, selling, or trading assets.
           </div>
           <div className={styles.benifitsteps}>
-            <div>8.Supporting Creators</div>Directly support artists and content
-            creators by purchasing their NFTs, helping them thrive in the
-            digital economy.
+            <div
+              style={{
+                color: "black",
+                fontSize: 25,
+                fontFamily: "monospace",
+                fontWeight: "bold",
+              }}
+            >
+              8.Supporting Creators
+            </div>
+            Directly support artists and content creators by purchasing their
+            NFTs, helping them thrive in the digital economy.
           </div>
         </div>
       </div>
@@ -102,6 +207,9 @@ export default function HomePage() {
         <div className={styles.workingstepsContainer}>
           <div className={styles.workingTechs}>
             <div>Theta Video API</div>
+          </div>
+          <div className={styles.workingTechs}>
+            <div>Polybase</div>
           </div>
           <div className={styles.workingTechs}>
             <div>The Graph Protocol</div>

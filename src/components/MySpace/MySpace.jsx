@@ -12,12 +12,14 @@ import TokenCard from "./TokenCard";
 export default function MySpace(props) {
   const [videos, setVideos] = useState(props.Post.videos);
   const [rooms, setRooms] = useState(props.Post.rooms);
-  const [socialToken, setSocialToken] = useState(props.Post.socialTokenHoldings)
+  const [socialToken, setSocialToken] = useState(
+    props.Post.socialTokenHoldings
+  );
   const [roomsData, setRoomsData] = useState([]);
   const [videosData, setVideosData] = useState([]);
-  const [socialTokenData, setSocialTokenData] = useState([])
+  const [socialTokenData, setSocialTokenData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
 
   const { address, isDisconnected } = useAccount();
   const [ethAccount, setEthAccount] = useState("null");
@@ -37,9 +39,9 @@ export default function MySpace(props) {
 
   useEffect(() => {
     if (isDisconnected) {
-      router.push("/")
+      router.push("/");
     }
-  }, [isDisconnected])
+  }, [isDisconnected]);
 
   const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
   const _signer = new ethers.Wallet(Pkey);
@@ -192,19 +194,19 @@ export default function MySpace(props) {
                 element.owner.toLowerCase() == ethAccount.toLowerCase()
             )
             .map((data, index) => {
-              return (
-                <VideoCard data={data} key={index} />
-              );
+              return <VideoCard data={data} key={index} />;
             })}
-          {!(videosData.filter(
-            (element) =>
-              element.owner.toLowerCase() == ethAccount.toLowerCase()
-          ).length > 0) && <div className="text-gray-400">No Videos</div>}
+          {!(
+            videosData.filter(
+              (element) =>
+                element.owner.toLowerCase() == ethAccount.toLowerCase()
+            ).length > 0
+          ) && <div className="text-gray-400">No Videos</div>}
         </div>
       </div>
       <div className="mt-10 mx-12">
         <h3 className=" text-2xl mb-7 font-semibold">Rooms</h3>
-        <div className=" flex flex-wrap gap-5">
+        <div className=" flex flex-wrap gap-7">
           {roomsData
             .filter(
               (element) =>
@@ -213,11 +215,12 @@ export default function MySpace(props) {
             .map((data, index) => {
               return <RoomCard room={data} key={index} />;
             })}
-          {!(roomsData
-            .filter(
+          {!(
+            roomsData.filter(
               (element) =>
                 element.Owner.toLowerCase() == ethAccount.toLowerCase()
-            ).length > 0) && <div className="text-gray-400">No Rooms</div>}
+            ).length > 0
+          ) && <div className="text-gray-400">No Rooms</div>}
         </div>
       </div>
       <div className="mt-10 mx-12">
@@ -235,10 +238,12 @@ export default function MySpace(props) {
                 </div>
               );
             })}
-          {!(socialTokenData.filter(
-            (element) =>
-              element.Holder.toLowerCase() == ethAccount.toLowerCase()
-          ).length > 0) && <div className="text-gray-400">No Tokens</div>}
+          {!(
+            socialTokenData.filter(
+              (element) =>
+                element.Holder.toLowerCase() == ethAccount.toLowerCase()
+            ).length > 0
+          ) && <div className="text-gray-400">No Tokens</div>}
         </div>
       </div>
     </div>

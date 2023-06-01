@@ -1,9 +1,9 @@
-import Head from 'next/head'
-import { Inter } from 'next/font/google'
-import styles from '@/styles/Home.module.css'
-import Home from '@/components/Home/Home'
+import Head from "next/head";
+import { Inter } from "next/font/google";
+import styles from "@/styles/Home.module.css";
+import Home from "@/components/Home/Home";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Index(props) {
   return (
@@ -18,12 +18,11 @@ export default function Index(props) {
         <Home Post={props.post} />
       </main>
     </>
-  )
+  );
 }
 
 export async function getServerSideProps() {
-
-  const post = {}
+  const post = {};
 
   const response = await fetch(
     "https://api.thegraph.com/subgraphs/name/karthikeyagundumogula/creatorzv1",
@@ -57,8 +56,8 @@ export async function getServerSideProps() {
     }
   );
   const result = await response.json();
-  console.log(result)
-  post.videos = result.data["videos"]
+  console.log(result);
+  post.videos = result.data["videos"];
 
   return {
     props: {
