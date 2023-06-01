@@ -115,7 +115,7 @@ export default function TokenInfoModal(props) {
                   })}
                 <div className="flex flex-wrap items-center justify-center gap-2 ">
                   <Link
-                    href={videoId == "" ? `#` : `/video?id=${videoId}`}
+                    href={videoId == "" ? `#` : `/video/${videoId}`}
                     target="_blank"
                     className="text-lg font-semibold underline text-cyan-600 "
                   >

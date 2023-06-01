@@ -53,7 +53,7 @@ export default function Video({ horizontal, video }) {
           : "flex flex-col m-5 "
       } `}
     >
-      <Link href={`/video?id=${video.video}`}>
+      <Link href={`/video/${video.video}`}>
         <img
           className={
             horizontal

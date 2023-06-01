@@ -62,7 +62,7 @@ export default function Main(props) {
             return (
               <Link
                 className="w-80 rounded-xl cursor-pointer"
-                href={`/video?id=${data.video}`}
+                href={`/video/${data.video}`}
                 key={index}
               >
                 <Video video={data} showAvatar={true} />
