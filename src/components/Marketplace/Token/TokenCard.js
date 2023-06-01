@@ -1,12 +1,26 @@
 import { useState } from "react"
 import TokenInfoModal from "./TokenInfoModal.jsx"
+import BuyModal from "./BuyModal.jsx"
 
 export default function TokenCard(props) {
 
     const [open, setOpen] = useState(false)
+    const [openBuyModal, setOpenBuyModal] = useState(false)
+
+    const openBuyModalHandler = () => {
+        setOpenBuyModal(!openBuyModal)
+
+    }
 
     const openHandler = () => {
         setOpen(!open)
+    }
+
+    const BuyToken = (amount) => {
+        console.log(amount)
+        //code here 
+
+        openBuyModalHandler()
     }
 
     console.log(open)
@@ -41,15 +55,17 @@ export default function TokenCard(props) {
                         </span>
                     </div> */}
                     </div>
-                    <div className="flex items-center justify-between md:items-center lg:justify-between ">
-                        <div className="flex">
-                            <p className="!mb-0 text-sm font-bold text-brand-500">Amount for Sale: <span>{props.token.AmountListedByHolder}</span></p>
-                        </div>
-                        <button href="" className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700">Buy</button>
+
+                </div>
+                <div className="flex items-center justify-between md:items-center lg:justify-between ">
+                    <div className="flex">
+                        <p className="!mb-0 text-sm font-bold text-brand-500">Amount for Sale: <span>{props.token.AmountListedByHolder}</span></p>
                     </div>
+                    <button onClick={() => openBuyModalHandler()} className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700">Buy</button>
                 </div>
             </div>
-            <TokenInfoModal openHandler={openHandler} open={open} data={props.token}/>
+            <TokenInfoModal openHandler={openHandler} open={open} data={props.token} />
+            <BuyModal openHandler={openBuyModalHandler} open={openBuyModal} buyToken={BuyToken} />
         </div>
     )
 }
