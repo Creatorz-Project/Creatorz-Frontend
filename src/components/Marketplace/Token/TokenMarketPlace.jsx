@@ -7,6 +7,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { getContract } from "@/utils/Constants/Contracts";
 import { TokenAddress } from "@/utils/Constants/Addresses";
 import { Token } from "@/utils/Constants/ABIs";
+import InfoModal from "./infoModal";
 
 export default function TokenMarketPlace(props) {
   const [selectedOption, setSelectedOption] = useState("Social Token");
@@ -16,6 +17,11 @@ export default function TokenMarketPlace(props) {
   const [loading, setLoading] = useState(false);
   const [balance, setBalance] = useState(0);
   const { address } = useAccount();
+  const [openInfoModal, setopenInfoModal] = useState(false);
+
+  useEffect(() => {
+    setopenInfoModal(true)
+  }, [])
 
   const options = [
     { name: "Videos", url: "/marketplace/video" },
@@ -64,7 +70,7 @@ export default function TokenMarketPlace(props) {
       let obj = {};
       if (tokens[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${tokens[i].URI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${tokens[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();
@@ -162,6 +168,7 @@ export default function TokenMarketPlace(props) {
           )}
         </div>
       </div>
+      <InfoModal open={openInfoModal} setOpen={setopenInfoModal}/>
     </div>
   );
 }
