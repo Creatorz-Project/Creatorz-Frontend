@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
+import * as PushAPI from "@pushprotocol/restapi";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -62,6 +63,29 @@ export default function TokenCard(props) {
     setAmount(e.target.value);
   };
 
+  const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
+  const _signer = new ethers.Wallet(Pkey);
+
+  const sendNotification = async (message) => {
+    await PushAPI.payloads.sendNotification({
+      signer: _signer,
+      type: 1, // broadcast
+      identityType: 2, // direct payload
+      notification: {
+        title: `🎉 New Video Alert! 🎉`,
+        body: ``,
+      },
+      payload: {
+        title: message,
+        body: `${props.data.description}`,
+        cta: "",
+        img: `https://ipfs.io/ipfs/${props.data.thumbnail}`,
+      },
+      channel: "eip155:5:0x2D449c535E4B2e07Bc311fbe1c14bf17fEC16AAb", // your channel address
+      env: "staging",
+    });
+  };
+
   console.log(props.token);
 
   return (
@@ -90,21 +114,9 @@ export default function TokenCard(props) {
                 By {props.token?.Creator?.slice(0, 7)}...
               </p>
             </div>
-            {/* <div class="flex flex-row-reverse md:mt-2 lg:mt-0">
-                    <span class="z-0 ml-px inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#E0E5F2] text-xs text-navy-700 ">+5</span><span class="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white">
-                        <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar1.eeef2af6dfcd3ff23cb8.png" alt="" />
-                    </span>
-                    <span class="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white">
-                        <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar2.5692c39db4f8c0ea999e.png" alt="" />
-                    </span>
-                    <span class="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white">
-                        <img class="h-full w-full rounded-full object-cover" src="https://horizon-tailwind-react-git-tailwind-components-horizon-ui.vercel.app/static/media/avatar3.9f646ac5920fa40adf00.png" alt="" />
-                    </span>
-                </div> */}
+            
           </div>
-          {/* <div className="flex items-center justify-between md:items-center lg:justify-between ">
-                        <button className="linear rounded-[15px] bg-sky-700 hover:bg-sky-600 px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-brand-800 active:bg-brand-700"><HiRocketLaunch />Launch</button>
-                    </div> */}
+          
         </div>
         {props.token.AmountListedByHolder > 0 ? (
           <FormControlLabel
