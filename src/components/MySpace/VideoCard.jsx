@@ -75,8 +75,8 @@ export default function VideoCard(props) {
     if (event.target.checked == true) {
       const tx = await contract.listVideo(props.data.id, price);
       await tx.wait();
-    } else {
-      const tx = await contract.unListVideo(props.data.id);
+    } else if (event.target.checked == false) {
+      const tx = await contract.unlistVideo(props.data.id);
       await tx.wait();
     }
   };
