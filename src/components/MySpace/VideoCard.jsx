@@ -15,6 +15,7 @@ import { ContentManager as CMABI } from "../../utils/Constants/ABIs";
 import { IoMdInformationCircle } from "react-icons/io";
 import VideoInfoModal from "../Marketplace/Video/VideoInfoModal";
 import * as PushAPI from "@pushprotocol/restapi";
+import { ethers } from "ethers";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,

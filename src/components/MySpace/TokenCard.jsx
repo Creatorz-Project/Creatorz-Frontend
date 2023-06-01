@@ -5,6 +5,7 @@ import { styled } from "@mui/material/styles";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import * as PushAPI from "@pushprotocol/restapi";
+import { ethers } from "ethers";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,

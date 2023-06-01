@@ -8,6 +8,7 @@ import { getContract } from "@/utils/Constants/Contracts";
 import RoomInfoModal from "../Marketplace/Room/RoomInfoModal";
 import { IoMdInformationCircle } from "react-icons/io";
 import * as PushAPI from "@pushprotocol/restapi";
+import { ethers } from "ethers";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
