@@ -381,7 +381,7 @@ export default function Upload() {
             </Stepper>
           </div>
           <div className="flex items-center">
-            <button onClick={DiscardHandler} className="bg-transparent  text-[#9CA3AF] py-2 px-6 border rounded-lg  border-gray-600  mr-6">
+            <button onClick={() => DiscardHandler()} className="bg-transparent  text-[#9CA3AF] py-2 px-6 border rounded-lg  border-gray-600  mr-6">
               Discard
             </button>
             {presignedurl == "" ? (
