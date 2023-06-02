@@ -24,7 +24,7 @@ export default function MintRoom() {
   const [category, setCategory] = useState("Music");
   const [send, setSend] = useState(false);
   const [thumbnail, setThumbnail] = useState("");
-  const {address} = useAccount();
+  const { address } = useAccount();
 
   const thumbnailRef = useRef(null);
 
@@ -86,14 +86,22 @@ export default function MintRoom() {
     }
   }, [send]);
 
-  console.log(send);
+  const DiscardHandler = () => {
+    setSend(false);
+    setTitle("");
+    setDescription("");
+    setCategory("Music");
+    setPrice("");
+    setThumbnail("");
+  };
+
 
   return (
     <div className="w-full h-screen bg-[#150A22] flex flex-row">
       <div className="flex-1 flex flex-col">
         <div className="mt-5 mr-10 flex  justify-end">
           <div className="flex items-center">
-            <button className="bg-transparent  text-[#9CA3AF] py-2 px-6 border rounded-lg  border-gray-600  mr-6">
+            <button onClick={DiscardHandler} className="bg-transparent  text-[#9CA3AF] py-2 px-6 border rounded-lg  border-gray-600  mr-6">
               Discard
             </button>
             <button

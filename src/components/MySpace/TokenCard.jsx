@@ -124,7 +124,7 @@ export default function TokenCard(props) {
             control={<Android12Switch defaultChecked />}
             label="UnList From marketplace"
             color="GrayText"
-            onChange={(event) => ListRoom(event)}
+            onChange={(event) => ListToken(event)}
           />
         ) : (
           <>
@@ -169,7 +169,7 @@ export default function TokenCard(props) {
                   control={<Android12Switch />}
                   label="List on marketplace"
                   color="GrayText"
-                  onChange={(event) => ListRoom(event)}
+                  onChange={(event) => ListToken(event)}
                   disabled
                 />
                 <div class="relative mb-3" data-te-input-wrapper-init>
