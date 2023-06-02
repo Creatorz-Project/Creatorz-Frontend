@@ -7,6 +7,8 @@ import { useState } from "react";
 import { getContract } from "@/utils/Constants/Contracts";
 import RoomInfoModal from "../Marketplace/Room/RoomInfoModal";
 import { IoMdInformationCircle } from "react-icons/io";
+import * as PushAPI from "@pushprotocol/restapi";
+import { ethers } from "ethers";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -55,12 +57,36 @@ export default function RoomCard(props) {
     setEnableRoomListing(true);
   };
 
+  const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
+  const _signer = new ethers.Wallet(Pkey);
+
+  const sendNotification = async (message) => {
+    await PushAPI.payloads.sendNotification({
+      signer: _signer,
+      type: 1, // broadcast
+      identityType: 2, // direct payload
+      notification: {
+        title: `🎉 New Room Listed! 🎉`,
+        body: ``,
+      },
+      payload: {
+        title: message,
+        body: `${props.room.description}`,
+        cta: "https://creatorz-frontend.vercel.app/marketplace/room",
+        img: `https://ipfs.io/ipfs/${props.room.wallPoster}`,
+      },
+      channel: "eip155:5:0x2D449c535E4B2e07Bc311fbe1c14bf17fEC16AAb", // your channel address
+      env: "staging",
+    });
+  };
+
   const ListRoom = async (event) => {
     console.log(props.room.RoomId);
     const contract = await getContract(MAddress, MABI);
     if (event.target.checked) {
       const tx = await contract.listRoom(props.room.RoomId, roomPrice);
       await tx.wait();
+      await sendNotification(`New room alert! ${props.room.title} room is listed now. Do checkout room marketplace!`)
     } else {
       const tx = await contract.unListRoom(props.room.RoomId);
       await tx.wait();

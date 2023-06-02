@@ -10,6 +10,7 @@ import * as PushAPI from "@pushprotocol/restapi";
 import AddIcon from "@mui/icons-material/Add";
 import { Polybase } from "@polybase/client";
 import saveToIPFS from "@/utils/saveToIPFS";
+import { useAccount } from "wagmi";
 
 const db = new Polybase({
   defaultNamespace:
@@ -23,6 +24,7 @@ export default function MintRoom() {
   const [category, setCategory] = useState("Music");
   const [send, setSend] = useState(false);
   const [thumbnail, setThumbnail] = useState("");
+  const {address} = useAccount();
 
   const thumbnailRef = useRef(null);
 

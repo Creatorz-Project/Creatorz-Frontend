@@ -24,6 +24,9 @@ import { Polybase } from "@polybase/client";
 import convertFileToOctetStream from "@/utils/fileToOctetStream";
 import moment from "moment";
 import SuccessDialog from "../SuccessDialog";
+import { Stepper, Step, Button, Typography } from "@material-tailwind/react";
+import { BiLink, BiCloudUpload } from "react-icons/bi"
+import { MdVideoSettings } from "react-icons/md"
 
 const db = new Polybase({
   defaultNamespace:
@@ -51,6 +54,10 @@ export default function Upload() {
   const [transcodeStatus, setTranscodeStatus] = useState(false);
   const [finalStatus, setFinalStatus] = useState(false);
 
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [isLastStep, setIsLastStep] = React.useState(false);
+  const [isFirstStep, setIsFirstStep] = React.useState(false);
+
   //  Creating a ref for thumbnail and video
   const thumbnailRef = useRef(null);
   const videoRef = useRef(null);
@@ -62,6 +69,10 @@ export default function Upload() {
     // Returning the CID
     return cid;
   };
+
+  function NextHandler() {
+    !isLastStep && setActiveStep((cur) => cur + 1);
+  }
 
   const DialogOpenHandler = () => {
     setFinalStatus(!finalStatus);
@@ -313,7 +324,48 @@ export default function Upload() {
         <CircularProgress color="inherit" />
       </Backdrop>
       <div className="flex-1 flex flex-col">
-        <div className="mt-5 mr-10 flex  justify-end">
+        <div className="mt-5 mr-10 flex justify-around">
+          <div className=" w-9/12 pb-8 px-8">
+            <Stepper
+              activeStep={activeStep}
+              isLastStep={(value) => setIsLastStep(value)}
+              isFirstStep={(value) => setIsFirstStep(value)}
+            >
+              <Step >
+                <BiLink className="h-5 w-5" />
+                <div className="absolute -bottom-[2.5rem] w-max text-center">
+                  <Typography
+                    variant="h6"
+                    color={activeStep === 0 ? "blue" : "blue-gray"}
+                  >
+                    Get Upload URL
+                  </Typography>
+                </div>
+              </Step>
+              <Step>
+                <BiCloudUpload className="h-5 w-5" />
+                <div className="absolute -bottom-[2.5rem] w-max text-center">
+                  <Typography
+                    variant="h6"
+                    color={activeStep === 1 ? "blue" : "blue-gray"}
+                  >
+                    Upload Video
+                  </Typography>
+                </div>
+              </Step>
+              <Step >
+                <MdVideoSettings className="h-5 w-5" />
+                <div className="absolute -bottom-[2.5rem] w-max text-center">
+                  <Typography
+                    variant="h6"
+                    color={activeStep === 2 ? "blue" : "blue-gray"}
+                  >
+                    Transcode Video
+                  </Typography>
+                </div>
+              </Step>
+            </Stepper>
+          </div>
           <div className="flex items-center">
             <button className="bg-transparent  text-[#9CA3AF] py-2 px-6 border rounded-lg  border-gray-600  mr-6">
               Discard
@@ -322,6 +374,7 @@ export default function Upload() {
               <button
                 onClick={() => {
                   getUploadUrl();
+                  NextHandler()
                 }}
                 className="bg-blue-500 hover:bg-blue-700 hover:shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] hover:shadow-[#485e9a] text-white  py-2  rounded-lg flex px-4 justify-between flex-row items-center"
               >
@@ -332,6 +385,7 @@ export default function Upload() {
               <button
                 onClick={() => {
                   transcodeVideo();
+                  NextHandler()
                 }}
                 className="bg-blue-500 hover:bg-blue-700 hover:shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] hover:shadow-[#485e9a] text-white  py-2  rounded-lg flex px-4 justify-between flex-row items-center"
               >
@@ -342,6 +396,7 @@ export default function Upload() {
               <button
                 onClick={() => {
                   handleSubmit();
+                  NextHandler()
                 }}
                 className="bg-blue-500 hover:bg-blue-700 hover:shadow-[0_0px_20px_0px_rgba(0,0,0,0.3)] hover:shadow-[#485e9a] text-white  py-2  rounded-lg flex px-4 justify-between flex-row items-center"
               >

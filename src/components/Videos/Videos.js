@@ -16,7 +16,7 @@ export default function Video({ horizontal, video, showAvatar }) {
         } `}
       onClick={() => {
         // Navigation to the video screen (which we will create later)
-        router.push(`/video?id=${video.video}`);
+        router.push(`/video/${video.video}`);
       }}
     >
       <img
@@ -35,7 +35,7 @@ export default function Video({ horizontal, video, showAvatar }) {
             className="rounded-full w-10 h-10 mt-5"
           />
         }
-        <div className={` m-2 ${horizontal && "ml-3  w-80"}`}>
+        <div className={` m-2 ${horizontal && "ml-3 h-28 "}`}>
           <h4 className="text-md font-bold dark:text-white mt-3">
             {video.title}
           </h4>

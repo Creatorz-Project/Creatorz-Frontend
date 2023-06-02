@@ -13,6 +13,7 @@
     "@arcana/auth-wagmi": "^0.0.4",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "@material-tailwind/react": "^2.0.1",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.0",
     "@polybase/client": "^0.5.0",

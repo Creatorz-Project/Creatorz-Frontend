@@ -171,7 +171,7 @@ export default function VideoMarketPlace(props) {
           </div>
         </>
       ) : (
-        <div className="w-full flex flex-row justify-center items-center min-h-[74vh] text-3xl font-semibold text-gray-400">
+        <div className="w-full flex flex-row justify-center items-center min-h-[74vh] text-3xl font-semibold text-gray-400 bg-[#150A22]">
           <h1>
             Please connect your{" "}
             <h1 className="bg-clip-text text-transparent bg-gradient-to-r from-blue-300 to-blue-600 inline">

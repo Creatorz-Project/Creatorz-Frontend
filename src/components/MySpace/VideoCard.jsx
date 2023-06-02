@@ -14,6 +14,8 @@ import { ContentManager as CMAddresss } from "../../utils/Constants/Addresses";
 import { ContentManager as CMABI } from "../../utils/Constants/ABIs";
 import { IoMdInformationCircle } from "react-icons/io";
 import VideoInfoModal from "../Marketplace/Video/VideoInfoModal";
+import * as PushAPI from "@pushprotocol/restapi";
+import { ethers } from "ethers";
 
 const Android12Switch = styled(Switch)(({ theme }) => ({
   padding: 8,
@@ -62,6 +64,29 @@ export default function VideoCard(props) {
     setOpen(!open);
   };
 
+  const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
+  const _signer = new ethers.Wallet(Pkey);
+
+  const sendNotification = async (message) => {
+    await PushAPI.payloads.sendNotification({
+      signer: _signer,
+      type: 1, // broadcast
+      identityType: 2, // direct payload
+      notification: {
+        title: `🎉 New Video Alert! 🎉`,
+        body: ``,
+      },
+      payload: {
+        title: message,
+        body: `${props.data.description}`,
+        cta: "",
+        img: `https://ipfs.io/ipfs/${props.data.thumbnail}`,
+      },
+      channel: "eip155:5:0x2D449c535E4B2e07Bc311fbe1c14bf17fEC16AAb", // your channel address
+      env: "staging",
+    });
+  };
+
   const ListingPrice = (event, data) => {
     if (event.target.value > 0) {
       setEnableVideoListing(true);
@@ -75,6 +100,7 @@ export default function VideoCard(props) {
     if (event.target.checked == true) {
       const tx = await contract.listVideo(props.data.id, price);
       await tx.wait();
+      await sendNotification(`Guess what? A thrilling new video has just listed on our marketplace! Brace yourself for ${props.data.title}. Do check it out!`)
     } else if (event.target.checked == false) {
       const tx = await contract.unlistVideo(props.data.id);
       await tx.wait();
@@ -94,6 +120,7 @@ export default function VideoCard(props) {
         enableAds
       );
       await tx.wait();
+      await sendNotification(`Guess what? A thrilling new video has just landed on our platform! Brace yourself for ${props.data.title}. It's time to dive into the action!`)
     } catch (err) {
       console.log(err);
     }
