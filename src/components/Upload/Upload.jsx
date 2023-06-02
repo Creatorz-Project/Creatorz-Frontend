@@ -206,6 +206,7 @@ export default function Upload() {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     console.log("uploading video ....");
 
     const octetStreamData = await convertFileToOctetStream(video);
@@ -223,15 +224,17 @@ export default function Upload() {
     };
 
     const response = await fetch(presignedurl, requestOptions);
-
+    console.log("waiting for response");
     if (response.ok) {
       setUploadStatus("success");
     }
 
     const CID = await uploadThumbnail();
+    console.log("thumbnail uploaded");
 
     setThumbnailCID(CID);
     console.log(`thumbnail CID ${CID}`);
+    setLoading(false);
   };
 
   const Pkey = `0x${process.env.NEXT_PUBLIC_PUSH_PRIVATE_KEY}`;
@@ -268,7 +271,7 @@ export default function Upload() {
           location: location,
           thumbnail: thumbnailCID,
           video: videoId,
-          room: 2,
+          room: room,
           owner: address,
           CreatedAt: CreatedAt,
         };
@@ -277,7 +280,7 @@ export default function Upload() {
         try {
           const token = await getContract(TokenAddress, Token);
           console.log(token);
-          const tx = await token.mintVideo(URI, 11);
+          const tx = await token.mintVideo(URI, room);
           const res = await tx.wait();
           const events = res.events;
           const videoId = events[2].args.Id.toNumber().toString();
