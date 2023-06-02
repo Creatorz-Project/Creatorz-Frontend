@@ -94,7 +94,6 @@ export default function VideoPage({ videoId }) {
         }
     }, [relatedVideos, videoId]);
 
-    console.log(relatedVideos)
 
     return (
         <div className="w-full bg-[#150A22]  flex flex-row min-h-screen">
