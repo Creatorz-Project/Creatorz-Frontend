@@ -75,7 +75,7 @@ export default function MintToken() {
                 />
               </div>
               <div className="flex flex-col w-2/5    ">
-                <label className="text-[#9CA3AF]  text-sm">Amount</label>
+                <label className="text-[#9CA3AF]  text-sm">Max Holding Amount for User</label>
                 <input
                   value={maxHoldingAmount}
                   onChange={(e) => setMaxHoldingAmount(e.target.value)}
