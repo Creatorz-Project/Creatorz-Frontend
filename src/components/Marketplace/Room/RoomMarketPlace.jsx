@@ -68,7 +68,7 @@ export default function RoomMarketPlace(props) {
       let obj = {};
       if (rooms[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${rooms[i].URI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${rooms[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();

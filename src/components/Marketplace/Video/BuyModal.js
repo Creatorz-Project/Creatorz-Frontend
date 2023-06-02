@@ -74,7 +74,7 @@ export default function BuyModal(props) {
       let obj = {};
       if (userRooms[i].URI.length > 8) {
         const newresponse = await fetch(
-          `https://w3s.link/ipfs/${userRooms[i].URI}/RoomMetaData.json`,
+          `https://ipfs.io/ipfs/${userRooms[i].URI}/RoomMetaData.json`,
           requestOptions
         );
         const result = await newresponse.json();

@@ -52,7 +52,7 @@ export default function TokenInfoModal(props) {
   useEffect(() => {
     console.log(URI);
     if (URI.length > 8) {
-      fetch(`https://w3s.link/ipfs/${URI}/RoomMetaData.json`)
+      fetch(`https://ipfs.io/ipfs/${URI}/RoomMetaData.json`)
         .then((response) => response.json())
         .then((result) => setVideoId(result.video))
         .catch((error) => console.log("error", error));
