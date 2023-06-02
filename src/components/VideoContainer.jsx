@@ -20,7 +20,7 @@ const db = new Polybase({
 
 export default function VideoComponent({ videoId, video }) {
 
-  const AdVideoId = "video_3gevnj8nqjjw8nj69r3q7az2bs"
+  const AdVideoId = "video_ppdbsa4z0h2x6w1q7mnf3s2x6z"
 
   const router = useRouter()
   const [likes, setLikes] = React.useState(0);
