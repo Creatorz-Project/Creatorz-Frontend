@@ -120,7 +120,7 @@ export default function Header() {
                   <Tooltip title={ethAccount}>
                     <Avatar
                       alt="user"
-                      src="https://api.dicebear.com/5.x/bottts/svg?seed=Jasmine"
+                      src={`https://api.dicebear.com/5.x/bottts/svg?seed=${address}`}
                     />
                   </Tooltip>
                 </Link>
