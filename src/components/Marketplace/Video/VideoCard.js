@@ -27,8 +27,6 @@ export default function Video({ horizontal, video }) {
     setOpenBuyModal(!openBuyModal);
   };
 
-  console.log(video);
-
   const buyHandler = async (e) => {
     e.preventDefault();
     console.log(e.target.value);

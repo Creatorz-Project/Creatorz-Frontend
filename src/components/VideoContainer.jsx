@@ -123,7 +123,7 @@ export default function VideoComponent({ videoId, video }) {
     setTimeout(() => {
       console.log("ad ends");
       setVideoData(id)
-    }, 8000);
+    }, 10000);
   }, [id])
 
   console.log(videoId)
