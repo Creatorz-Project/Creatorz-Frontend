@@ -97,10 +97,13 @@ export default function VideoCard(props) {
 
   const ListVideo = async (event) => {
     const contract = await getContract(MarketplaceAddress, MarketplaceABI);
+    console.log(props.data.id);
     if (event.target.checked == true) {
       const tx = await contract.listVideo(props.data.id, price);
       await tx.wait();
-      await sendNotification(`Guess what? A thrilling new video has just listed on our marketplace! Brace yourself for ${props.data.title}. Do check it out!`)
+      await sendNotification(
+        `Guess what? A thrilling new video has just listed on our marketplace! Brace yourself for ${props.data.title}. Do check it out!`
+      );
     } else if (event.target.checked == false) {
       const tx = await contract.unlistVideo(props.data.id);
       await tx.wait();
@@ -120,7 +123,9 @@ export default function VideoCard(props) {
         enableAds
       );
       await tx.wait();
-      await sendNotification(`Guess what? A thrilling new video has just landed on our platform! Brace yourself for ${props.data.title}. It's time to dive into the action!`)
+      await sendNotification(
+        `Guess what? A thrilling new video has just landed on our platform! Brace yourself for ${props.data.title}. It's time to dive into the action!`
+      );
     } catch (err) {
       console.log(err);
     }
